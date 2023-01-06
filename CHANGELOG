@@ -1,0 +1,112 @@
+Change log of the development of SOMA.
+Please add your contributions.
+
+v0.8.0 22/03/26
+    * Reaction now allow for a rate, and 
+      an arbitrary number of density 
+      dependencies                      Gregor Ibbeken
+    * Option ENABLE_MONOTYPE_CONVERSION
+      to allow same reactions for monomer
+      types and blocks of monomers      Gregor Ibbeken
+    
+	BUGFIXES
+
+    * fix problem where polyconversion 
+      didnt work with domain decomposition
+      or with OpenMP.                               GI
+    * fix bug for use of multiple conversions       GI
+
+v0.7.0 21/12/11
+	* allow or mobility modifications.
+	  tanh and muller-smith LS
+	* Enable self documentation features	        LS
+	* Reactions. The user defines zones, where
+	one polymer type is converted into another. 	LS
+	* CMake python. Identify suitable python
+	environment via CMake				LS
+	* implement density dependent mobility          LS
+	* assign each polymer a unique tag
+	  the tag remains constant between runs         LS
+	* Enabling CUDA aware MPI and NCCL              LS
+	* Enabling different MC frequency for poly_types LS
+
+	BUGFIXES
+
+	* fix problem with exact area51 genration
+	of polymers and its test.        		MM and LS
+	* enable extra SOMA_C_FLAGS as
+	environment added to C_FLAGS	 LS
+	* fix problem with calculation of the
+	bond-anisotropy for closed chains, while
+	using minimum image convention.			Leon Frangen
+	* fix problem of unintentionally updating
+	with the polyarch with reorderd poly IDs
+	and ConfGen.py --update
+	WARNING: new default: no update of polyarch 	LS
+	* implement weighting of
+	different monomer types
+	<density_weight> 		 LS
+
+v0.6.1 23/1/19
+	* fix a problem with memory management for
+	  structure factors		LS
+	* fix bug with version or help output LS
+	* license update 2019		LS
+	* reduce runtime of domain	LS
+	  statistics test
+
+v0.6.0 19/12/18
+
+	* A second option for independent
+	  sets calculation FIXED-N-SETS
+	  (suitable for networks)       Gaoyuan Wang
+	* Implemenation of an umbrella
+	  field for advanced sampling   Niklas Blagojevic
+	  techniques.                   Ludwig Schneider
+	* Domain decomposition as
+	  another parallel layer for
+	  large system sizes.           Ludwig Schneider
+	* The option to calculated the
+	  bond energy and bond force with
+	  minmum image convention is
+	  added                         Gaoyuan Wang
+	  (MIC needs to be compiled and
+	  runned with MIC flag)
+	* Separation of ConfGen and     Gaoyuan Wang
+	  AnaGen
+	* The rng_state is changed from
+	  automatic update to update
+	  under requirement             Gaoyuan Wang
+	* Async is used to run long
+	  chains and short chains in
+	  parallel on several kernels   Gaoyuan Wang
+	* Calculation of dynamical
+	  and static structure factors  Gaoyuan Wang
+	* Time dependent external
+	  potential is added            Gaoyuan Wang
+        * User option to specify an     LS
+	  output file.
+	* compatibilty with PGI 18.7    LS
+	* Environment to manage wall    LS
+	  time options. See doc for
+	  details
+	* Force an indention style      LS
+
+	remove:
+	* signal management             LS
+
+	v0.5.2 05/11/18
+
+        * license update 2018
+
+	v0.5.1 released 12/12/17
+
+	* Minor Typo in README		Ludwig Schneider
+	* Adding contribution guideline Ludwig Schneider
+	* BUGFIX: correct OpenACC
+	  pragma for SET iteration
+	  for better performance	Ludwig Schneider
+	* FIX documentation issues	Ludwig Schneider
+
+	v0.5.0 released 11/9/17
+	* first public version		Ludwig Schneider
