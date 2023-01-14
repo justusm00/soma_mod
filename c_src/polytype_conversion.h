@@ -130,14 +130,15 @@ int convert_target_2(struct Phase *p);
   \param p Phase struct describing the simulation
   \return Errorcode
 */
-int convert_target_4(struct Phase *p);
+int convert_target_3(struct Phase *p);
 
 
 /*! Helper function to compute loss value.
   \param p Phase struct describing the simulation
+  \param delta_fields_unified Array containing changes in density fields.
   \return Errorcode
 */
-soma_scalar_t get_cost(struct Phase *p);
+soma_scalar_t get_cost(struct Phase *p, int64_t * delta_fields_unified);
 
 
 /*! Helper function to compute polymer flip probabilities based on local loss function difference.
