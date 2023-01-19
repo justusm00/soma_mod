@@ -2,7 +2,7 @@
  * @Author: Your name
  * @Date:   2022-12-09 16:16:32
  * @Last Modified by:   Your name
- * @Last Modified time: 2023-01-19 15:45:29
+ * @Last Modified time: 2023-01-19 16:32:41
  */
 /* Copyright (C) 2016-2021 Ludwig Schneider
 
@@ -169,7 +169,7 @@ int comp (const void * elem1, const void * elem2);
 /*! Helper function to flip polymer type.
   \param initial_type Initial type.
 */
-int flip(int initial_type)
+int flip(int initial_type);
 
 
 #endif                          //SOMA_POLYTYPE_CONVERSION_H

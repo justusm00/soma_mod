@@ -2,7 +2,7 @@
  * @Author: Your name
  * @Date:   2022-12-09 16:16:32
  * @Last Modified by:   Your name
- * @Last Modified time: 2023-01-19 16:28:55
+ * @Last Modified time: 2023-01-19 17:20:43
  */
 /* Copyright (C) 2016-2021 Ludwig Schneider
 
@@ -1203,7 +1203,7 @@ int print_info(struct Phase *p)
 
 
 
-int convert_target_3(struct Phase *p):
+int convert_target_3(struct Phase *p)
 {
     if (p->n_types != 2)
         {
@@ -1343,14 +1343,14 @@ int convert_target_3(struct Phase *p):
 
 
 
-
     //initialize cost
     total_cost=get_cost(p, delta_fields_unified);
     total_cost_old = total_cost;
+    total_cost_best= total_cost;
 
     // SIMULATED ANNEALING
 
-    printf("Total cost before : %f \n",total_cost);
+    //printf("Total cost before : %f \n",total_cost);
     while((acc_rate > acc_rate_target) && (num_iter < max_iter))
         {
             soma_scalar_t T = Tmax;
@@ -1358,7 +1358,8 @@ int convert_target_3(struct Phase *p):
                 {
                     num_iter++;
                     //choose random polymer to flip
-                    uint64_t poly = rand() % (num_poly_flippable - 1);
+                    uint64_t random_index = rand() % (num_poly_flippable - 1);
+                    uint64_t poly = poly_flippable_indices[random_index];
                     Polymer *mypoly = p->polymers + poly;
                     unsigned int initial_type = poly_types[poly];
                     unsigned int final_type = flip(initial_type);
@@ -1431,7 +1432,7 @@ int convert_target_3(struct Phase *p):
                     //update temperature
                     T *= alpha;
                 }
-            acc_rate=num_acc/num_iter;
+            acc_rate=(float)(num_acc)/(float)(num_iter);
             //set everything to its best values
             for (uint64_t poly = 0; poly < p->n_polymers; poly++) poly_types[poly]=poly_types_best[poly];
             for (uint64_t cell = 0; cell < p->n_cells_local; cell++)
@@ -1442,20 +1443,25 @@ int convert_target_3(struct Phase *p):
                         }
                 }
             total_cost=total_cost_best;
+            
 
         }
 
 
-        printf("Total cost after: %f \n",total_cost);
+        //printf("Total cost after: %f \n",total_cost_best);
         //update density fields
         for (uint64_t cell = 0; cell < p->n_cells_local; cell++)
             {
                 for(uint64_t type = 0; type < p->n_types; type++)
                     {
                         
-                        p->fields_unified[type*p->n_cells_local + cell] += delta_fields_unified[type*p->n_cells_local + cell];
+                        p->fields_unified[type*p->n_cells_local + cell] += delta_fields_unified_best[type*p->n_cells_local + cell];
                     }
             }
+
+        //update polymer types
+        for (uint64_t poly = 0; poly < p->n_polymers; poly++) p->polymers[poly].type=poly_types_best[poly];
+
 
     free(mono_cells);
     free(poly_flippable);
@@ -1497,7 +1503,7 @@ soma_scalar_t get_cost(struct Phase *p, int64_t * delta_fields_unified)
                 {
                     if(p->umbrella_field[type*p->n_cells_local + cell] > 0)
                         {
-                            total_cost+=(p->umbrella_field[type*p->n_cells_local + cell]-( ( p->fields_unified[type*p->n_cells_local + cell] + delta_fields_unified[type*p->n_cells_local + cell])* p->field_scaling_type[type])) * (p->umbrella_field[type*p->n_cells_local + cell]-( ( p->fields_unified[type*p->n_cells_local + cell] + delta_fields_unified[type*p->n_cells_local + cell])* p->field_scaling_type[type])); 
+                            total_cost+=pow(p->umbrella_field[type*p->n_cells_local + cell]-( ( p->fields_unified[type*p->n_cells_local + cell] + delta_fields_unified[type*p->n_cells_local + cell])* p->field_scaling_type[type]),2);
                         }
                 }
         }
