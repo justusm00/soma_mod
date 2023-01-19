@@ -1,3 +1,9 @@
+/**
+ * @Author: Your name
+ * @Date:   2022-12-09 16:16:32
+ * @Last Modified by:   Your name
+ * @Last Modified time: 2023-01-19 15:45:29
+ */
 /* Copyright (C) 2016-2021 Ludwig Schneider
 
  This file is part of SOMA.
@@ -126,11 +132,18 @@ int convert_target_1(struct Phase *p);
 int convert_target_2(struct Phase *p);
 
 
-/*! Optimize boundary density by simulated annealing.
+/*! Convert polymer types in order to achieve target density dictated by umbrella field. Uses simulated annealing.
   \param p Phase struct describing the simulation
   \return Errorcode
 */
 int convert_target_3(struct Phase *p);
+
+
+/*! Helper function to export density field and polymer position info for use outside of soma (remove this before release!)
+  \param p Phase struct describing the simulation
+  \return Errorcode
+*/
+int print_info(struct Phase *p);
 
 
 /*! Helper function to compute loss value.
@@ -152,6 +165,11 @@ void get_flip_prob(struct Phase *p,soma_scalar_t * poly_flip);
   \param elem2 Second element
 */
 int comp (const void * elem1, const void * elem2);
+
+/*! Helper function to flip polymer type.
+  \param initial_type Initial type.
+*/
+int flip(int initial_type)
 
 
 #endif                          //SOMA_POLYTYPE_CONVERSION_H
