@@ -1,9 +1,3 @@
-/**
- * @Author: Your name
- * @Date:   2022-12-09 16:16:32
- * @Last Modified by:   Your name
- * @Last Modified time: 2023-01-19 17:20:43
- */
 /* Copyright (C) 2016-2021 Ludwig Schneider
 
  This file is part of SOMA.
@@ -567,7 +561,7 @@ int convert_polytypes(struct Phase *p)
 
     if (p->umbrella_field != NULL)
         {
-            return convert_target_3(p);
+            return convert_target_4(p);
         }
     else
         {
@@ -1222,9 +1216,9 @@ int convert_target_3(struct Phase *p)
     int64_t * poly_flippable_indices = (int64_t *)malloc( p->n_polymers* sizeof(int64_t)); //array that contains indices of flippable polymers
     int64_t * poly_cell_indices = (int64_t *)malloc(p->n_polymers * N * sizeof(int64_t)); //array that stores in which cells a given polymer has monomers
     int64_t * poly_cell_num = (int64_t *)malloc(p->n_polymers * N * sizeof(int64_t)); //array that stores number of monomers in cells. Values correspond to cells specified in poly_cell_indices
-    int64_t * delta_fields_unified = (int64_t *)malloc(p->n_types * p->n_cells_local * sizeof(int64_t)); 
+    int64_t * delta_fields_unified = (int64_t *)malloc(p->n_types * p->n_cells_local * sizeof(int64_t)); //array that stores changes in density
     int64_t * delta_fields_unified_best = (int64_t *)malloc(p->n_types * p->n_cells_local * sizeof(int64_t)); 
-    unsigned int * poly_types=(uint64_t *)malloc(p->n_polymers * sizeof(uint64_t));
+    unsigned int * poly_types=(uint64_t *)malloc(p->n_polymers * sizeof(uint64_t)); //array that stores polymer types
     unsigned int * poly_types_best=(uint64_t *)malloc(p->n_polymers * sizeof(uint64_t));
     uint64_t num_poly_flippable = 0; // number of flippable polymers
     soma_scalar_t acc_rate= 1.0; //initial flip acceptance rate
@@ -1271,6 +1265,7 @@ int convert_target_3(struct Phase *p)
     
     for (uint64_t poly = 0; poly < p->n_polymers; poly++)
         {
+            
             unsigned int mono_offset=0;
             unsigned int mono_cell=0;
             unsigned int mono_counter=0;
@@ -1474,6 +1469,321 @@ int convert_target_3(struct Phase *p)
     free(poly_flippable_indices);
     return 0;
 }
+
+int convert_target_4(struct Phase *p)
+{
+    if (p->n_types != 2)
+        {
+            printf("ERROR: convert_target requires exactly two polymer types.\n");
+            return -1;
+        }
+ 
+
+
+    // ADJUSTABLE PARAMETERS
+
+    soma_scalar_t Tmax = 0.001; // maximum SA temperature
+    soma_scalar_t Tmin = 0.0001; // minimum SA temperature
+    soma_scalar_t alpha = 0.85; // SA temperature decrease factor
+    uint64_t max_iter = 10000; //maximum number of flips 
+    soma_scalar_t acc_rate_target=0.02; //flip acceptance rate after which converison will be stopped
+    int64_t sa_buffer_size = 1000; //maximum number of polymers flipped in one SA run. needed to update best values in the end.
+    int64_t flip_buffer_size = (int64_t)(p->n_polymers)/(int64_t)(2); //maximum number of flippable polymers, need to find optimal value
+
+    // INITIALIZE PARAMETERS
+
+    uint64_t num_poly_flippable = 0; // number of flippable polymers
+    soma_scalar_t acc_rate= 1.0; //initial flip acceptance rate
+    uint64_t num_iter=0; // counts number of flip attempts
+    uint64_t num_acc = 0; // number of accepted moves
+    uint64_t flip_counter = 0; //count accepted flips during one SA run 
+    soma_scalar_t total_cost = 0.0; // cost 
+    soma_scalar_t total_cost_old = 0.0;
+    soma_scalar_t total_cost_best = 0.0;
+
+
+    // ARRAYS
+    
+    const unsigned int N = p->reference_Nbeads; //monomers per polymer
+    int64_t * mono_cells=(int64_t *)malloc( N* sizeof(int64_t)); //monomer cell indices. Values are -1 if no target density available in that cell
+    int64_t * poly_flippable = (int64_t *)malloc( p->n_polymers* sizeof(int64_t)); //boolean array that stores whether or not polymer has monomers in target density area
+    int64_t * poly_cell_indices = (int64_t *)malloc(p->n_polymers * N * sizeof(int64_t)); //array that stores in which cells a given polymer has monomers
+    int64_t * poly_cell_num = (int64_t *)malloc(p->n_polymers * N * sizeof(int64_t)); //array that stores number of monomers in cells. Values correspond to cells specified in poly_cell_indices
+    int64_t * delta_fields_unified = (int64_t *)malloc(p->n_types * p->n_cells_local * sizeof(int64_t)); //array that stores changes in density
+    int64_t * delta_fields_unified_best = (int64_t *)malloc(p->n_types * p->n_cells_local * sizeof(int64_t)); 
+    int64_t * poly_flippable_indices = (int64_t *)malloc( flip_buffer_size * sizeof(int64_t)); //array that contains indices of flippable polymers
+    int64_t * poly_flipped_indices = (int64_t *)malloc(sa_buffer_size * sizeof(int64_t)); //contains indices of flipped polymers after sa run is done
+    unsigned int * poly_types=(uint64_t *)malloc(flip_buffer_size * sizeof(uint64_t)); //array that stores polymer types
+    unsigned int * poly_types_best=(uint64_t *)malloc(flip_buffer_size * sizeof(uint64_t));
+
+
+    // RNG FOR POLYMER FLIP SELECTION
+    srand(time(0));
+
+    // LOOP OVER POLYMERS TO IDENTIFY THE ONES THAT MAY BE FLIPPED
+    // probably the most expensive part, needs to run in parallel
+    
+    for (uint64_t poly = 0; poly < p->n_polymers; poly++)
+        {
+            
+            unsigned int mono_offset=0;
+            unsigned int mono_cell=0;
+            unsigned int mono_counter=0;
+            //get polymer type
+            unsigned int type = p->polymers[poly].type;
+            //loop over monomers
+            for (unsigned int mono = 0; mono < N; mono ++)
+                {
+                    const Monomer pos = ((Monomer *) p->ph.beads.ptr)[p->polymers[poly].bead_offset + mono];       //Read Monomer position
+                    const uint64_t mono_cell = coord_to_index(p, pos.x, pos.y, pos.z);    //cell of current monomer
+                    //check if umbrella field exists in monomer cell
+                    if(p->umbrella_field[type*p->n_cells_local + mono_cell] > 0)
+                        {
+                            mono_cells[mono]=mono_cell;
+                        }
+                    else 
+                        {
+                            mono_cells[mono]=-1;
+                            mono_offset++;
+                        }
+                }
+
+            
+
+            //check if there are monomers in cells with target density
+            if(mono_offset != N)
+                {
+                    poly_flippable[poly]=1; //1 means that polymer has monomers in target density area
+                    
+                    //sort mono_cells array
+                    qsort(mono_cells,N,sizeof(int64_t),comp);
+                    //get unique cells and number of monomers in them
+                    unsigned int k=0;
+                    for(unsigned int mono = mono_offset; mono < N-1 ; mono++)
+                        {
+                            mono_counter++;
+                            //update array only for new cells
+                            if(mono_cells[mono]!= mono_cells[mono+1])
+                            
+                                {
+                                    poly_cell_indices[poly * N + k]=mono_cells[mono]; //unique monomer cell indices
+                                    poly_cell_num[poly * N + k]=mono_counter; //corresponding number of monomers
+                                    mono_counter=0;
+                                    k++;
+                                }
+                        }
+   
+                    //final monomer
+                    if (mono_counter == 0) poly_cell_num[poly * N + k]=1;
+               
+                    else 
+                        {
+                            mono_counter++;
+                            poly_cell_num[poly * N + k]=mono_counter; 
+                        }
+                    poly_cell_indices[poly * N + k]=mono_cells[N-1];
+                    k++;
+
+                    //set end of arrays 
+                    if(k<N-1) 
+                        {
+                            poly_cell_indices[poly * N + k]=-1;
+                            poly_cell_num[poly * N + k]=-1;
+                        } 
+                }
+            else poly_flippable[poly]=0; //0 means that polymer has no monomers in target density area
+        }
+
+    //save flippable polymer indices to new array, this must be done sequentially
+    for (uint64_t poly = 0; poly < p->n_polymers; poly++)
+        {
+            if(poly_flippable[poly]==1)
+                {
+                    poly_flippable_indices[num_poly_flippable]=poly;
+                    num_poly_flippable++;
+
+                }
+        }
+
+    //check if there are more flippable polymers than the buffer allows
+    if(num_poly_flippable>flip_buffer_size)
+        {
+            printf("ERROR: FLIP BUFFER SIZE IS TOO SMALL\n");
+            return -1;
+        }
+
+    // INITIALIZE delta_fields_unified
+
+    for (uint64_t cell = 0; cell < p->n_cells_local; cell++)
+        {
+            for(uint64_t type = 0; type < p->n_types; type++)
+                {
+                    delta_fields_unified[type*p->n_cells_local + cell] = 0;
+                    delta_fields_unified_best[type*p->n_cells_local + cell] = 0;
+                }
+        }
+
+
+
+    // INTIALIZE poly_types
+    
+    for (uint64_t poly = 0; poly < num_poly_flippable; poly++)
+        {
+            poly_types[poly]=p->polymers[poly_flippable_indices[poly]].type;
+            poly_types_best[poly]=poly_types[poly];
+        }
+    
+    //initialize cost
+    total_cost=get_cost(p, delta_fields_unified);
+    total_cost_old = total_cost;
+    total_cost_best= total_cost;
+
+    // SIMULATED ANNEALING
+
+    //printf("Total cost before : %f \n",total_cost);
+    while((acc_rate > acc_rate_target) && (num_iter < max_iter))
+        {
+            soma_scalar_t T = Tmax;
+            while(T > Tmin)
+                {
+                    if(flip_counter >= sa_buffer_size)
+                        {
+                            printf("ERROR: SA BUFFER TOO SMALL\n");
+                            return -1;
+                        }
+                    num_iter++;
+                    //choose random polymer to flip
+                    uint64_t random_index = rand() % (num_poly_flippable - 1);
+                    uint64_t poly = poly_flippable_indices[random_index];
+                    Polymer *mypoly = p->polymers + poly;
+                    unsigned int initial_type = poly_types[random_index];
+                    unsigned int final_type = flip(initial_type);
+                    total_cost=total_cost_old;
+                    //calculate cost (only need to update it for the cells in which the polymer has monomers)
+                    for(unsigned int i = 0; i < N; i++)
+                        {
+                            if(poly_cell_indices[poly * N + i] < 0) break;
+                            unsigned int cell = poly_cell_indices[poly * N + i];
+                            unsigned int num_mono = poly_cell_num[poly * N + i];
+                            for(unsigned int type = 0; type < p->n_types; type++)
+                                {
+                                    total_cost-=pow(p->umbrella_field[type*p->n_cells_local + cell]-( ( p->fields_unified[type*p->n_cells_local + cell] + delta_fields_unified[type*p->n_cells_local + cell])* p->field_scaling_type[type]),2);
+                                }
+                            total_cost+=pow(p->umbrella_field[initial_type*p->n_cells_local + cell]-( ( p->fields_unified[initial_type*p->n_cells_local + cell] + delta_fields_unified[initial_type*p->n_cells_local + cell] - num_mono)* p->field_scaling_type[initial_type]),2);
+                            total_cost+=pow(p->umbrella_field[final_type*p->n_cells_local + cell]-( ( p->fields_unified[final_type*p->n_cells_local + cell] + delta_fields_unified[final_type*p->n_cells_local + cell] + num_mono)* p->field_scaling_type[final_type]),2);
+                        }
+                    if(total_cost < total_cost_old)
+                        {
+                            //accept flip
+                            num_acc++;
+                            poly_flipped_indices[flip_counter]=random_index;
+                            flip_counter++;
+                            poly_types[random_index]=final_type;
+                            total_cost_old=total_cost;
+                            //update delta fields unified
+                            for(unsigned int i = 0; i < N; i++)
+                                {
+                                    if(poly_cell_indices[poly * N + i] < 0) break;
+                                    unsigned int cell = poly_cell_indices[poly * N + i];
+                                    unsigned int num_mono = poly_cell_num[poly * N + i];
+                                    delta_fields_unified[initial_type*p->n_cells_local + cell]-=num_mono;
+                                    delta_fields_unified[final_type*p->n_cells_local + cell]+=num_mono;
+                                }
+                        }
+                    else
+                        {
+                            //accept flip with probability 
+                            soma_scalar_t random_number = soma_rng_soma_scalar(&(mypoly->poly_state), p);
+                            if(random_number < exp(-(total_cost - total_cost_old)/T))
+                                {
+                                    //accept
+                                    num_acc++;
+                                    poly_flipped_indices[flip_counter]=random_index;
+                                    flip_counter++;
+                                    poly_types[random_index]=final_type;
+                                    total_cost_old=total_cost;
+                                    //update delta fields unified
+                                    for(unsigned int i = 0; i < N; i++)
+                                        {
+                                            if(poly_cell_indices[poly * N + i] < 0) break;
+                                            unsigned int cell = poly_cell_indices[poly * N + i];
+                                            unsigned int num_mono = poly_cell_num[poly * N + i];
+                                            delta_fields_unified[initial_type*p->n_cells_local + cell]-=num_mono;
+                                            delta_fields_unified[final_type*p->n_cells_local + cell]+=num_mono;
+                                        }
+                                    }
+                            //else reject
+                            else total_cost = total_cost_old;
+                        }
+
+
+
+                    //update best solution so far
+                    if (total_cost < total_cost_best)
+                        {
+                            total_cost_best=total_cost;
+                            for(int64_t polyy = 0; polyy < flip_counter; polyy++)
+                                {
+                                    poly=poly_flipped_indices[polyy]; //index in flippable arrays
+                                    poly_types_best[poly]=poly_types[poly];
+                                    poly = poly_flippable_indices[poly]; //actual polymer index
+                                    for(unsigned int i = 0; i < N; i++)
+                                        {
+                                            if(poly_cell_indices[poly * N + i] < 0) break;
+                                            unsigned int cell = poly_cell_indices[poly * N + i];
+                                            for(unsigned int type = 0; type < p->n_types; type++) delta_fields_unified_best[type*p->n_cells_local + cell] = delta_fields_unified[type*p->n_cells_local + cell];
+                                        }
+                                }
+                            //reset flip counter
+                            flip_counter=0;
+
+                        }
+                    //update temperature
+                    T *= alpha;
+                }
+            acc_rate=(float)(num_acc)/(float)(num_iter);
+            //set everything to its best values
+            for (uint64_t poly = 0; poly < num_poly_flippable; poly++) poly_types[poly]=poly_types_best[poly];
+            for (uint64_t cell = 0; cell < p->n_cells_local; cell++)
+                {
+                    for(uint64_t type = 0; type < p->n_types; type++)
+                        {
+                            delta_fields_unified[type*p->n_cells_local + cell] = delta_fields_unified_best[type*p->n_cells_local + cell];
+                        }
+                }
+            total_cost=total_cost_best;
+
+        }
+
+
+        //printf("Total cost after: %f \n",total_cost_best);
+        //update density fields
+        for (uint64_t cell = 0; cell < p->n_cells_local; cell++)
+            {
+                for(uint64_t type = 0; type < p->n_types; type++)
+                    {
+                        
+                        p->fields_unified[type*p->n_cells_local + cell] += delta_fields_unified_best[type*p->n_cells_local + cell];
+                    }
+            }
+
+        //update polymer types
+        for(int64_t polyy = 0; polyy < num_poly_flippable; polyy++) p->polymers[poly_flippable_indices[polyy]].type=poly_types_best[polyy];
+
+
+    free(mono_cells);
+    free(poly_flippable);
+    free(poly_cell_indices);
+    free(poly_cell_num);
+    free(poly_types);
+    free(poly_types_best);
+    free(delta_fields_unified);
+    free(delta_fields_unified_best);
+    free(poly_flippable_indices);
+    free(poly_flipped_indices);
+    return 0;
+}
+
 
 
 int comp (const void * elem1, const void * elem2) 
