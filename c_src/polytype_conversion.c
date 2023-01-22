@@ -561,7 +561,12 @@ int convert_polytypes(struct Phase *p)
 
     if (p->umbrella_field != NULL)
         {
-            return convert_target_4(p);
+            //do polymer conversion only with root rank
+            if (p->info_MPI.sim_rank == 0) 
+                {
+                    return convert_target_4(p);
+                }
+            
         }
     else
         {
@@ -1479,7 +1484,6 @@ int convert_target_4(struct Phase *p)
         }
  
 
-
     // ADJUSTABLE PARAMETERS
 
     soma_scalar_t Tmax = 0.001; // maximum SA temperature
@@ -1487,8 +1491,8 @@ int convert_target_4(struct Phase *p)
     soma_scalar_t alpha = 0.85; // SA temperature decrease factor
     uint64_t max_iter = 10000; //maximum number of flips 
     soma_scalar_t acc_rate_target=0.02; //flip acceptance rate after which converison will be stopped
-    int64_t sa_buffer_size = 1000; //maximum number of polymers flipped in one SA run. needed to update best values in the end.
-    int64_t flip_buffer_size = (int64_t)(p->n_polymers)/(int64_t)(2); //maximum number of flippable polymers, need to find optimal value
+    int64_t sa_buffer_size = p->n_polymers; //maximum number of polymers flipped in one SA run. needed to update best values in the end.
+    int64_t flip_buffer_size = p->n_polymers; //maximum number of flippable polymers, need to find optimal value
 
     // INITIALIZE PARAMETERS
 
@@ -1523,6 +1527,8 @@ int convert_target_4(struct Phase *p)
     // LOOP OVER POLYMERS TO IDENTIFY THE ONES THAT MAY BE FLIPPED
     // probably the most expensive part, needs to run in parallel
     
+#pragma acc parallel loop present(p[0:1])
+#pragma omp parallel for
     for (uint64_t poly = 0; poly < p->n_polymers; poly++)
         {
             
@@ -1612,6 +1618,7 @@ int convert_target_4(struct Phase *p)
             return -1;
         }
 
+
     // INITIALIZE delta_fields_unified
 
     for (uint64_t cell = 0; cell < p->n_cells_local; cell++)
@@ -1639,11 +1646,11 @@ int convert_target_4(struct Phase *p)
     total_cost_best= total_cost;
 
     // SIMULATED ANNEALING
-
-    //printf("Total cost before : %f \n",total_cost);
+    //printf("Total cost before: %f \n",total_cost_best);
     while((acc_rate > acc_rate_target) && (num_iter < max_iter))
         {
             soma_scalar_t T = Tmax;
+            flip_counter=0;
             while(T > Tmin)
                 {
                     if(flip_counter >= sa_buffer_size)
@@ -1717,7 +1724,6 @@ int convert_target_4(struct Phase *p)
                         }
 
 
-
                     //update best solution so far
                     if (total_cost < total_cost_best)
                         {
@@ -1758,14 +1764,14 @@ int convert_target_4(struct Phase *p)
 
         //printf("Total cost after: %f \n",total_cost_best);
         //update density fields
-        for (uint64_t cell = 0; cell < p->n_cells_local; cell++)
+/*         for (uint64_t cell = 0; cell < p->n_cells_local; cell++)
             {
                 for(uint64_t type = 0; type < p->n_types; type++)
                     {
                         
                         p->fields_unified[type*p->n_cells_local + cell] += delta_fields_unified_best[type*p->n_cells_local + cell];
                     }
-            }
+            } */
 
         //update polymer types
         for(int64_t polyy = 0; polyy < num_poly_flippable; polyy++) p->polymers[poly_flippable_indices[polyy]].type=poly_types_best[polyy];
