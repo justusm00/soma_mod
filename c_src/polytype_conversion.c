@@ -1820,6 +1820,8 @@ int flip(int initial_type)
 }
 
 
+void get_flip_candidates(struct Phase *p, int64_t * poly_flippable_indices)
+
 soma_scalar_t get_cost(struct Phase *p, int64_t * delta_fields_unified)
 {   
     soma_scalar_t total_cost=0;
