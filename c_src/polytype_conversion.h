@@ -124,13 +124,20 @@ int convert_target(struct Phase *p);
 int print_info(struct Phase *p);
 
 
-/*! Helper function to compute loss value.
+/*! Compute cost function based on density.
   \param p Phase struct describing the simulation
   \param delta_fields_unified Array containing changes in density fields.
   \return Errorcode
 */
-soma_scalar_t get_cost(struct Phase *p, int64_t * delta_fields_unified);
+soma_scalar_t get_density_cost(struct Phase *p, int64_t * delta_fields_unified);
 
+
+/*! Compute cost function based on composition. Close to an area51 it makes more sense to use composition instead of density.
+  \param p Phase struct describing the simulation
+  \param delta_fields_unified Array containing changes in density fields.
+  \return Errorcode
+*/
+soma_scalar_t get_composition_cost(struct Phase *p, int64_t * delta_fields_unified);
 
 
 /*! Helper function to compare elements for quicksort.
@@ -152,7 +159,7 @@ int flip(int initial_type);
 */
 void get_flip_candidates(struct Phase * p, int64_t * poly_isflippable, int64_t * poly_cell_indices, int64_t * poly_cell_num);
 
-/*! Calculate cost difference if a polymer is flipped.
+/*! Calculate cost difference based on density if a polymer is flipped.
   \param p Phase struct describing the simulation
   \param poly Polymer index
   \param initial_type Type before flip
@@ -161,8 +168,19 @@ void get_flip_candidates(struct Phase * p, int64_t * poly_isflippable, int64_t *
   \param poly_cell_num Number of monomers corresponding to the cells in poly_cell_indices
   \param delta_fields_unified Changes in density fields caused by flips
 */
-soma_scalar_t get_flip_cost(struct Phase * p, uint64_t poly, unsigned int initial_type, unsigned int final_type, int64_t * poly_cell_indices, int64_t * poly_cell_num,int64_t * delta_fields_unified);
+soma_scalar_t get_density_flip_cost(struct Phase * p, uint64_t poly, unsigned int initial_type, unsigned int final_type, int64_t * poly_cell_indices, int64_t * poly_cell_num,int64_t * delta_fields_unified);
 
+
+/*! Calculate cost difference based on composition if a polymer is flipped.
+  \param p Phase struct describing the simulation
+  \param poly Polymer index
+  \param initial_type Type before flip
+  \param final_type Type after flip
+  \param poly_cell_indices For flippable polymers, contains indices in which cells the polymer has monomers
+  \param poly_cell_num Number of monomers corresponding to the cells in poly_cell_indices
+  \param delta_fields_unified Changes in density fields caused by flips
+*/
+soma_scalar_t get_composition_flip_cost(struct Phase * p, uint64_t poly, unsigned int initial_type, unsigned int final_type, int64_t * poly_cell_indices, int64_t * poly_cell_num,int64_t * delta_fields_unified);
 
 /*! Update differences in density fields cause by flips
   \param p Phase struct describing the simulation
@@ -192,6 +210,22 @@ void update_delta_fields(struct Phase * p, uint64_t poly, unsigned int initial_t
   \param poly_types Polymer types of flippable polymers
   \param poly_types_best Polymer types of flippable polymers corresponding to current best value of cost function
 */
-soma_scalar_t anneal_polytypes(struct Phase * p, soma_scalar_t total_cost, uint64_t num_poly_flippable, soma_scalar_t Tmin,  soma_scalar_t Tmax, soma_scalar_t alpha, uint64_t sa_buffer_size, int64_t * poly_cell_indices, int64_t * poly_cell_num, int64_t * poly_flippable_indices,  int64_t * delta_fields_unified, int64_t * delta_fields_unified_best,unsigned int * poly_types,unsigned int * poly_types_best);
+soma_scalar_t anneal_polytypes(struct Phase * p, soma_scalar_t total_cost, uint64_t num_poly_flippable,uint64_t * total_flip_attempts, uint64_t * total_flips_accepted,soma_scalar_t Tmin,  soma_scalar_t Tmax, soma_scalar_t alpha, uint64_t sa_buffer_size, int64_t * poly_cell_indices, int64_t * poly_cell_num, int64_t * poly_flippable_indices,  int64_t * delta_fields_unified, int64_t * delta_fields_unified_best,unsigned int * poly_types,unsigned int * poly_types_best);
+
+
+/*! Simulated annealing at T=0
+  \param p Phase struct describing the simulation
+  \param total_cost Cost value before function call
+  \param num_poly_flippable Polymers available for flip
+  \param acc_rate_target Target acceptance rate after which iteration will be stopped
+  \param poly_cell_indices For flippable polymers, contains indices in which cells the polymer has monomers
+  \param poly_cell_num Number of monomers corresponding to the cells in poly_cell_indices
+  \param poly_flippable_indices Sequentially stores indices of flippable polymers for faster iteration
+  \param delta_fields_unified Changes in density fields caused by flips
+  \param delta_fields_unified_best Changes in density fields caused by flips corresponding to current best value of cost function
+  \param poly_types Polymer types of flippable polymers
+  \param poly_types_best Polymer types of flippable polymers corresponding to current best value of cost function
+*/
+soma_scalar_t flip_polytypes(struct Phase * p,soma_scalar_t total_cost, uint64_t num_poly_flippable, uint64_t * total_flip_attempts,uint64_t * total_flips_accepted,soma_scalar_t acc_rate_target, int64_t * poly_cell_indices, int64_t * poly_cell_num, int64_t * poly_flippable_indices,  int64_t * delta_fields_unified_best, unsigned int * poly_types_best);
 
 #endif                          //SOMA_POLYTYPE_CONVERSION_H
