@@ -45,6 +45,7 @@ typedef struct PolyConversion {
     unsigned int len_dependencies;      //!< length of the density dependency array dependency_type (=sum over dependency_ntype)
     unsigned int *num_conversions; //!< n_poly_type * n_poly_type Matrix containing the corresponding conversions counters
 
+
 } PolyConversion;
 
 //! Helper function to copy the pc data to the device
@@ -111,7 +112,14 @@ int fully_convert_polytypes(struct Phase *p);
 int partially_convert_polytypes(struct Phase *p);
 
 
-/*! Convert polymer types in order to reach target density dictated by umbrella field entries > 0.
+/*! Convert polymer types using a mixture of simulated annealing and random flipping.
+  \param p Phase struct describing the simulation
+  \return Errorcode
+*/
+int simulated_annealing(struct Phase *p);
+
+
+/*! Convert polymer types without simulated annealing.
   \param p Phase struct describing the simulation
   \return Errorcode
 */
@@ -121,6 +129,8 @@ int convert_target(struct Phase *p);
   \param p Phase struct describing the simulation
   \return Errorcode
 */
+
+
 int print_info(struct Phase *p);
 
 
@@ -129,7 +139,7 @@ int print_info(struct Phase *p);
   \param delta_fields_unified Array containing changes in density fields.
   \return Errorcode
 */
-soma_scalar_t get_density_cost(struct Phase *p, int64_t * delta_fields_unified);
+soma_scalar_t get_density_cost(struct Phase *p, int64_t * delta_fields_unified, uint64_t * num_target_cells);
 
 
 /*! Compute cost function based on composition. Close to an area51 it makes more sense to use composition instead of density.
@@ -137,7 +147,7 @@ soma_scalar_t get_density_cost(struct Phase *p, int64_t * delta_fields_unified);
   \param delta_fields_unified Array containing changes in density fields.
   \return Errorcode
 */
-soma_scalar_t get_composition_cost(struct Phase *p, int64_t * delta_fields_unified);
+soma_scalar_t get_composition_cost(struct Phase *p, int64_t * delta_fields_unified, uint64_t * num_target_cells);
 
 
 /*! Helper function to compare elements for quicksort.
@@ -210,7 +220,10 @@ void update_delta_fields(struct Phase * p, uint64_t poly, unsigned int initial_t
   \param poly_types Polymer types of flippable polymers
   \param poly_types_best Polymer types of flippable polymers corresponding to current best value of cost function
 */
-soma_scalar_t anneal_polytypes(struct Phase * p, soma_scalar_t total_cost, uint64_t num_poly_flippable,uint64_t * total_flip_attempts, uint64_t * total_flips_accepted,soma_scalar_t Tmin,  soma_scalar_t Tmax, soma_scalar_t alpha, uint64_t sa_buffer_size, int64_t * poly_cell_indices, int64_t * poly_cell_num, int64_t * poly_flippable_indices,  int64_t * delta_fields_unified, int64_t * delta_fields_unified_best,unsigned int * poly_types,unsigned int * poly_types_best);
+soma_scalar_t anneal_polytypes(struct Phase * p, soma_scalar_t total_cost, uint64_t num_poly_flippable,uint64_t * total_flip_attempts, uint64_t * total_flips_accepted, uint64_t sa_buffer_size, int64_t * poly_cell_indices, int64_t * poly_cell_num, int64_t * poly_flippable_indices,  int64_t * delta_fields_unified, int64_t * delta_fields_unified_best,unsigned int * poly_types,unsigned int * poly_types_best);
+
+
+soma_scalar_t anneal_polytypes2(struct Phase * p,soma_scalar_t total_cost, uint64_t num_poly_flippable, uint64_t * total_flip_attempts, uint64_t * total_flips_accepted,  int64_t * poly_cell_indices, int64_t * poly_cell_num, int64_t * poly_flippable_indices,  int64_t * delta_fields_unified, int64_t * delta_fields_unified_best,unsigned int * poly_types,unsigned int * poly_types_best);
 
 
 /*! Simulated annealing at T=0
@@ -227,5 +240,7 @@ soma_scalar_t anneal_polytypes(struct Phase * p, soma_scalar_t total_cost, uint6
   \param poly_types_best Polymer types of flippable polymers corresponding to current best value of cost function
 */
 soma_scalar_t flip_polytypes(struct Phase * p,soma_scalar_t total_cost, uint64_t num_poly_flippable, uint64_t * total_flip_attempts,uint64_t * total_flips_accepted,soma_scalar_t acc_rate_target, int64_t * poly_cell_indices, int64_t * poly_cell_num, int64_t * poly_flippable_indices,  int64_t * delta_fields_unified_best, unsigned int * poly_types_best);
+
+soma_scalar_t flip_polytypes2(struct Phase * p,soma_scalar_t total_cost, uint64_t num_poly_flippable, uint64_t * total_flip_attempts,uint64_t * total_flips_accepted, int64_t * poly_cell_indices, int64_t * poly_cell_num, int64_t * poly_flippable_indices, int64_t * delta_fields_unified, int64_t * delta_fields_unified_best,unsigned int * poly_types ,unsigned int * poly_types_best);
 
 #endif                          //SOMA_POLYTYPE_CONVERSION_H

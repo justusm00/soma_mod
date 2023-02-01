@@ -1353,6 +1353,19 @@ int read_config_hdf5(struct Phase *const p, const char *filename)
     status = read_hdf5(file_id, "/parameter/time", H5T_NATIVE_UINT, plist_id, &(p->time));
     HDF5_ERROR_CHECK2(status, "/parameter/time");
 
+
+    // read p->alpha
+    status = read_hdf5(file_id, "/parameter/alpha", H5T_SOMA_NATIVE_SCALAR, plist_id, &(p->alpha));
+    HDF5_ERROR_CHECK2(status, "/parameter/alpha");
+
+    // read p->Tmin
+    status = read_hdf5(file_id, "/parameter/Tmin", H5T_SOMA_NATIVE_SCALAR, plist_id, &(p->Tmin));
+    HDF5_ERROR_CHECK2(status, "/parameter/Tmin");
+
+    // read p->Tmax
+    status = read_hdf5(file_id, "/parameter/Tmax", H5T_SOMA_NATIVE_SCALAR, plist_id, &(p->Tmax));
+    HDF5_ERROR_CHECK2(status, "/parameter/Tmax");
+
     // read nx ny nz
     p->hamiltonian = SCMF0;
     //Don't break old configurations.
@@ -1374,6 +1387,11 @@ int read_config_hdf5(struct Phase *const p, const char *filename)
             status = read_hdf5(file_id, "/parameter/k_umbrella", H5T_SOMA_NATIVE_SCALAR, plist_id, p->k_umbrella);
             HDF5_ERROR_CHECK2(status, "parameter/k_umbrella");
         }
+
+
+
+
+
 
     unsigned int nxyz[3];
     status = read_hdf5(file_id, "/parameter/nxyz", H5T_NATIVE_UINT, plist_id, nxyz);

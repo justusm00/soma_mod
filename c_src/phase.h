@@ -268,6 +268,12 @@ typedef struct Phase {
     //! Measures the number of chains that runs on one separate kernal
     unsigned int num_long_chain;
 
+
+    // some simulated annealing parameters, should be moved later on
+    soma_scalar_t Tmax; //! Maximum temperature for simulated annealing.
+    soma_scalar_t Tmin; //! Minimum temperature for simulated annealing.
+    soma_scalar_t alpha; //! Temperature decrease factor
+
     soma_scalar_t *cos_serie;   //!< the prefactor of the cosine elements to define time-dependent external field
     soma_scalar_t *sin_serie;   //!< the prefactor of the sine elements to define time-dependent external field
     soma_scalar_t period;       //!< period of the time-dependent external field
