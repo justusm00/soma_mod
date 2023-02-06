@@ -1534,11 +1534,10 @@ class Configuration(SomaXML):
         for Tmin in self.root.iter('Tmin'):
             Tmin_str += Tmin.text
         Tmin_str = Tmin_str.strip()
-
+        Tmin_array = numpy.zeros((1,),dtype=soma_type.get_soma_scalar_type())
         if len(Tmin_str) > 0:
             Tmin = float(Tmin_str)
-        Tmin_array = numpy.zeros((1,),dtype=soma_type.get_soma_scalar_type())
-        Tmin_array[0] = Tmin
+            Tmin_array[0] = Tmin
         return Tmin_array
 
     ## Create the "Tmax" attribute
@@ -1548,11 +1547,10 @@ class Configuration(SomaXML):
         for Tmax in self.root.iter('Tmax'):
             Tmax_str += Tmax.text
         Tmax_str = Tmax_str.strip()
-
+        Tmax_array = numpy.zeros((1,),dtype=soma_type.get_soma_scalar_type())
         if len(Tmax_str) > 0:
             Tmax = float(Tmax_str)
-        Tmax_array = numpy.zeros((1,),dtype=soma_type.get_soma_scalar_type())
-        Tmax_array[0] = Tmax
+            Tmax_array[0] = Tmax
         return Tmax_array
 
     ## Create the "alpha" attribute
@@ -1562,11 +1560,10 @@ class Configuration(SomaXML):
         for alpha in self.root.iter('alpha'):
             alpha_str += alpha.text
         alpha_str = alpha_str.strip()
-
+        alpha_array = numpy.zeros((1,),dtype=soma_type.get_soma_scalar_type())
         if len(alpha_str) > 0:
             alpha = float(alpha_str)
-        alpha_array = numpy.zeros((1,),dtype=soma_type.get_soma_scalar_type())
-        alpha_array[0] = alpha
+            alpha_array[0] = alpha
         return alpha_array
 
     ## Create the "create_harmonic_normb_variable_scale" attribute
