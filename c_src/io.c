@@ -584,6 +584,18 @@ int write_config_hdf5(struct Phase *const p, const char *filename)
     status = write_hdf5(1, &one, file_id, "/parameter/time", H5T_STD_U32LE, H5T_NATIVE_UINT, plist_id, &(p->time));
     HDF5_ERROR_CHECK2(status, "/parameter/time");
 
+
+    //write p->alpha
+    status = write_hdf5(1,&one,file_id, "/parameter/alpha", H5T_SOMA_NATIVE_SCALAR,H5T_SOMA_FILE_SCALAR, plist_id, &(p->alpha));
+    HDF5_ERROR_CHECK2(status, "/parameter/alpha");
+    //write p->Tmin
+    status = write_hdf5(1,&one,file_id, "/parameter/Tmin", H5T_SOMA_NATIVE_SCALAR,H5T_SOMA_FILE_SCALAR, plist_id, &(p->Tmin));
+    HDF5_ERROR_CHECK2(status, "/parameter/Tmin");
+    //write p->Tmax
+    status = write_hdf5(1,&one,file_id, "/parameter/Tmax", H5T_SOMA_NATIVE_SCALAR,H5T_SOMA_FILE_SCALAR, plist_id, &(p->Tmax));
+    HDF5_ERROR_CHECK2(status, "/parameter/Tmax");
+
+
     status = write_hdf5(1, &one, file_id, "/parameter/hamiltonian",
                         H5T_STD_I32LE, H5T_NATIVE_INT, plist_id, &(p->hamiltonian));
     HDF5_ERROR_CHECK2(status, "parameter/hamiltonian");
