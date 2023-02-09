@@ -1012,7 +1012,7 @@ void get_flip_candidates(struct Phase * p, int64_t * poly_isflippable, int64_t *
                     k++;
 
                     //set end of arrays 
-                    if(k<N-1) 
+                    if(k<=N-1) 
                         {
                             poly_cell_indices[poly * N + k]=-1;
                             poly_cell_num[poly * N + k]=-1;
