@@ -832,10 +832,10 @@ int simulated_annealing(struct Phase *p)
     const unsigned int N = p->reference_Nbeads; //monomers per polymer
     int64_t * poly_isflippable = (int64_t *)malloc( p->n_polymers* sizeof(int64_t)); //boolean array that stores whether or not polymer has monomers in target density area
     int64_t * poly_cell_indices = (int64_t *)malloc(p->n_polymers * N * sizeof(int64_t)); //array that stores in which cells a given polymer has monomers
-    int64_t * poly_cell_num = (int64_t *)malloc(p->n_polymers * N * sizeof(int64_t)); //array that stores number of monomers in cells. Values correspond to cells specified in poly_cell_indices
+    int64_t * poly_cell_num = (int64_t *)malloc(p->n_polymers * N * p->n_types sizeof(int64_t)); //array that stores number of monomers of given type in cells. Values correspond to cells specified in poly_cell_indices
     int64_t * poly_flippable_indices = (int64_t *)malloc( flip_buffer_size * sizeof(int64_t)); //array that contains indices of flippable polymers
-    int64_t * delta_fields_unified = (int64_t *)malloc(p->n_types * p->n_cells_local * sizeof(int64_t)); //array that stores changes in density
-    int64_t * delta_fields_unified_best = (int64_t *)malloc(p->n_types * p->n_cells_local * sizeof(int64_t)); 
+    uint64_t * delta_fields_unified = (uint64_t *)malloc(p->n_types * p->n_cells_local * sizeof(uint64_t)); //array that stores changes in density
+    uint64_t * delta_fields_unified_best = (uint64_t *)malloc(p->n_types * p->n_cells_local * sizeof(uint64_t)); 
     unsigned int * poly_types=(uint64_t *)malloc(flip_buffer_size * sizeof(uint64_t)); //array that stores polymer types
     unsigned int * poly_types_best=(uint64_t *)malloc(flip_buffer_size * sizeof(uint64_t)); //array that stores best polymer types
     //rng for polymer flip selection
