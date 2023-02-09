@@ -1,0 +1,147 @@
+\hypertarget{independent__sets_8c}{}\doxysection{independent\+\_\+sets.\+c File Reference}
+\label{independent__sets_8c}\index{independent\_sets.c@{independent\_sets.c}}
+
+
+Implementation of \mbox{\hyperlink{independent__sets_8h}{independent\+\_\+sets.\+h}}.  
+
+
+{\ttfamily \#include \char`\"{}independent\+\_\+sets.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$assert.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}soma\+\_\+util.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}phase.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}soma\+\_\+memory.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}rng.\+h\char`\"{}}\newline
+Include dependency graph for independent\+\_\+sets.\+c\+:
+% FIG 0
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{independent__sets_8c_a7e844bafe44b46aef897f21e79750006}{generate\+\_\+independet\+\_\+sets}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const p)
+\item 
+int \mbox{\hyperlink{independent__sets_8c_a237012879ec545930cdd09045eb2103f}{independent\+\_\+sets\+\_\+simple}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const p)
+\item 
+int \mbox{\hyperlink{independent__sets_8c_acc38d159bc047fb88c533533f95be0cf}{independent\+\_\+set\+\_\+fixed}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const p)
+\item 
+int \mbox{\hyperlink{independent__sets_8c_ad5e17020def786dd130f07df3473b1ad}{allo\+\_\+init\+\_\+memory\+\_\+for\+\_\+\+Polystates}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const p)
+\item 
+int \mbox{\hyperlink{independent__sets_8c_a6f672a7b13143205fcfc6ea8b00a2a70}{independent\+\_\+sets\+\_\+one\+\_\+polymer}} (struct \mbox{\hyperlink{structIndependetSets}{Independet\+Sets}} $\ast$$\ast$const set\+\_\+tmp\+\_\+pointer, unsigned int n\+\_\+poly, struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const p)
+\item 
+unsigned int \mbox{\hyperlink{independent__sets_8c_ae35abb529d190b8b4721d9097381f620}{check\+\_\+bond\+\_\+members\+\_\+of\+\_\+set}} (unsigned int $\ast$$\ast$bonds\+\_\+total, int $\ast$bond\+\_\+number\+\_\+total, unsigned int max\+\_\+bond\+\_\+number, unsigned int writein\+\_\+set, unsigned int current\+\_\+set, unsigned int $\ast$offset\+\_\+set, unsigned int $\ast$end\+\_\+set, unsigned int $\ast$$\ast$independent\+\_\+sets, int bond\+\_\+i, unsigned int current\+\_\+monomer)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementation of \mbox{\hyperlink{independent__sets_8h}{independent\+\_\+sets.\+h}}. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{independent__sets_8c_ad5e17020def786dd130f07df3473b1ad}\label{independent__sets_8c_ad5e17020def786dd130f07df3473b1ad}} 
+\index{independent\_sets.c@{independent\_sets.c}!allo\_init\_memory\_for\_Polystates@{allo\_init\_memory\_for\_Polystates}}
+\index{allo\_init\_memory\_for\_Polystates@{allo\_init\_memory\_for\_Polystates}!independent\_sets.c@{independent\_sets.c}}
+\doxysubsubsection{\texorpdfstring{allo\_init\_memory\_for\_Polystates()}{allo\_init\_memory\_for\_Polystates()}}
+{\footnotesize\ttfamily int allo\+\_\+init\+\_\+memory\+\_\+for\+\_\+\+Polystates (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const}]{p }\end{DoxyParamCaption})}
+
+Private funtion, to be used in combination with \mbox{\hyperlink{independent__sets_8h_acc38d159bc047fb88c533533f95be0cf}{independent\+\_\+set\+\_\+fixed()}} to allocate and initiate memory. 
+\begin{DoxyParams}{Parameters}
+{\em p} & \mbox{\hyperlink{structPhase}{Phase}} for which the polymers are assigned to sets \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Errorcode 
+\end{DoxyReturn}
+\mbox{\Hypertarget{independent__sets_8c_ae35abb529d190b8b4721d9097381f620}\label{independent__sets_8c_ae35abb529d190b8b4721d9097381f620}} 
+\index{independent\_sets.c@{independent\_sets.c}!check\_bond\_members\_of\_set@{check\_bond\_members\_of\_set}}
+\index{check\_bond\_members\_of\_set@{check\_bond\_members\_of\_set}!independent\_sets.c@{independent\_sets.c}}
+\doxysubsubsection{\texorpdfstring{check\_bond\_members\_of\_set()}{check\_bond\_members\_of\_set()}}
+{\footnotesize\ttfamily unsigned int check\+\_\+bond\+\_\+members\+\_\+of\+\_\+set (\begin{DoxyParamCaption}\item[{unsigned int $\ast$$\ast$}]{bonds\+\_\+total,  }\item[{int $\ast$}]{bond\+\_\+number\+\_\+total,  }\item[{unsigned int}]{max\+\_\+bond\+\_\+number,  }\item[{unsigned int}]{writein\+\_\+set,  }\item[{unsigned int}]{current\+\_\+set,  }\item[{unsigned int $\ast$}]{offset\+\_\+set,  }\item[{unsigned int $\ast$}]{end\+\_\+set,  }\item[{unsigned int $\ast$$\ast$}]{independent\+\_\+sets,  }\item[{int}]{bond\+\_\+i,  }\item[{unsigned int}]{current\+\_\+monomer }\end{DoxyParamCaption})}
+
+Private funtion, to be used in combination with \mbox{\hyperlink{independent__sets_8h_acc38d159bc047fb88c533533f95be0cf}{independent\+\_\+set\+\_\+fixed()}}. It finds the writein\+\_\+set that can store the new monomer. 
+\begin{DoxyParams}{Parameters}
+{\em bonds\+\_\+total} & Array to store the bonds of all monomers \\
+\hline
+{\em bond\+\_\+number\+\_\+total} & Array to store the number of bonds for all monomers \\
+\hline
+{\em max\+\_\+bond\+\_\+number} & Maximal number of bonds of one monomer \\
+\hline
+{\em writein\+\_\+set} & The set where new monomers are stored \\
+\hline
+{\em current\+\_\+set} & The set, the member of which is being studied \\
+\hline
+{\em offset\+\_\+set} & Array which tells how many members of a set is checked \\
+\hline
+{\em end\+\_\+set} & Array with the number of member in a set \\
+\hline
+{\em independent\+\_\+sets} & Two-\/\+D-\/\+Array that stores the independent sets \\
+\hline
+{\em bond\+\_\+i} & The current bond of the current monomer \\
+\hline
+{\em current\+\_\+monomer} & The monomer that is being studied \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Set to put new monomer 
+\end{DoxyReturn}
+\mbox{\Hypertarget{independent__sets_8c_a7e844bafe44b46aef897f21e79750006}\label{independent__sets_8c_a7e844bafe44b46aef897f21e79750006}} 
+\index{independent\_sets.c@{independent\_sets.c}!generate\_independet\_sets@{generate\_independet\_sets}}
+\index{generate\_independet\_sets@{generate\_independet\_sets}!independent\_sets.c@{independent\_sets.c}}
+\doxysubsubsection{\texorpdfstring{generate\_independet\_sets()}{generate\_independet\_sets()}}
+{\footnotesize\ttfamily int generate\+\_\+independet\+\_\+sets (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const}]{p }\end{DoxyParamCaption})}
+
+According to the cmdline argument, this function calls either the \char`\"{}simple algorithm\char`\"{} or the \char`\"{}fixed n sets algorithm\char`\"{}. \char`\"{}simple algorithm\char`\"{} is well suited for cases like linear chain while \char`\"{}fixed n set algothrim\char`\"{} is suited for complex crosslinked polymer system. 
+\begin{DoxyParams}{Parameters}
+{\em p} & \mbox{\hyperlink{structPhase}{Phase}} for which the polymers are assigned to sets \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Errorcode 
+\end{DoxyReturn}
+\mbox{\Hypertarget{independent__sets_8c_acc38d159bc047fb88c533533f95be0cf}\label{independent__sets_8c_acc38d159bc047fb88c533533f95be0cf}} 
+\index{independent\_sets.c@{independent\_sets.c}!independent\_set\_fixed@{independent\_set\_fixed}}
+\index{independent\_set\_fixed@{independent\_set\_fixed}!independent\_sets.c@{independent\_sets.c}}
+\doxysubsubsection{\texorpdfstring{independent\_set\_fixed()}{independent\_set\_fixed()}}
+{\footnotesize\ttfamily int independent\+\_\+set\+\_\+fixed (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const}]{p }\end{DoxyParamCaption})}
+
+Generate independent sets for each poly\+\_\+type. This algorithm uses n+1 sets to store the particles, with n the number of bonds of the particle with the most bonds. It is much faster then the \char`\"{}simple algorithm\char`\"{} for very long chains. 
+\begin{DoxyParams}{Parameters}
+{\em p} & \mbox{\hyperlink{structPhase}{Phase}} for which the polymers are assigned to sets \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Errorcode 
+\end{DoxyReturn}
+\mbox{\Hypertarget{independent__sets_8c_a6f672a7b13143205fcfc6ea8b00a2a70}\label{independent__sets_8c_a6f672a7b13143205fcfc6ea8b00a2a70}} 
+\index{independent\_sets.c@{independent\_sets.c}!independent\_sets\_one\_polymer@{independent\_sets\_one\_polymer}}
+\index{independent\_sets\_one\_polymer@{independent\_sets\_one\_polymer}!independent\_sets.c@{independent\_sets.c}}
+\doxysubsubsection{\texorpdfstring{independent\_sets\_one\_polymer()}{independent\_sets\_one\_polymer()}}
+{\footnotesize\ttfamily int independent\+\_\+sets\+\_\+one\+\_\+polymer (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structIndependetSets}{Independet\+Sets}} $\ast$$\ast$const}]{set\+\_\+tmp\+\_\+pointer,  }\item[{unsigned int}]{n\+\_\+poly,  }\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const}]{p }\end{DoxyParamCaption})}
+
+Private funtion, to be used in combination with \mbox{\hyperlink{independent__sets_8h_acc38d159bc047fb88c533533f95be0cf}{independent\+\_\+set\+\_\+fixed()}}. This function calculates independent sets for a single chain. 
+\begin{DoxyParams}{Parameters}
+{\em set\+\_\+tmp\+\_\+pointer} & The pointer to the array that stores all set information \\
+\hline
+{\em n\+\_\+poly} & The current poly\+\_\+type \\
+\hline
+{\em p} & \mbox{\hyperlink{structPhase}{Phase}} for which the polymers are assigned to sets \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Errorcode 
+\end{DoxyReturn}
+\mbox{\Hypertarget{independent__sets_8c_a237012879ec545930cdd09045eb2103f}\label{independent__sets_8c_a237012879ec545930cdd09045eb2103f}} 
+\index{independent\_sets.c@{independent\_sets.c}!independent\_sets\_simple@{independent\_sets\_simple}}
+\index{independent\_sets\_simple@{independent\_sets\_simple}!independent\_sets.c@{independent\_sets.c}}
+\doxysubsubsection{\texorpdfstring{independent\_sets\_simple()}{independent\_sets\_simple()}}
+{\footnotesize\ttfamily int independent\+\_\+sets\+\_\+simple (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const}]{p }\end{DoxyParamCaption})}
+
+Generate the independet set information for each poly\+\_\+type. 
+\begin{DoxyParams}{Parameters}
+{\em p} & \mbox{\hyperlink{structPhase}{Phase}} for which the polymers are assigned to sets \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Errorcode 
+\end{DoxyReturn}

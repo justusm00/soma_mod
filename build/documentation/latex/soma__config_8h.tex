@@ -1,0 +1,98 @@
+\hypertarget{soma__config_8h}{}\doxysection{soma\+\_\+config.\+h File Reference}
+\label{soma__config_8h}\index{soma\_config.h@{soma\_config.h}}
+
+
+configuration variables for SOMA File is configured by CMAKE.  
+
+
+This graph shows which files directly or indirectly include this file\+:
+% FIG 0
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{soma__config_8h_ae5ac2a4174532323e7777738a63fc876}{SINGLE\+\_\+\+PRECISION}}~0
+\item 
+\#define \mbox{\hyperlink{soma__config_8h_a8febd5c019d98293b85e42cea07c4bac}{ENABLE\+\_\+\+MIC}}~0
+\item 
+\#define \mbox{\hyperlink{soma__config_8h_a94e2fa14c67c283f0f39bfa6471ccd9b}{ENABLE\+\_\+\+DOMAIN\+\_\+\+DECOMPOSITION}}~0
+\item 
+\#define \mbox{\hyperlink{soma__config_8h_a0fb99dc06fe6737148e9bc9a28aaa111}{ENABLE\+\_\+\+MONOTYPE\+\_\+\+CONVERSIONS}}~0
+\item 
+\mbox{\Hypertarget{soma__config_8h_aa84164aed4ba3c6c236edde52de3930b}\label{soma__config_8h_aa84164aed4ba3c6c236edde52de3930b}} 
+\#define {\bfseries ENABLE\+\_\+\+MPI}~1
+\begin{DoxyCompactList}\small\item\em Macro indicating an MPI build. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{soma__config_8h_a78201192eac3b81665b787acddfa85c8}\label{soma__config_8h_a78201192eac3b81665b787acddfa85c8}} 
+\#define {\bfseries H5\+T\+\_\+\+SOMA\+\_\+\+NATIVE\+\_\+\+SCALAR}~H5\+T\+\_\+\+NATIVE\+\_\+\+DOUBLE
+\begin{DoxyCompactList}\small\item\em Alias for float of double variables in HDF5 memory. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{soma__config_8h_aaa9187c2c3849b2fdecd68b1f558ec5c}\label{soma__config_8h_aaa9187c2c3849b2fdecd68b1f558ec5c}} 
+\#define {\bfseries H5\+T\+\_\+\+SOMA\+\_\+\+FILE\+\_\+\+SCALAR}~H5\+T\+\_\+\+IEEE\+\_\+\+F64\+LE
+\begin{DoxyCompactList}\small\item\em Alias for float of double variables in HDF5 files. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{soma__config_8h_a89720bca3ab9949a16bbd785baf71147}\label{soma__config_8h_a89720bca3ab9949a16bbd785baf71147}} 
+\#define {\bfseries MPI\+\_\+\+SOMA\+\_\+\+SCALAR}~MPI\+\_\+\+DOUBLE
+\begin{DoxyCompactList}\small\item\em Alias for flow or double variable in MPI. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}\label{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}} 
+typedef double {\bfseries soma\+\_\+scalar\+\_\+t}
+\begin{DoxyCompactList}\small\item\em Alias for float or double variables. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+const char $\ast$ \mbox{\hyperlink{soma__config_8h_a21d9b6a2bb0335cea9851ccc49585d16}{get\+\_\+soma\+\_\+version}} (void)
+\item 
+const char $\ast$ \mbox{\hyperlink{soma__config_8h_a52448f217a9ae422448be244e63ba5a6}{get\+\_\+soma\+\_\+system\+\_\+info}} (void)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+configuration variables for SOMA File is configured by CMAKE. 
+
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{soma__config_8h_a94e2fa14c67c283f0f39bfa6471ccd9b}\label{soma__config_8h_a94e2fa14c67c283f0f39bfa6471ccd9b}} 
+\index{soma\_config.h@{soma\_config.h}!ENABLE\_DOMAIN\_DECOMPOSITION@{ENABLE\_DOMAIN\_DECOMPOSITION}}
+\index{ENABLE\_DOMAIN\_DECOMPOSITION@{ENABLE\_DOMAIN\_DECOMPOSITION}!soma\_config.h@{soma\_config.h}}
+\doxysubsubsection{\texorpdfstring{ENABLE\_DOMAIN\_DECOMPOSITION}{ENABLE\_DOMAIN\_DECOMPOSITION}}
+{\footnotesize\ttfamily \#define ENABLE\+\_\+\+DOMAIN\+\_\+\+DECOMPOSITION~0}
+
+Macro to activate domain decomposition support Automatically set by CMake \mbox{\Hypertarget{soma__config_8h_a8febd5c019d98293b85e42cea07c4bac}\label{soma__config_8h_a8febd5c019d98293b85e42cea07c4bac}} 
+\index{soma\_config.h@{soma\_config.h}!ENABLE\_MIC@{ENABLE\_MIC}}
+\index{ENABLE\_MIC@{ENABLE\_MIC}!soma\_config.h@{soma\_config.h}}
+\doxysubsubsection{\texorpdfstring{ENABLE\_MIC}{ENABLE\_MIC}}
+{\footnotesize\ttfamily \#define ENABLE\+\_\+\+MIC~0}
+
+Macro to activate MIC support Automatically set by CMake \mbox{\Hypertarget{soma__config_8h_a0fb99dc06fe6737148e9bc9a28aaa111}\label{soma__config_8h_a0fb99dc06fe6737148e9bc9a28aaa111}} 
+\index{soma\_config.h@{soma\_config.h}!ENABLE\_MONOTYPE\_CONVERSIONS@{ENABLE\_MONOTYPE\_CONVERSIONS}}
+\index{ENABLE\_MONOTYPE\_CONVERSIONS@{ENABLE\_MONOTYPE\_CONVERSIONS}!soma\_config.h@{soma\_config.h}}
+\doxysubsubsection{\texorpdfstring{ENABLE\_MONOTYPE\_CONVERSIONS}{ENABLE\_MONOTYPE\_CONVERSIONS}}
+{\footnotesize\ttfamily \#define ENABLE\+\_\+\+MONOTYPE\+\_\+\+CONVERSIONS~0}
+
+Macro to activate monomer type conversions Automatically set by CMake \mbox{\Hypertarget{soma__config_8h_ae5ac2a4174532323e7777738a63fc876}\label{soma__config_8h_ae5ac2a4174532323e7777738a63fc876}} 
+\index{soma\_config.h@{soma\_config.h}!SINGLE\_PRECISION@{SINGLE\_PRECISION}}
+\index{SINGLE\_PRECISION@{SINGLE\_PRECISION}!soma\_config.h@{soma\_config.h}}
+\doxysubsubsection{\texorpdfstring{SINGLE\_PRECISION}{SINGLE\_PRECISION}}
+{\footnotesize\ttfamily \#define SINGLE\+\_\+\+PRECISION~0}
+
+Macro to destinguish between SINGLE\+\_\+\+PRECISION and DOUBLE. Automatically set by CMake 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{soma__config_8h_a52448f217a9ae422448be244e63ba5a6}\label{soma__config_8h_a52448f217a9ae422448be244e63ba5a6}} 
+\index{soma\_config.h@{soma\_config.h}!get\_soma\_system\_info@{get\_soma\_system\_info}}
+\index{get\_soma\_system\_info@{get\_soma\_system\_info}!soma\_config.h@{soma\_config.h}}
+\doxysubsubsection{\texorpdfstring{get\_soma\_system\_info()}{get\_soma\_system\_info()}}
+{\footnotesize\ttfamily const char $\ast$ get\+\_\+soma\+\_\+system\+\_\+info (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Returns the string describing the system SOMA has been compiled. \begin{DoxyReturn}{Returns}
+Pointer to string. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{soma__config_8h_a21d9b6a2bb0335cea9851ccc49585d16}\label{soma__config_8h_a21d9b6a2bb0335cea9851ccc49585d16}} 
+\index{soma\_config.h@{soma\_config.h}!get\_soma\_version@{get\_soma\_version}}
+\index{get\_soma\_version@{get\_soma\_version}!soma\_config.h@{soma\_config.h}}
+\doxysubsubsection{\texorpdfstring{get\_soma\_version()}{get\_soma\_version()}}
+{\footnotesize\ttfamily const char $\ast$ get\+\_\+soma\+\_\+version (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Returns the version string. \begin{DoxyReturn}{Returns}
+Pointer to version string 
+\end{DoxyReturn}

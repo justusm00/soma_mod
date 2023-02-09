@@ -1,0 +1,89 @@
+\hypertarget{io__old_8h}{}\doxysection{io\+\_\+old.\+h File Reference}
+\label{io__old_8h}\index{io\_old.h@{io\_old.h}}
+
+
+File compiling functions for handling of older SOMA file formats.  
+
+
+{\ttfamily \#include \char`\"{}soma\+\_\+config.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$hdf5.\+h$>$}\newline
+Include dependency graph for io\+\_\+old.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{io__old_8h_a573821ea17ea3eeccdd26028ad640a24}{read\+\_\+old\+\_\+config}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$p, char $\ast$const filename)
+\item 
+int \mbox{\hyperlink{io__old_8h_a07da3d10f20b4c7c0dd386ec5fdd3792}{read\+\_\+old\+\_\+geometry}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$p, const char $\ast$filename)
+\item 
+int \mbox{\hyperlink{io__old_8h_ad92ee62c697158a2ec0524fced79a87f}{read\+\_\+beads0}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const p, const hid\+\_\+t file\+\_\+id, const hid\+\_\+t plist\+\_\+id)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+File compiling functions for handling of older SOMA file formats. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{io__old_8h_ad92ee62c697158a2ec0524fced79a87f}\label{io__old_8h_ad92ee62c697158a2ec0524fced79a87f}} 
+\index{io\_old.h@{io\_old.h}!read\_beads0@{read\_beads0}}
+\index{read\_beads0@{read\_beads0}!io\_old.h@{io\_old.h}}
+\doxysubsubsection{\texorpdfstring{read\_beads0()}{read\_beads0()}}
+{\footnotesize\ttfamily int read\+\_\+beads0 (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const}]{p,  }\item[{const hid\+\_\+t}]{file\+\_\+id,  }\item[{const hid\+\_\+t}]{plist\+\_\+id }\end{DoxyParamCaption})}
+
+Read beads from configuration file with deprectated version 0 \begin{DoxyRefDesc}{Deprecated}
+\item[\mbox{\hyperlink{deprecated__deprecated000005}{Deprecated}}]\end{DoxyRefDesc}
+
+\begin{DoxyParams}{Parameters}
+{\em p} & \mbox{\hyperlink{structPhase}{Phase}} into which the beads are read \\
+\hline
+{\em file\+\_\+id} & open HDF5 file \\
+\hline
+{\em plist\+\_\+id} & parameter for the access of the file. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Errorcode 
+\end{DoxyReturn}
+\mbox{\Hypertarget{io__old_8h_a573821ea17ea3eeccdd26028ad640a24}\label{io__old_8h_a573821ea17ea3eeccdd26028ad640a24}} 
+\index{io\_old.h@{io\_old.h}!read\_old\_config@{read\_old\_config}}
+\index{read\_old\_config@{read\_old\_config}!io\_old.h@{io\_old.h}}
+\doxysubsubsection{\texorpdfstring{read\_old\_config()}{read\_old\_config()}}
+{\footnotesize\ttfamily int read\+\_\+old\+\_\+config (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$}]{p,  }\item[{char $\ast$const}]{filename }\end{DoxyParamCaption})}
+
+Parser for old style coord.\+dat files \begin{DoxyRefDesc}{Deprecated}
+\item[\mbox{\hyperlink{deprecated__deprecated000003}{Deprecated}}]\end{DoxyRefDesc}
+
+\begin{DoxyParams}{Parameters}
+{\em p} & System where read data is stored. \\
+\hline
+{\em filename} & Filename to read in. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Errorcode 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+Assumed is that all polymers have the same type. This includes, that the particle type distribution is for all polymers identical. (The last specified in the input format.) If this is not the case choose option ENABLE\+\_\+\+MONOTYPE\+\_\+\+CONVERSIONS.
+\end{DoxyWarning}
+\mbox{\Hypertarget{io__old_8h_a07da3d10f20b4c7c0dd386ec5fdd3792}\label{io__old_8h_a07da3d10f20b4c7c0dd386ec5fdd3792}} 
+\index{io\_old.h@{io\_old.h}!read\_old\_geometry@{read\_old\_geometry}}
+\index{read\_old\_geometry@{read\_old\_geometry}!io\_old.h@{io\_old.h}}
+\doxysubsubsection{\texorpdfstring{read\_old\_geometry()}{read\_old\_geometry()}}
+{\footnotesize\ttfamily int read\+\_\+old\+\_\+geometry (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$}]{p,  }\item[{const char $\ast$}]{filename }\end{DoxyParamCaption})}
+
+Read in old geometry files. \begin{DoxyRefDesc}{Deprecated}
+\item[\mbox{\hyperlink{deprecated__deprecated000004}{Deprecated}}]\end{DoxyRefDesc}
+
+\begin{DoxyParams}{Parameters}
+{\em p} & \mbox{\hyperlink{structPhase}{Phase}} which is going to get the field added. \\
+\hline
+{\em filename} & Filename containing the info. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Errorcode 
+\end{DoxyReturn}

@@ -1,0 +1,118 @@
+\hypertarget{rng__alternative_8c}{}\doxysection{rng\+\_\+alternative.\+c File Reference}
+\label{rng__alternative_8c}\index{rng\_alternative.c@{rng\_alternative.c}}
+
+
+Implementation of \mbox{\hyperlink{rng__alternative_8h}{rng\+\_\+alternative.\+h}}.  
+
+
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$assert.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}phase.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}rng\+\_\+alternative.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}rng.\+h\char`\"{}}\newline
+Include dependency graph for rng\+\_\+alternative.\+c\+:
+% FIG 0
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{rng__alternative_8c_a1c99b091649b520fd0f9c2c76005f171}{soma\+\_\+seed\+\_\+rng\+\_\+mt}} (\mbox{\hyperlink{structPCG__STATE}{PCG\+\_\+\+STATE}} $\ast$rng, \mbox{\hyperlink{structMERSENNE__TWISTER__STATE}{MERSENNE\+\_\+\+TWISTER\+\_\+\+STATE}} $\ast$mt\+\_\+rng)
+\begin{DoxyCompactList}\small\item\em Set the seed of Mersenne-\/\+Twister with the PCG32. \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{rng__alternative_8c_a10ba90678ef312e67393c893f0ed1bf3}{soma\+\_\+mersenne\+\_\+twister}} (\mbox{\hyperlink{structMERSENNE__TWISTER__STATE}{MERSENNE\+\_\+\+TWISTER\+\_\+\+STATE}} $\ast$mt\+\_\+rng)
+\begin{DoxyCompactList}\small\item\em Mersenne-\/\+Twister. \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{rng__alternative_8c_ad29faca4d31da663e2d4a20e784448e9}{soma\+\_\+rng\+\_\+uint\+\_\+max\+\_\+mt}} ()
+\item 
+int \mbox{\hyperlink{rng__alternative_8c_ab8aff81ae81dcd44e89f770fbab55eb8}{soma\+\_\+seed\+\_\+rng\+\_\+tt800}} (\mbox{\hyperlink{structPCG__STATE}{PCG\+\_\+\+STATE}} $\ast$rng, \mbox{\hyperlink{structTT800STATE}{TT800\+STATE}} $\ast$tt800\+\_\+rng)
+\item 
+unsigned int \mbox{\hyperlink{rng__alternative_8c_a195aadb554a9e1603525f58e30adf629}{soma\+\_\+rng\+\_\+tt800}} (\mbox{\hyperlink{structTT800STATE}{TT800\+STATE}} $\ast$itt800\+\_\+rng)
+\begin{DoxyCompactList}\small\item\em Function which uses the reduced Mersenne-\/\+Twister TT800. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementation of \mbox{\hyperlink{rng__alternative_8h}{rng\+\_\+alternative.\+h}}. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{rng__alternative_8c_a10ba90678ef312e67393c893f0ed1bf3}\label{rng__alternative_8c_a10ba90678ef312e67393c893f0ed1bf3}} 
+\index{rng\_alternative.c@{rng\_alternative.c}!soma\_mersenne\_twister@{soma\_mersenne\_twister}}
+\index{soma\_mersenne\_twister@{soma\_mersenne\_twister}!rng\_alternative.c@{rng\_alternative.c}}
+\doxysubsubsection{\texorpdfstring{soma\_mersenne\_twister()}{soma\_mersenne\_twister()}}
+{\footnotesize\ttfamily unsigned int soma\+\_\+mersenne\+\_\+twister (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structMERSENNE__TWISTER__STATE}{MERSENNE\+\_\+\+TWISTER\+\_\+\+STATE}} $\ast$}]{mt\+\_\+rng }\end{DoxyParamCaption})}
+
+
+
+Mersenne-\/\+Twister. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mt\+\_\+rng} & is the struct which contains the internal state of the random number generator \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+uint32 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rng__alternative_8c_a195aadb554a9e1603525f58e30adf629}\label{rng__alternative_8c_a195aadb554a9e1603525f58e30adf629}} 
+\index{rng\_alternative.c@{rng\_alternative.c}!soma\_rng\_tt800@{soma\_rng\_tt800}}
+\index{soma\_rng\_tt800@{soma\_rng\_tt800}!rng\_alternative.c@{rng\_alternative.c}}
+\doxysubsubsection{\texorpdfstring{soma\_rng\_tt800()}{soma\_rng\_tt800()}}
+{\footnotesize\ttfamily unsigned int soma\+\_\+rng\+\_\+tt800 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structTT800STATE}{TT800\+STATE}} $\ast$}]{mt\+\_\+rng }\end{DoxyParamCaption})}
+
+
+
+Function which uses the reduced Mersenne-\/\+Twister TT800. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mt\+\_\+rng} & is the struct which contains the internal state of the random number generator \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+uint32 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rng__alternative_8c_ad29faca4d31da663e2d4a20e784448e9}\label{rng__alternative_8c_ad29faca4d31da663e2d4a20e784448e9}} 
+\index{rng\_alternative.c@{rng\_alternative.c}!soma\_rng\_uint\_max\_mt@{soma\_rng\_uint\_max\_mt}}
+\index{soma\_rng\_uint\_max\_mt@{soma\_rng\_uint\_max\_mt}!rng\_alternative.c@{rng\_alternative.c}}
+\doxysubsubsection{\texorpdfstring{soma\_rng\_uint\_max\_mt()}{soma\_rng\_uint\_max\_mt()}}
+{\footnotesize\ttfamily unsigned int soma\+\_\+rng\+\_\+uint\+\_\+max\+\_\+mt (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Status function to get the max random number.
+
+\begin{DoxyReturn}{Returns}
+Maximum generated rng by \mbox{\hyperlink{rng__alternative_8h_a10ba90678ef312e67393c893f0ed1bf3}{soma\+\_\+mersenne\+\_\+twister()}} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rng__alternative_8c_a1c99b091649b520fd0f9c2c76005f171}\label{rng__alternative_8c_a1c99b091649b520fd0f9c2c76005f171}} 
+\index{rng\_alternative.c@{rng\_alternative.c}!soma\_seed\_rng\_mt@{soma\_seed\_rng\_mt}}
+\index{soma\_seed\_rng\_mt@{soma\_seed\_rng\_mt}!rng\_alternative.c@{rng\_alternative.c}}
+\doxysubsubsection{\texorpdfstring{soma\_seed\_rng\_mt()}{soma\_seed\_rng\_mt()}}
+{\footnotesize\ttfamily int soma\+\_\+seed\+\_\+rng\+\_\+mt (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structPCG__STATE}{PCG\+\_\+\+STATE}} $\ast$}]{rng,  }\item[{\mbox{\hyperlink{structMERSENNE__TWISTER__STATE}{MERSENNE\+\_\+\+TWISTER\+\_\+\+STATE}} $\ast$}]{mt\+\_\+rng }\end{DoxyParamCaption})}
+
+
+
+Set the seed of Mersenne-\/\+Twister with the PCG32. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rng} & \\
+\hline
+{\em mt\+\_\+rng} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+uint32 
+\end{DoxyReturn}
+\mbox{\Hypertarget{rng__alternative_8c_ab8aff81ae81dcd44e89f770fbab55eb8}\label{rng__alternative_8c_ab8aff81ae81dcd44e89f770fbab55eb8}} 
+\index{rng\_alternative.c@{rng\_alternative.c}!soma\_seed\_rng\_tt800@{soma\_seed\_rng\_tt800}}
+\index{soma\_seed\_rng\_tt800@{soma\_seed\_rng\_tt800}!rng\_alternative.c@{rng\_alternative.c}}
+\doxysubsubsection{\texorpdfstring{soma\_seed\_rng\_tt800()}{soma\_seed\_rng\_tt800()}}
+{\footnotesize\ttfamily int soma\+\_\+seed\+\_\+rng\+\_\+tt800 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structPCG__STATE}{PCG\+\_\+\+STATE}} $\ast$}]{rng,  }\item[{\mbox{\hyperlink{structTT800STATE}{TT800\+STATE}} $\ast$}]{mt\+\_\+rng }\end{DoxyParamCaption})}
+
+Function initializes the internal state of thr reduced Mersenne-\/\+Twister TT800 with the PCG32 
+\begin{DoxyParams}{Parameters}
+{\em rng} & struct which contains all information about PCG32 \\
+\hline
+{\em mt\+\_\+rng} & is the struct which contains the internal state of the random number generator \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int 
+\end{DoxyReturn}

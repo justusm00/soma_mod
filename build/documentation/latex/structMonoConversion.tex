@@ -1,0 +1,53 @@
+\hypertarget{structMonoConversion}{}\doxysection{Mono\+Conversion Struct Reference}
+\label{structMonoConversion}\index{MonoConversion@{MonoConversion}}
+
+
+{\ttfamily \#include $<$monotype\+\_\+conversion.\+h$>$}
+
+\doxysubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structMonoConversion_af55a874d8f058303794f3b094666d063}\label{structMonoConversion_af55a874d8f058303794f3b094666d063}} 
+unsigned int {\bfseries delta\+MC}
+\begin{DoxyCompactList}\small\item\em control execution frequency of the conversion \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structMonoConversion_a667d2cd7c7b946b231830bd11c00fec8}\label{structMonoConversion_a667d2cd7c7b946b231830bd11c00fec8}} 
+uint8\+\_\+t $\ast$ {\bfseries array}
+\begin{DoxyCompactList}\small\item\em Array that contains the reaction start index of the conversion list. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structMonoConversion_a714783d58cb76f22fcb0b3fbd542fb59}\label{structMonoConversion_a714783d58cb76f22fcb0b3fbd542fb59}} 
+unsigned int $\ast$ {\bfseries input\+\_\+type}
+\begin{DoxyCompactList}\small\item\em Array that contains the input mono type for each reaction (educt) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structMonoConversion_a6e09991ac456d55953737032b2e7f005}\label{structMonoConversion_a6e09991ac456d55953737032b2e7f005}} 
+unsigned int $\ast$ {\bfseries output\+\_\+type}
+\begin{DoxyCompactList}\small\item\em Array that contains the output mono type for each reaction (product) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structMonoConversion_a34f903cedabff3e92ec462b13811a19f}\label{structMonoConversion_a34f903cedabff3e92ec462b13811a19f}} 
+unsigned int $\ast$ {\bfseries reaction\+\_\+end}
+\begin{DoxyCompactList}\small\item\em Array indicating if this is the last reaction in the list. (boolean) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structMonoConversion_a5dbfcd0060f4d56b994e42b68a1b5ddf}\label{structMonoConversion_a5dbfcd0060f4d56b994e42b68a1b5ddf}} 
+\mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} $\ast$ {\bfseries rate}
+\begin{DoxyCompactList}\small\item\em control execution probability of the conversion \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structMonoConversion_ab331279e0a91de6a250acfd2c59e7bfd}\label{structMonoConversion_ab331279e0a91de6a250acfd2c59e7bfd}} 
+unsigned int {\bfseries block\+\_\+size}
+\begin{DoxyCompactList}\small\item\em Contains the block size of all monomer conversions. If it is greater than one, conversion happens in blocks. WARNING\+: No checks whether blocks fit into the relevant polymers. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structMonoConversion_a2badf53f76b342d36c2244d00dd48bf4}\label{structMonoConversion_a2badf53f76b342d36c2244d00dd48bf4}} 
+unsigned int $\ast$ {\bfseries dependency\+\_\+ntype}
+\begin{DoxyCompactList}\small\item\em Array that contains the number of dependency indices. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structMonoConversion_a4a5b48004686d1e66d44aaf3955a8412}\label{structMonoConversion_a4a5b48004686d1e66d44aaf3955a8412}} 
+unsigned int $\ast$ {\bfseries dependency\+\_\+type\+\_\+offset}
+\begin{DoxyCompactList}\small\item\em Array that contains the start/offset of dependency indices. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structMonoConversion_a601dd730a90eb8b3920830760690f3ec}\label{structMonoConversion_a601dd730a90eb8b3920830760690f3ec}} 
+unsigned int $\ast$ {\bfseries dependency\+\_\+type}
+\begin{DoxyCompactList}\small\item\em Array that contains the dependency types. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structMonoConversion_a484281dc98323dac0147b35bcc04665e}\label{structMonoConversion_a484281dc98323dac0147b35bcc04665e}} 
+unsigned int {\bfseries len\+\_\+reactions}
+\begin{DoxyCompactList}\small\item\em length of the reaction related arrays input\+\_\+type, output\+\_\+type and reaction\+\_\+end \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structMonoConversion_ac6374db20cb9a2ca2917b26891bf9a17}\label{structMonoConversion_ac6374db20cb9a2ca2917b26891bf9a17}} 
+unsigned int {\bfseries len\+\_\+dependencies}
+\begin{DoxyCompactList}\small\item\em length of the density dependency array dependency\+\_\+type (=sum over dependency\+\_\+ntype) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Top level struct for monomer type conversions. controls the execution frequency. All other fields are only valid, if delta\+MC != 0 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+monotype\+\_\+conversion.\+h\end{DoxyCompactItemize}

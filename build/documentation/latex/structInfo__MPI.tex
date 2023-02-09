@@ -1,0 +1,55 @@
+\hypertarget{structInfo__MPI}{}\doxysection{Info\+\_\+\+MPI Struct Reference}
+\label{structInfo__MPI}\index{Info\_MPI@{Info\_MPI}}
+
+
+All information about the MPI setup. Information about the MPI setup of the simulation. There are three different levels in the MPI hierachy.  
+
+
+
+
+{\ttfamily \#include $<$mpiroutines.\+h$>$}
+
+\doxysubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structInfo__MPI_ab920183f3ffba4148869189c8f25a5c3}\label{structInfo__MPI_ab920183f3ffba4148869189c8f25a5c3}} 
+int {\bfseries world\+\_\+rank}
+\begin{DoxyCompactList}\small\item\em Rank of the world communicator. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structInfo__MPI_a824cf31442b716cc9f6adad2c1427b2b}\label{structInfo__MPI_a824cf31442b716cc9f6adad2c1427b2b}} 
+int {\bfseries world\+\_\+size}
+\begin{DoxyCompactList}\small\item\em Size of the world communicator. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structInfo__MPI_af3e7b91998f2e082ffd40e7c490e4666}\label{structInfo__MPI_af3e7b91998f2e082ffd40e7c490e4666}} 
+int {\bfseries sim\+\_\+size}
+\begin{DoxyCompactList}\small\item\em Size of the simulation communicator. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structInfo__MPI_ac628a8ae90a49636e736040a3904984b}\label{structInfo__MPI_ac628a8ae90a49636e736040a3904984b}} 
+int {\bfseries sim\+\_\+rank}
+\begin{DoxyCompactList}\small\item\em Rank of the simulation communicator. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structInfo__MPI_a286b2bd0f748fbd766ef3de6b4ff7e58}\label{structInfo__MPI_a286b2bd0f748fbd766ef3de6b4ff7e58}} 
+int {\bfseries domain\+\_\+size}
+\begin{DoxyCompactList}\small\item\em Size of a single domain communicator. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structInfo__MPI_ae1e8d27122b385761f1d8cb53e2cfe50}\label{structInfo__MPI_ae1e8d27122b385761f1d8cb53e2cfe50}} 
+int {\bfseries domain\+\_\+rank}
+\begin{DoxyCompactList}\small\item\em Rank of a single domain communicator. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structInfo__MPI_a457179350bfb612ae8484defb31f01c9}\label{structInfo__MPI_a457179350bfb612ae8484defb31f01c9}} 
+int {\bfseries gpu\+\_\+id}
+\begin{DoxyCompactList}\small\item\em ID of the GPU used. if \texorpdfstring{$<$}{<} 0 no GPU used on this rank. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structInfo__MPI_a0b69a6d54f549b979834128b508b8ea2}\label{structInfo__MPI_a0b69a6d54f549b979834128b508b8ea2}} 
+double {\bfseries domain\+\_\+divergence\+\_\+sec}
+\begin{DoxyCompactList}\small\item\em Store MPI divergence in between domain ranks. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structInfo__MPI_a8864899aa7d2902f22896724c5b2a959}\label{structInfo__MPI_a8864899aa7d2902f22896724c5b2a959}} 
+unsigned int {\bfseries domain\+\_\+divergence\+\_\+counter}
+\begin{DoxyCompactList}\small\item\em Counter for the MPI divergence in between domain ranks. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+All information about the MPI setup. Information about the MPI setup of the simulation. There are three different levels in the MPI hierachy. 
+
+a) WORLD\+: This is the coarsed level and contains all MPI ranks assigned to the simulation via mpiexec
+
+b) SIMULATION\+: The world communicator can be split in multiple simulations. Each simulation is basically an indepent instance of SOMA. Each simulation can simulate a different system and is usually supplied by an individual input file and analysis file. SOMA itself does not do any communication between different simulations. For meta-\/dynamics like the string algorithms this instance is useful. Each simulation can be split into multiple domains.
+
+c) DOMAIN\+: A simulation can be split into different spatial domains. This finest level is used to communicate between the different domains. Each domain can have multiple mpi ranks. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{mpiroutines_8h}{mpiroutines.\+h}}\end{DoxyCompactItemize}

@@ -1,0 +1,48 @@
+\hypertarget{self__documentation_8h_source}{}\doxysection{self\+\_\+documentation.\+h}
+\label{self__documentation_8h_source}\index{self\_documentation.h@{self\_documentation.h}}
+\mbox{\hyperlink{self__documentation_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{/* Copyright (C) 2020-\/2021 Ludwig Schneider}}
+\DoxyCodeLine{2 \textcolor{comment}{}}
+\DoxyCodeLine{3 \textcolor{comment}{ This file is part of SOMA.}}
+\DoxyCodeLine{4 \textcolor{comment}{}}
+\DoxyCodeLine{5 \textcolor{comment}{ SOMA is free software: you can redistribute it and/or modify}}
+\DoxyCodeLine{6 \textcolor{comment}{ it under the terms of the GNU Lesser General Public License as published by}}
+\DoxyCodeLine{7 \textcolor{comment}{ the Free Software Foundation, either version 3 of the License, or}}
+\DoxyCodeLine{8 \textcolor{comment}{ (at your option) any later version.}}
+\DoxyCodeLine{9 \textcolor{comment}{}}
+\DoxyCodeLine{10 \textcolor{comment}{ SOMA is distributed in the hope that it will be useful,}}
+\DoxyCodeLine{11 \textcolor{comment}{ but WITHOUT ANY WARRANTY; without even the implied warranty of}}
+\DoxyCodeLine{12 \textcolor{comment}{ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the}}
+\DoxyCodeLine{13 \textcolor{comment}{ GNU Lesser General Public License for more details.}}
+\DoxyCodeLine{14 \textcolor{comment}{}}
+\DoxyCodeLine{15 \textcolor{comment}{ You should have received a copy of the GNU Lesser General Public License}}
+\DoxyCodeLine{16 \textcolor{comment}{ along with SOMA.  If not, see <http://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{17 \textcolor{comment}{*/}}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22 \textcolor{preprocessor}{\#ifndef SELF\_DOCUMENTATION\_H}}
+\DoxyCodeLine{23 \textcolor{preprocessor}{\#define SELF\_DOCUMENTATION\_H}}
+\DoxyCodeLine{24 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{soma__config_8h}{soma\_config.h}}"{}}}
+\DoxyCodeLine{25 \textcolor{preprocessor}{\#include <stdio.h>}}
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#include <hdf5.h>}}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{28 \textcolor{keyword}{struct }\mbox{\hyperlink{structPhase}{Phase}};}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{34 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structSelfDocumentation}{SelfDocumentation}} \{}
+\DoxyCodeLine{35     \textcolor{keywordtype}{char} **\mbox{\hyperlink{structSelfDocumentation_a37c089f1d875c0fad2bb2ac383e69dfe}{simdoc}};              }
+\DoxyCodeLine{36     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structSelfDocumentation_a449d680ddd580448aa8cb8010dac0bf4}{Ndoc}};          }
+\DoxyCodeLine{37     \textcolor{keywordtype}{char} *\mbox{\hyperlink{structSelfDocumentation_a290a7c28bceafeb33c4a7f3b17d7b95c}{simdoc\_internal}};      }
+\DoxyCodeLine{38 \} \mbox{\hyperlink{structSelfDocumentation}{SelfDocumentation}};}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{46 \textcolor{keywordtype}{int} \mbox{\hyperlink{self__documentation_8h_a5490bf3490a895a733f9e8eab5f049b5}{init\_self\_documentation}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structPhase}{Phase}} *p, \textcolor{keywordtype}{char} *filename, \textcolor{keyword}{struct} \mbox{\hyperlink{structSelfDocumentation}{SelfDocumentation}} *sd);}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{55 \textcolor{keywordtype}{int} \mbox{\hyperlink{self__documentation_8h_a201ffd949f3f095e9b32194f8842354b}{add\_self\_documentation\_to\_hdf5}}(\textcolor{keyword}{const} \mbox{\hyperlink{structSelfDocumentation}{SelfDocumentation}} * sd, \textcolor{keyword}{const} hid\_t file\_id, \textcolor{keyword}{const} hid\_t plist\_id);}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{61 \textcolor{keywordtype}{int} \mbox{\hyperlink{self__documentation_8h_a55b2d3df9569adb2fd78648940140ed1}{free\_self\_documentation}}(\mbox{\hyperlink{structSelfDocumentation}{SelfDocumentation}} * sd);}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{68 \textcolor{keywordtype}{int} \mbox{\hyperlink{self__documentation_8h_a43c395f25e89e3cbd9e495df12a80702}{print\_self\_documentation}}(\mbox{\hyperlink{structSelfDocumentation}{SelfDocumentation}} * sd, FILE * f);}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{70 \textcolor{preprocessor}{\#endif                          }\textcolor{comment}{//SELF\_DOCUMENTATION\_H}}
+
+\end{DoxyCode}

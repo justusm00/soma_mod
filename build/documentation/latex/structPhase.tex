@@ -1,0 +1,426 @@
+\hypertarget{structPhase}{}\doxysection{Phase Struct Reference}
+\label{structPhase}\index{Phase@{Phase}}
+
+
+All relevant information for a system configuration.  
+
+
+
+
+{\ttfamily \#include $<$phase.\+h$>$}
+
+
+
+Collaboration diagram for Phase\+:
+% FIG 0
+\doxysubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structPhase_ad56c8aa077dfc8feb969ada060edcf07}\label{structPhase_ad56c8aa077dfc8feb969ada060edcf07}} 
+bool {\bfseries present\+\_\+on\+\_\+device}
+\begin{DoxyCompactList}\small\item\em Indicator if the whole system is present of the GPU. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_a498b047d9909c58453f1770905cdef1c}\label{structPhase_a498b047d9909c58453f1770905cdef1c}} 
+unsigned int {\bfseries reference\+\_\+\+Nbeads}
+\begin{DoxyCompactList}\small\item\em number of reference beads for the model polymer \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_af0ad82bb6f5f43a4a3db9f9bc5dc67ec}\label{structPhase_af0ad82bb6f5f43a4a3db9f9bc5dc67ec}} 
+\mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} {\bfseries harmonic\+\_\+normb}
+\begin{DoxyCompactList}\small\item\em Harmonic energy scale (function of spring constant) const. at runtime. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_a007c0ec7e3d651ebe7e724bc43aa99d4}\label{structPhase_a007c0ec7e3d651ebe7e724bc43aa99d4}} 
+\mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} {\bfseries harmonic\+\_\+normb\+\_\+variable\+\_\+scale}
+\begin{DoxyCompactList}\small\item\em different harmonic energy scale (function of spring constant) const. at runtime. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_ad6ce7e951848d3f2fa0e9e22f6ad2b76}\label{structPhase_ad6ce7e951848d3f2fa0e9e22f6ad2b76}} 
+unsigned int {\bfseries n\+\_\+types}
+\begin{DoxyCompactList}\small\item\em number of monomer types \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_a2642ea9428c61e91ec2398090e02ffc3}\label{structPhase_a2642ea9428c61e91ec2398090e02ffc3}} 
+\mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} $\ast$ {\bfseries xn}
+\begin{DoxyCompactList}\small\item\em $\chi N$ 2D matrix with monomer type Flory-\/\+Huggins interactions, trace contains compressibility $\kappa_i$. Continous memory layout. Access like p-\/\texorpdfstring{$>$}{>}xn\mbox{[} i$\ast$ p-\/\texorpdfstring{$>$}{>}n\+\_\+types + j\mbox{]}; \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_a210027ca6c196b5637264fadad5297fd}\label{structPhase_a210027ca6c196b5637264fadad5297fd}} 
+uint64\+\_\+t {\bfseries n\+\_\+polymers}
+\begin{DoxyCompactList}\small\item\em \#polymers in the configuration. (Local on the MPI node.) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_ae5ae24c63c4db6aabbcd45581a0be552}\label{structPhase_ae5ae24c63c4db6aabbcd45581a0be552}} 
+uint64\+\_\+t {\bfseries n\+\_\+polymers\+\_\+storage}
+\begin{DoxyCompactList}\small\item\em Storage space for polymers. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_aee9a47c80efb9fc9eae9753203400da5}\label{structPhase_aee9a47c80efb9fc9eae9753203400da5}} 
+uint64\+\_\+t {\bfseries n\+\_\+polymers\+\_\+global}
+\begin{DoxyCompactList}\small\item\em \#polymers in the global configuration. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_adbc451d17671915320b5bb883298b1fc}\label{structPhase_adbc451d17671915320b5bb883298b1fc}} 
+\mbox{\hyperlink{structPolymer}{Polymer}} $\ast$ {\bfseries polymers}
+\begin{DoxyCompactList}\small\item\em pointer to array of polymers \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_a0bd8be94c6451e7948f5e88e92ee80bb}\label{structPhase_a0bd8be94c6451e7948f5e88e92ee80bb}} 
+uint16\+\_\+t $\ast$ {\bfseries fields\+\_\+unified}
+\begin{DoxyCompactList}\small\item\em one pointer that points to the construct of p-\/\texorpdfstring{$>$}{>}n\+\_\+types $\ast$ p-\/\texorpdfstring{$>$}{>}n\+\_\+cells\+\_\+local of fields \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_a523dae41156b0a636f634581bb43a56e}\label{structPhase_a523dae41156b0a636f634581bb43a56e}} 
+uint16\+\_\+t $\ast$ {\bfseries old\+\_\+fields\+\_\+unified}
+\begin{DoxyCompactList}\small\item\em one pointer that points to the construct of p-\/\texorpdfstring{$>$}{>}n\+\_\+types $\ast$ p-\/\texorpdfstring{$>$}{>}n\+\_\+cells\+\_\+local of old fields for density variance calculations \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_aa73b8959d29ffbee3a330cf8dbd84be7}\label{structPhase_aa73b8959d29ffbee3a330cf8dbd84be7}} 
+uint32\+\_\+t $\ast$ {\bfseries fields\+\_\+32}
+\begin{DoxyCompactList}\small\item\em linear 32 bit version of the fields. This is required for GPU-\/simulation, because no 16-\/bit atomic operations are available. \end{DoxyCompactList}\item 
+uint8\+\_\+t $\ast$ \mbox{\hyperlink{structPhase_ab022ef2b1ee3956abf65a48c6bb5e8ac}{area51}}
+\begin{DoxyCompactList}\small\item\em array of shape of field, containing the information if this cell is free space or not. == 0 is a free cell, !=0 is a forbidden cell. If the pointer is set to NULL, the entire simulation box, contains no forbidden cells. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_ac94db116eda3f3e14aa56708b5d23b08}\label{structPhase_ac94db116eda3f3e14aa56708b5d23b08}} 
+\mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} $\ast$ {\bfseries omega\+\_\+field\+\_\+unified}
+\begin{DoxyCompactList}\small\item\em calculates the omega fields according to the Hamiltonian, unified access \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_a6c4cf92264ecb85d40f5d87f4c6b178a}\label{structPhase_a6c4cf92264ecb85d40f5d87f4c6b178a}} 
+\mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} $\ast$ {\bfseries external\+\_\+field\+\_\+unified}
+\begin{DoxyCompactList}\small\item\em one pointer that points to the construct of p-\/\texorpdfstring{$>$}{>}n\+\_\+types $\ast$ p-\/\texorpdfstring{$>$}{>}n\+\_\+cells\+\_\+local of external\+\_\+fields \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_a8eb38bee8ea783d917e0909683671702}\label{structPhase_a8eb38bee8ea783d917e0909683671702}} 
+\mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} $\ast$ {\bfseries umbrella\+\_\+field}
+\begin{DoxyCompactList}\small\item\em one pointer that points to the construct of p-\/\texorpdfstring{$>$}{>}n\+\_\+types $\ast$ p-\/\texorpdfstring{$>$}{>}n\+\_\+cells\+\_\+local of umbrella\+\_\+field \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_a6b571206a8662d93b775813ad864442b}\label{structPhase_a6b571206a8662d93b775813ad864442b}} 
+\mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} $\ast$ {\bfseries tempfield}
+\begin{DoxyCompactList}\small\item\em a temporal storage for intermediate field calculations, used to save the complete density \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_a3117923a2240a40c38be80ced023bd43}\label{structPhase_a3117923a2240a40c38be80ced023bd43}} 
+\mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} $\ast$ {\bfseries A}
+\begin{DoxyCompactList}\small\item\em stores the diffusion constants for each type \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_ad08ab604441b88c3041402d3fdfd41d8}\label{structPhase_ad08ab604441b88c3041402d3fdfd41d8}} 
+\mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} $\ast$ {\bfseries R}
+\begin{DoxyCompactList}\small\item\em stores the derived dR for the diffusion constant \end{DoxyCompactList}\item 
+\mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} $\ast$ \mbox{\hyperlink{structPhase_aa90f25c68837b1ae1c272402cd0c2fb7}{cm\+\_\+a}}
+\item 
+\mbox{\Hypertarget{structPhase_a247328f03752521a4272dd007c169c58}\label{structPhase_a247328f03752521a4272dd007c169c58}} 
+unsigned int {\bfseries n\+\_\+tries\+\_\+cm}
+\begin{DoxyCompactList}\small\item\em Tries of the cm moves. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_a22e1695ef7c353215319aefc34d37e8c}\label{structPhase_a22e1695ef7c353215319aefc34d37e8c}} 
+unsigned int {\bfseries n\+\_\+acc\+\_\+cm}
+\begin{DoxyCompactList}\small\item\em Accepted moves of the cm. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_a091aef727f4b8dccd8b86982c6bad519}\label{structPhase_a091aef727f4b8dccd8b86982c6bad519}} 
+\mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} $\ast$ {\bfseries field\+\_\+scaling\+\_\+type}
+\begin{DoxyCompactList}\small\item\em stores the scaling factor according to the density \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_a51f211c07ebd5115a0b3d4f68fbe5670}\label{structPhase_a51f211c07ebd5115a0b3d4f68fbe5670}} 
+\mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} $\ast$ {\bfseries k\+\_\+umbrella}
+\begin{DoxyCompactList}\small\item\em Strength prefactor for the umbrella Hamiltonians for each type, if needed. Default 0. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_a1a340a596384c250da424b96b91dae95}\label{structPhase_a1a340a596384c250da424b96b91dae95}} 
+unsigned int {\bfseries time}
+\begin{DoxyCompactList}\small\item\em MC steps into the simulation. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_a5bacc5083641997fb38c338e89ba017a}\label{structPhase_a5bacc5083641997fb38c338e89ba017a}} 
+uint64\+\_\+t {\bfseries num\+\_\+all\+\_\+beads}
+\begin{DoxyCompactList}\small\item\em Number of all monomer/beads in the global system. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_ac5c9704b1bc4f610ce6759a7e374a412}\label{structPhase_ac5c9704b1bc4f610ce6759a7e374a412}} 
+uint64\+\_\+t {\bfseries num\+\_\+all\+\_\+beads\+\_\+local}
+\begin{DoxyCompactList}\small\item\em Number of all monomer/beads on the local MPI core. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_aef863d4054bba9f1bb064f7725b6ecfe}\label{structPhase_aef863d4054bba9f1bb064f7725b6ecfe}} 
+uint64\+\_\+t {\bfseries n\+\_\+accessible\+\_\+cells}
+\begin{DoxyCompactList}\small\item\em Global number of cells of the grid that are accessible by particles (not-\/area51) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_a2329909fa78c33912eaf8a29ce0ab063}\label{structPhase_a2329909fa78c33912eaf8a29ce0ab063}} 
+unsigned int {\bfseries nx}
+\begin{DoxyCompactList}\small\item\em x-\/spatial discretization \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_a15694b05ef83dc4969168d747c6f6075}\label{structPhase_a15694b05ef83dc4969168d747c6f6075}} 
+unsigned int {\bfseries ny}
+\begin{DoxyCompactList}\small\item\em y-\/spatial discretization \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_a74a2c423b591fc35b13fc6b363600490}\label{structPhase_a74a2c423b591fc35b13fc6b363600490}} 
+unsigned int {\bfseries nz}
+\begin{DoxyCompactList}\small\item\em z-\/spatial discretization \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_afe88da4a6c38a0e3048ea8aff34ffb6b}\label{structPhase_afe88da4a6c38a0e3048ea8aff34ffb6b}} 
+uint64\+\_\+t {\bfseries n\+\_\+cells}
+\begin{DoxyCompactList}\small\item\em number of cells in the field \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_af37cab52be36b6c180cb481105d2a670}\label{structPhase_af37cab52be36b6c180cb481105d2a670}} 
+\mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} {\bfseries Lx}
+\begin{DoxyCompactList}\small\item\em x-\/spatial dimensions in units of $ Re_0 $ \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_a43f5b1d85c34c859052bd6177fcca271}\label{structPhase_a43f5b1d85c34c859052bd6177fcca271}} 
+\mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} {\bfseries Ly}
+\begin{DoxyCompactList}\small\item\em y-\/spatial dimensions in units of $ Re_0 $ \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_a4a4685eb844566059d9a1f5674403078}\label{structPhase_a4a4685eb844566059d9a1f5674403078}} 
+\mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} {\bfseries Lz}
+\begin{DoxyCompactList}\small\item\em z-\/spatial dimensions in units of $ Re_0 $ \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_a125e51c2d5f0cd14ba2a1939075c72d5}\label{structPhase_a125e51c2d5f0cd14ba2a1939075c72d5}} 
+\mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} {\bfseries i\+Lx}
+\begin{DoxyCompactList}\small\item\em inverse x-\/spatial dimensions in units of $ Re_0 $ \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_acd19c1ef72c6a2534a99da6dbe0e45e4}\label{structPhase_acd19c1ef72c6a2534a99da6dbe0e45e4}} 
+\mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} {\bfseries i\+Ly}
+\begin{DoxyCompactList}\small\item\em inverse y-\/spatial dimensions in units of $ Re_0 $ \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_ade123101d46902023cb1f53af6244d79}\label{structPhase_ade123101d46902023cb1f53af6244d79}} 
+\mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} {\bfseries i\+Lz}
+\begin{DoxyCompactList}\small\item\em inverse z-\/spatial dimensions in units of $ Re_0 $ \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_a7a0cba7aa179de61aeffc9a0440c4e12}\label{structPhase_a7a0cba7aa179de61aeffc9a0440c4e12}} 
+int {\bfseries local\+\_\+nx\+\_\+low}
+\begin{DoxyCompactList}\small\item\em Lowest Nx available on local domain. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_ad3b5852e00ad8767519325975d86491f}\label{structPhase_ad3b5852e00ad8767519325975d86491f}} 
+int {\bfseries local\+\_\+nx\+\_\+high}
+\begin{DoxyCompactList}\small\item\em Highest Nx available on local domain. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_af97653c4b2db4593eadc65d9aa9ffb4e}\label{structPhase_af97653c4b2db4593eadc65d9aa9ffb4e}} 
+uint64\+\_\+t {\bfseries n\+\_\+cells\+\_\+local}
+\begin{DoxyCompactList}\small\item\em Number of locally available cells. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_a137f6fa32b1fd5422235a34ab5053dbe}\label{structPhase_a137f6fa32b1fd5422235a34ab5053dbe}} 
+uint16\+\_\+t $\ast$ {\bfseries left\+\_\+tmp\+\_\+buffer}
+\begin{DoxyCompactList}\small\item\em If not NULL\+: Temporary memory of size domain\+\_\+buffer$\ast$ny$\ast$nz for MPI communication. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_a7f4fbd4c60d2f6a92aa3ea6aa9a077b0}\label{structPhase_a7f4fbd4c60d2f6a92aa3ea6aa9a077b0}} 
+uint16\+\_\+t $\ast$ {\bfseries right\+\_\+tmp\+\_\+buffer}
+\begin{DoxyCompactList}\small\item\em If not NULL\+: Temporary memory of size domain\+\_\+buffer$\ast$ny$\ast$nz for MPI communication. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_a41f1d98be2b095e8a2ced086930ebb20}\label{structPhase_a41f1d98be2b095e8a2ced086930ebb20}} 
+unsigned long int {\bfseries n\+\_\+moves}
+\begin{DoxyCompactList}\small\item\em total number of moves \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_aea14634e11db432a321027cdfd7bd97f}\label{structPhase_aea14634e11db432a321027cdfd7bd97f}} 
+unsigned long int {\bfseries n\+\_\+accepts}
+\begin{DoxyCompactList}\small\item\em accepted moves \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_a14cb8ee52f9bb8898eda965ce117dde3}\label{structPhase_a14cb8ee52f9bb8898eda965ce117dde3}} 
+\mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} {\bfseries msd\+\_\+old}
+\begin{DoxyCompactList}\small\item\em store the MSD from n steps ago \end{DoxyCompactList}\item 
+unsigned int $\ast$ \mbox{\hyperlink{structPhase_aaa1e4428829001f6697bf04ce0beae08}{end\+\_\+mono}}
+\item 
+\mbox{\Hypertarget{structPhase_a420f2b68f705060c1745c3519d802c72}\label{structPhase_a420f2b68f705060c1745c3519d802c72}} 
+\mbox{\hyperlink{structInfo__MPI}{Info\+\_\+\+MPI}} {\bfseries info\+\_\+\+MPI}
+\begin{DoxyCompactList}\small\item\em stores all information regarding MPI \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_ab93c44d696c038932b95e6ffa5b8f16b}\label{structPhase_ab93c44d696c038932b95e6ffa5b8f16b}} 
+\mbox{\hyperlink{structAna__Info}{Ana\+\_\+\+Info}} {\bfseries ana\+\_\+info}
+\begin{DoxyCompactList}\small\item\em Bundled info about the output routines. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_a7c9c6f547d0a7b5ce133bb90b15e93d1}\label{structPhase_a7c9c6f547d0a7b5ce133bb90b15e93d1}} 
+unsigned int {\bfseries n\+\_\+poly\+\_\+type}
+\begin{DoxyCompactList}\small\item\em Number of different polymer architectures. \end{DoxyCompactList}\item 
+int $\ast$ \mbox{\hyperlink{structPhase_a881e005cf1d786294bacf6b5eec0b830}{poly\+\_\+type\+\_\+offset}}
+\item 
+\mbox{\Hypertarget{structPhase_aad36de16ebf61918e29d72c4a2b0558c}\label{structPhase_aad36de16ebf61918e29d72c4a2b0558c}} 
+unsigned int {\bfseries poly\+\_\+arch\+\_\+length}
+\begin{DoxyCompactList}\small\item\em Length of the poly\+\_\+arch array. \end{DoxyCompactList}\item 
+uint32\+\_\+t $\ast$ \mbox{\hyperlink{structPhase_a0abcac9250003ec820e2d68e9ff2bcf2}{poly\+\_\+arch}}
+\item 
+\mbox{\Hypertarget{structPhase_af8a0cdf69874e252855d8d3c6c2189ce}\label{structPhase_af8a0cdf69874e252855d8d3c6c2189ce}} 
+struct \mbox{\hyperlink{structsom__args}{som\+\_\+args}} {\bfseries args}
+\begin{DoxyCompactList}\small\item\em Struct containing the command line arguments. \end{DoxyCompactList}\item 
+struct timeval \mbox{\hyperlink{structPhase_ab92a62ba40a8b1e6b29704d5c209e813}{start\+\_\+clock}}
+\begin{DoxyCompactList}\small\item\em clock value close to the start of SOMA. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_a962b395e913a670334268a6e3caf7008}\label{structPhase_a962b395e913a670334268a6e3caf7008}} 
+unsigned int {\bfseries start\+\_\+time}
+\begin{DoxyCompactList}\small\item\em Start time of this simulation. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_a3fa7bd919ca2b58c266e37819c206b1a}\label{structPhase_a3fa7bd919ca2b58c266e37819c206b1a}} 
+bool {\bfseries bead\+\_\+data\+\_\+read}
+\begin{DoxyCompactList}\small\item\em Indiciates, whether bead data have been read from the input file. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_a08d9ae5b0a3dbef18cb6cbcf8e896911}\label{structPhase_a08d9ae5b0a3dbef18cb6cbcf8e896911}} 
+bool {\bfseries mt\+\_\+data\+\_\+read}
+\begin{DoxyCompactList}\small\item\em Indiciates, whether monomer type data has been read from the input file. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} \mbox{\hyperlink{structPhase_aa7b7015f792729d3371aeeb1cb7d2868}{max\+\_\+safe\+\_\+jump}}
+\item 
+\mbox{\Hypertarget{structPhase_aea621645ba3a873d55780ab1728afa37}\label{structPhase_aea621645ba3a873d55780ab1728afa37}} 
+enum \mbox{\hyperlink{soma__util_8h_a5b999d34f5aafaa8aa0bcb085bf4b478}{Hamiltonian}} {\bfseries hamiltonian}
+\begin{DoxyCompactList}\small\item\em Selected hamiltonian for non-\/bonded interaction. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structIndependetSets}{Independet\+Sets}} $\ast$ \mbox{\hyperlink{structPhase_a9545091ac35c0a08fe8bb92f46585ec4}{sets}}
+\item 
+\mbox{\Hypertarget{structPhase_af535792664cfffe7fb766c35caacb3f0}\label{structPhase_af535792664cfffe7fb766c35caacb3f0}} 
+unsigned int {\bfseries max\+\_\+set\+\_\+members}
+\begin{DoxyCompactList}\small\item\em Number of max members in an independet set. Used for the length of polymer states. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_a4d284788b865c2b20d4c0b0e0885aee2}\label{structPhase_a4d284788b865c2b20d4c0b0e0885aee2}} 
+unsigned int {\bfseries max\+\_\+n\+\_\+sets}
+\begin{DoxyCompactList}\small\item\em Max number of sets for all polymer types. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_a56a6fdd3715057cdfcbadeadf9b870ac}\label{structPhase_a56a6fdd3715057cdfcbadeadf9b870ac}} 
+\mbox{\hyperlink{structAutotuner}{Autotuner}} {\bfseries mc\+\_\+autotuner}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{structAutotuner}{Autotuner}} for the Monte-\/\+Carlo kernels. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_a761a8ae5bf94b3673baa1249afcb36a8}\label{structPhase_a761a8ae5bf94b3673baa1249afcb36a8}} 
+\mbox{\hyperlink{structAutotuner}{Autotuner}} {\bfseries cm\+\_\+mc\+\_\+autotuner}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{structAutotuner}{Autotuner}} for the Center of Mass Monte-\/\+Carlo kernels. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_a7ecb1362b7a3a41072fddc173ac49dbd}\label{structPhase_a7ecb1362b7a3a41072fddc173ac49dbd}} 
+double {\bfseries tps\+\_\+elapsed\+\_\+time}
+\begin{DoxyCompactList}\small\item\em Last measured TPS. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_a66313e62513d21d5743015c2f0b89807}\label{structPhase_a66313e62513d21d5743015c2f0b89807}} 
+unsigned int {\bfseries tps\+\_\+elapsed\+\_\+steps}
+\begin{DoxyCompactList}\small\item\em Measured TPS counter. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_af280f97527c8de86c2975acd1791b69d}\label{structPhase_af280f97527c8de86c2975acd1791b69d}} 
+unsigned int {\bfseries num\+\_\+long\+\_\+chain}
+\begin{DoxyCompactList}\small\item\em Measures the number of chains that runs on one separate kernal. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_a20cc7d26cbaedd68f4b67f9e1ef77d51}\label{structPhase_a20cc7d26cbaedd68f4b67f9e1ef77d51}} 
+\mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} {\bfseries Tmax}
+\item 
+\mbox{\Hypertarget{structPhase_ab8efcc4563f76aff86fbe994c779cac9}\label{structPhase_ab8efcc4563f76aff86fbe994c779cac9}} 
+\mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} {\bfseries Tmin}
+\begin{DoxyCompactList}\small\item\em Maximum temperature for simulated annealing. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_ab50b942fce0c4da01446972759deb111}\label{structPhase_ab50b942fce0c4da01446972759deb111}} 
+\mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} {\bfseries alpha}
+\begin{DoxyCompactList}\small\item\em Minimum temperature for simulated annealing. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} $\ast$ \mbox{\hyperlink{structPhase_ad89885362c7e78eb438f4f6ca67233ab}{cos\+\_\+serie}}
+\begin{DoxyCompactList}\small\item\em Temperature decrease factor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_a51f84933635e51307ade31163a885daa}\label{structPhase_a51f84933635e51307ade31163a885daa}} 
+\mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} $\ast$ {\bfseries sin\+\_\+serie}
+\begin{DoxyCompactList}\small\item\em the prefactor of the sine elements to define time-\/dependent external field \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_ae3847545932956e65154768ac0eafe61}\label{structPhase_ae3847545932956e65154768ac0eafe61}} 
+\mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} {\bfseries period}
+\begin{DoxyCompactList}\small\item\em period of the time-\/dependent external field \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_acb844140452314fb57af88c48ee4c76c}\label{structPhase_acb844140452314fb57af88c48ee4c76c}} 
+unsigned int {\bfseries serie\+\_\+length}
+\begin{DoxyCompactList}\small\item\em number of time-\/dependent external field \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_ac06f3c92ea671320e419d10de44c2fbb}\label{structPhase_ac06f3c92ea671320e419d10de44c2fbb}} 
+struct \mbox{\hyperlink{structPolyConversion}{Poly\+Conversion}} {\bfseries pc}
+\begin{DoxyCompactList}\small\item\em struct containing the information for the poly type convsersion \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_afbfe5040178116adff170d7f797def4d}\label{structPhase_afbfe5040178116adff170d7f797def4d}} 
+struct \mbox{\hyperlink{structMobility}{Mobility}} {\bfseries mobility}
+\begin{DoxyCompactList}\small\item\em struct containing information for density related mobility modifications \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_a827e07878d66a0d4bf14874188ddd58a}\label{structPhase_a827e07878d66a0d4bf14874188ddd58a}} 
+struct \mbox{\hyperlink{structSelfDocumentation}{Self\+Documentation}} {\bfseries sd}
+\begin{DoxyCompactList}\small\item\em struct that contains all elements for the self documenation functionality \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_ab36d6e89d853ace7ee384da32fb82110}\label{structPhase_ab36d6e89d853ace7ee384da32fb82110}} 
+struct \mbox{\hyperlink{structPolymerHeavy}{Polymer\+Heavy}} {\bfseries ph}
+\begin{DoxyCompactList}\small\item\em struct containing the pointer to the heavy memory of the polymers. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPhase_a3c6f2eb9d544df5aca5e19ca75a79e69}\label{structPhase_a3c6f2eb9d544df5aca5e19ca75a79e69}} 
+struct \mbox{\hyperlink{structRNG__HEAVY}{RNG\+\_\+\+HEAVY}} {\bfseries rh}
+\begin{DoxyCompactList}\small\item\em struct containing the pointer to the heavy memory of alternative PRNGs, if needed. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+All relevant information for a system configuration. 
+
+\begin{DoxyNote}{Note}
+Arrays with higher dimensions are usually unrolled as linear arrays for storage. Such unrolled arrays have pointers, which are name with a suffix \char`\"{}\+\_\+unified\char`\"{}. For accessing such pointers, you can use helper function, which are provided by \mbox{\hyperlink{mesh_8h}{mesh.\+h}}.
+\end{DoxyNote}
+\begin{DoxyWarning}{Warning}
+Never access \char`\"{}\+\_\+unified\char`\"{} pointer arrays, without the helper functions in \mbox{\hyperlink{mesh_8h}{mesh.\+h}}. The memory layout of the array might change with future releases. 
+\end{DoxyWarning}
+
+
+\doxysubsection{Field Documentation}
+\mbox{\Hypertarget{structPhase_ab022ef2b1ee3956abf65a48c6bb5e8ac}\label{structPhase_ab022ef2b1ee3956abf65a48c6bb5e8ac}} 
+\index{Phase@{Phase}!area51@{area51}}
+\index{area51@{area51}!Phase@{Phase}}
+\doxysubsubsection{\texorpdfstring{area51}{area51}}
+{\footnotesize\ttfamily uint8\+\_\+t$\ast$ Phase\+::area51}
+
+
+
+array of shape of field, containing the information if this cell is free space or not. == 0 is a free cell, !=0 is a forbidden cell. If the pointer is set to NULL, the entire simulation box, contains no forbidden cells. 
+
+\begin{DoxyWarning}{Warning}
+area51 is a unified pointer, but is not type specific, so specify for access always type=0. 
+
+Before any access to area51, check for NULL. 
+\end{DoxyWarning}
+\mbox{\Hypertarget{structPhase_aa90f25c68837b1ae1c272402cd0c2fb7}\label{structPhase_aa90f25c68837b1ae1c272402cd0c2fb7}} 
+\index{Phase@{Phase}!cm\_a@{cm\_a}}
+\index{cm\_a@{cm\_a}!Phase@{Phase}}
+\doxysubsubsection{\texorpdfstring{cm\_a}{cm\_a}}
+{\footnotesize\ttfamily \mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}}$\ast$ Phase\+::cm\+\_\+a}
+
+\mbox{\hyperlink{structMobility}{Mobility}} of the center of mass for all polymer types. Length is p-\/\texorpdfstring{$>$}{>}n\+\_\+poly\+\_\+types. NULL if no mobility wanted. \mbox{\Hypertarget{structPhase_ad89885362c7e78eb438f4f6ca67233ab}\label{structPhase_ad89885362c7e78eb438f4f6ca67233ab}} 
+\index{Phase@{Phase}!cos\_serie@{cos\_serie}}
+\index{cos\_serie@{cos\_serie}!Phase@{Phase}}
+\doxysubsubsection{\texorpdfstring{cos\_serie}{cos\_serie}}
+{\footnotesize\ttfamily \mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}}$\ast$ Phase\+::cos\+\_\+serie}
+
+
+
+Temperature decrease factor. 
+
+the prefactor of the cosine elements to define time-\/dependent external field \mbox{\Hypertarget{structPhase_aaa1e4428829001f6697bf04ce0beae08}\label{structPhase_aaa1e4428829001f6697bf04ce0beae08}} 
+\index{Phase@{Phase}!end\_mono@{end\_mono}}
+\index{end\_mono@{end\_mono}!Phase@{Phase}}
+\doxysubsubsection{\texorpdfstring{end\_mono}{end\_mono}}
+{\footnotesize\ttfamily unsigned int$\ast$ Phase\+::end\+\_\+mono}
+
+two dimensional array, (npoly\+\_\+types x 2) describing the start and end monomer of each polymer type. \mbox{\Hypertarget{structPhase_aa7b7015f792729d3371aeeb1cb7d2868}\label{structPhase_aa7b7015f792729d3371aeeb1cb7d2868}} 
+\index{Phase@{Phase}!max\_safe\_jump@{max\_safe\_jump}}
+\index{max\_safe\_jump@{max\_safe\_jump}!Phase@{Phase}}
+\doxysubsubsection{\texorpdfstring{max\_safe\_jump}{max\_safe\_jump}}
+{\footnotesize\ttfamily \mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} Phase\+::max\+\_\+safe\+\_\+jump}
+
+Maximum distance a particle can move, without accidentically passing trough an area51 wall.
+
+This is equivalent to min( p-\/\texorpdfstring{$>$}{>}Lx/p-\/\texorpdfstring{$>$}{>}n\+\_\+x , p-\/\texorpdfstring{$>$}{>}Ly/p-\/\texorpdfstring{$>$}{>}n\+\_\+y , p-\/\texorpdfstring{$>$}{>}Lz/p-\/\texorpdfstring{$>$}{>}n\+\_\+z). Some versions may introduce some safety parameter 0 \texorpdfstring{$<$}{<} s \texorpdfstring{$<$}{<} 1 and multiply it with the min. \mbox{\Hypertarget{structPhase_a0abcac9250003ec820e2d68e9ff2bcf2}\label{structPhase_a0abcac9250003ec820e2d68e9ff2bcf2}} 
+\index{Phase@{Phase}!poly\_arch@{poly\_arch}}
+\index{poly\_arch@{poly\_arch}!Phase@{Phase}}
+\doxysubsubsection{\texorpdfstring{poly\_arch}{poly\_arch}}
+{\footnotesize\ttfamily uint32\+\_\+t$\ast$ Phase\+::poly\+\_\+arch}
+
+Array to all store information about the polymer architecture.
+
+\begin{DoxyWarning}{Warning}
+The useage of this array is {\itshape not} straight forward. Please read the doc carefully.
+\end{DoxyWarning}
+The array contains three different information about the polymer architecture.
+\begin{DoxyItemize}
+\item The number of monomers per polymer. This information is always located at poly\+\_\+arch\mbox{[}poly\+\_\+type\+\_\+offset\mbox{[}poly\+\_\+type\mbox{]}\mbox{]}. You can read this information directly\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} N = \mbox{\hyperlink{structPhase_a0abcac9250003ec820e2d68e9ff2bcf2}{poly\_arch}}[\mbox{\hyperlink{structPhase_a881e005cf1d786294bacf6b5eec0b830}{poly\_type\_offset}}[poly\_type]]; }
+
+\end{DoxyCode}
+ Writing is not recomeneded.
+\item The information about the bonded neighbours is stored in a so called bond\+\_\+offset\+\_\+lists.~\newline
+ The second info tells you, where you find the start of such a list for your monomer of interest. We might call this the \mbox{\hyperlink{structMonomer}{Monomer}} region. And it contains the offset to the bond list as well as the \mbox{\hyperlink{structMonomer}{Monomer}} type. \begin{DoxyNote}{Note}
+The \mbox{\hyperlink{structMonomer}{Monomer}} region starts for a polymer\+\_\+type at\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{structPhase_a881e005cf1d786294bacf6b5eec0b830}{poly\_type\_offset}}[poly\_type] +1 }
+
+\end{DoxyCode}
+
+\end{DoxyNote}
+So to find the index where to start reading the bond list you do\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} start = \mbox{\hyperlink{soma__util_8c_a9acca8fbe69dbd0197ea0ec7863a56b4}{get\_bondlist\_offset}}(}
+\DoxyCodeLine{                              p-\/>poly\_arch[\mbox{\hyperlink{structPhase_a881e005cf1d786294bacf6b5eec0b830}{poly\_type\_offset}}[poly\_type] + mono\_index + 1] );}
+
+\end{DoxyCode}
+ If this start is \texorpdfstring{$<$}{<} 0 the meaning is that the corresponding \mbox{\hyperlink{structMonomer}{Monomer}} has no bonded neigbours.~\newline
+ The other information is the particle type of your monomer of interest. You can access this information with the following snippet\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} type = \mbox{\hyperlink{soma__util_8c_a8525823db67a7ae687a687a639f82d35}{get\_particle\_type}}(p, n\_polymer, n\_monomer);(}
+
+\end{DoxyCode}
+ If you want to create an element of the monomer region in poly\+\_\+arch, you can call \mbox{\hyperlink{soma__util_8c_ae0f659a68f41e6a2a548c1ed28f7f2a4}{get\+\_\+info\+\_\+bl()}}.
+\item The final information is the actual bondlist. Each element of the bond list region carries 3 bits of information.
+\begin{DoxyItemize}
+\item The first is the {\itshape end} flag, which tells you wheter this is last element in the bond list. You can access the ith element of your bondlist via\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} end = \mbox{\hyperlink{soma__util_8c_a8ec42caa056fe1198aac58b6d7a81726}{get\_end}}( p-\/>poly\_arch[ start + i] );}
+
+\end{DoxyCode}
+
+\item The second is the {\itshape offset} tells you the offset you apply to your monomer index to obtain the neighbour index. (intentional int!) 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const} \textcolor{keywordtype}{int} offset = \mbox{\hyperlink{soma__util_8c_a247311aa62c2f2069ee727db8cc257d5}{get\_offset}}( p-\/>poly\_arch[ start + i]); }
+
+\end{DoxyCode}
+
+\item The last info is the bond type of the corresponding bond. 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} bond\_type = \mbox{\hyperlink{soma__util_8c_a926cf7589ffec5ad59fae2284daba9e8}{get\_bond\_type}}( p-\/>poly\_arch[start + i] );}
+
+\end{DoxyCode}
+ To see, how you can iterate all bonds of a specific monomer, you can see in the following example\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const} \textcolor{keywordtype}{int} start = \mbox{\hyperlink{soma__util_8c_a9acca8fbe69dbd0197ea0ec7863a56b4}{get\_bondlist\_offset}}(}
+\DoxyCodeLine{            p-\/>poly\_arch[p-\/>poly\_type\_offset[p-\/>polymers[ipoly].type] + ibead + 1]);}
+\DoxyCodeLine{\textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} mono\_type = \mbox{\hyperlink{soma__util_8c_a8525823db67a7ae687a687a639f82d35}{get\_particle\_type}}(p-\/>poly\_arch[}
+\DoxyCodeLine{                            p-\/>poly\_type\_offset[p-\/>polymers[ipoly].type] + ibead +1]);}
+\DoxyCodeLine{\textcolor{keywordflow}{if}(start > 0)\{}
+\DoxyCodeLine{  \textcolor{keywordtype}{int} i = start;}
+\DoxyCodeLine{  \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} end;}
+\DoxyCodeLine{  \textcolor{keywordflow}{do}\{}
+\DoxyCodeLine{    \textcolor{keyword}{const} uint32\_t info = p-\/>poly\_arch[i++];}
+\DoxyCodeLine{    end = \mbox{\hyperlink{soma__util_8c_a8ec42caa056fe1198aac58b6d7a81726}{get\_end}}( info );}
+\DoxyCodeLine{    \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} bond\_type = \mbox{\hyperlink{soma__util_8c_a926cf7589ffec5ad59fae2284daba9e8}{get\_bond\_type}}(info);}
+\DoxyCodeLine{    \textcolor{keyword}{const} \textcolor{keywordtype}{int} offset = \mbox{\hyperlink{soma__util_8c_a247311aa62c2f2069ee727db8cc257d5}{get\_offset}}( info);}
+\DoxyCodeLine{    \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} neighbour\_id = ibead + offset;}
+\DoxyCodeLine{    \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} neighbour\_type = \mbox{\hyperlink{soma__util_8c_a8525823db67a7ae687a687a639f82d35}{get\_particle\_type}}(p-\/>poly\_arch[}
+\DoxyCodeLine{                            p-\/>poly\_type\_offset[p-\/>polymers[ipoly].type] + neighbour\_id +1]);}
+\DoxyCodeLine{    \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} jbead = neighbour\_id;}
+\DoxyCodeLine{    \textcolor{comment}{//Do stuff}}
+\DoxyCodeLine{  \}\textcolor{keywordflow}{while}(end==0);}
+
+\end{DoxyCode}
+ 
+\end{DoxyItemize}
+\end{DoxyItemize}\mbox{\Hypertarget{structPhase_a881e005cf1d786294bacf6b5eec0b830}\label{structPhase_a881e005cf1d786294bacf6b5eec0b830}} 
+\index{Phase@{Phase}!poly\_type\_offset@{poly\_type\_offset}}
+\index{poly\_type\_offset@{poly\_type\_offset}!Phase@{Phase}}
+\doxysubsubsection{\texorpdfstring{poly\_type\_offset}{poly\_type\_offset}}
+{\footnotesize\ttfamily int$\ast$ Phase\+::poly\+\_\+type\+\_\+offset}
+
+Offset where to start/end reading the architecture data.
+
+Array size n\+\_\+poly\+\_\+type. \mbox{\Hypertarget{structPhase_a9545091ac35c0a08fe8bb92f46585ec4}\label{structPhase_a9545091ac35c0a08fe8bb92f46585ec4}} 
+\index{Phase@{Phase}!sets@{sets}}
+\index{sets@{sets}!Phase@{Phase}}
+\doxysubsubsection{\texorpdfstring{sets}{sets}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structIndependetSets}{Independet\+Sets}}$\ast$ Phase\+::sets}
+
+Array of independet sets. If NULL no sets are stored, the move type is not available.
+
+Length of the array is the number of polymer types. \mbox{\Hypertarget{structPhase_ab92a62ba40a8b1e6b29704d5c209e813}\label{structPhase_ab92a62ba40a8b1e6b29704d5c209e813}} 
+\index{Phase@{Phase}!start\_clock@{start\_clock}}
+\index{start\_clock@{start\_clock}!Phase@{Phase}}
+\doxysubsubsection{\texorpdfstring{start\_clock}{start\_clock}}
+{\footnotesize\ttfamily struct timeval Phase\+::start\+\_\+clock}
+
+
+
+clock value close to the start of SOMA. 
+
+Not exactly at the start, but at the beginnig of init\+\_\+values(). 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{phase_8h}{phase.\+h}}\end{DoxyCompactItemize}

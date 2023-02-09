@@ -1,0 +1,128 @@
+\hypertarget{mpiroutines_8h}{}\doxysection{mpiroutines.\+h File Reference}
+\label{mpiroutines_8h}\index{mpiroutines.h@{mpiroutines.h}}
+
+
+Header file for functions that require MPI calls for SOMA.  
+
+
+{\ttfamily \#include \char`\"{}soma\+\_\+config.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+Include dependency graph for mpiroutines.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structInfo__MPI}{Info\+\_\+\+MPI}}
+\begin{DoxyCompactList}\small\item\em All information about the MPI setup. Information about the MPI setup of the simulation. There are three different levels in the MPI hierachy. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \mbox{\hyperlink{structInfo__MPI}{Info\+\_\+\+MPI}} \mbox{\hyperlink{mpiroutines_8h_aed9dee6f1173cb8272e1e2987a84e899}{Info\+\_\+\+MPI}}
+\begin{DoxyCompactList}\small\item\em All information about the MPI setup. Information about the MPI setup of the simulation. There are three different levels in the MPI hierachy. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{mpiroutines_8h_a500bec134b7bace9302dbd2c3e4178c2}{init\+\_\+\+MPI}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$p)
+\begin{DoxyCompactList}\small\item\em Initialize MPI. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{mpiroutines_8h_ab8598e958dc9526f0395b46f0745a6b0}{finalize\+\_\+\+MPI}} (struct \mbox{\hyperlink{structInfo__MPI}{Info\+\_\+\+MPI}} $\ast$mpi)
+\begin{DoxyCompactList}\small\item\em wrapper for MPI\+\_\+\+Finalize \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{mpiroutines_8h_a894cf998f35c31c33b939c4f88d132b6}{check\+\_\+status\+\_\+on\+\_\+mpi}} (const struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const p, int my\+\_\+status)
+\begin{DoxyCompactList}\small\item\em Function to check wheter one MPI-\/rank passed a non-\/zero value. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Header file for functions that require MPI calls for SOMA. 
+
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{mpiroutines_8h_aed9dee6f1173cb8272e1e2987a84e899}\label{mpiroutines_8h_aed9dee6f1173cb8272e1e2987a84e899}} 
+\index{mpiroutines.h@{mpiroutines.h}!Info\_MPI@{Info\_MPI}}
+\index{Info\_MPI@{Info\_MPI}!mpiroutines.h@{mpiroutines.h}}
+\doxysubsubsection{\texorpdfstring{Info\_MPI}{Info\_MPI}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structInfo__MPI}{Info\+\_\+\+MPI}} \mbox{\hyperlink{structInfo__MPI}{Info\+\_\+\+MPI}}}
+
+
+
+All information about the MPI setup. Information about the MPI setup of the simulation. There are three different levels in the MPI hierachy. 
+
+a) WORLD\+: This is the coarsed level and contains all MPI ranks assigned to the simulation via mpiexec
+
+b) SIMULATION\+: The world communicator can be split in multiple simulations. Each simulation is basically an indepent instance of SOMA. Each simulation can simulate a different system and is usually supplied by an individual input file and analysis file. SOMA itself does not do any communication between different simulations. For meta-\/dynamics like the string algorithms this instance is useful. Each simulation can be split into multiple domains.
+
+c) DOMAIN\+: A simulation can be split into different spatial domains. This finest level is used to communicate between the different domains. Each domain can have multiple mpi ranks. 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{mpiroutines_8h_a894cf998f35c31c33b939c4f88d132b6}\label{mpiroutines_8h_a894cf998f35c31c33b939c4f88d132b6}} 
+\index{mpiroutines.h@{mpiroutines.h}!check\_status\_on\_mpi@{check\_status\_on\_mpi}}
+\index{check\_status\_on\_mpi@{check\_status\_on\_mpi}!mpiroutines.h@{mpiroutines.h}}
+\doxysubsubsection{\texorpdfstring{check\_status\_on\_mpi()}{check\_status\_on\_mpi()}}
+{\footnotesize\ttfamily int check\+\_\+status\+\_\+on\+\_\+mpi (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const}]{p,  }\item[{int}]{my\+\_\+status }\end{DoxyParamCaption})}
+
+
+
+Function to check wheter one MPI-\/rank passed a non-\/zero value. 
+
+Useful for error checking and grace fully exiting MPI. 
+\begin{DoxyParams}{Parameters}
+{\em p} & \mbox{\hyperlink{structPhase}{Phase}} containing the communicator and more. \\
+\hline
+{\em my\+\_\+status} & Status of the local rank. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Nonzero value if one MPI-\/rank passed a non-\/zero value. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{mpiroutines_8h_ab8598e958dc9526f0395b46f0745a6b0}\label{mpiroutines_8h_ab8598e958dc9526f0395b46f0745a6b0}} 
+\index{mpiroutines.h@{mpiroutines.h}!finalize\_MPI@{finalize\_MPI}}
+\index{finalize\_MPI@{finalize\_MPI}!mpiroutines.h@{mpiroutines.h}}
+\doxysubsubsection{\texorpdfstring{finalize\_MPI()}{finalize\_MPI()}}
+{\footnotesize\ttfamily int finalize\+\_\+\+MPI (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structInfo__MPI}{Info\+\_\+\+MPI}} $\ast$}]{mpi }\end{DoxyParamCaption})}
+
+
+
+wrapper for MPI\+\_\+\+Finalize 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mpi} & Input of initialized MPI data. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyPostcond}{Postcondition}
+the communicators are freed 
+\end{DoxyPostcond}
+\begin{DoxyReturn}{Returns}
+Errorcode 
+\end{DoxyReturn}
+\mbox{\Hypertarget{mpiroutines_8h_a500bec134b7bace9302dbd2c3e4178c2}\label{mpiroutines_8h_a500bec134b7bace9302dbd2c3e4178c2}} 
+\index{mpiroutines.h@{mpiroutines.h}!init\_MPI@{init\_MPI}}
+\index{init\_MPI@{init\_MPI}!mpiroutines.h@{mpiroutines.h}}
+\doxysubsubsection{\texorpdfstring{init\_MPI()}{init\_MPI()}}
+{\footnotesize\ttfamily int init\+\_\+\+MPI (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$}]{p }\end{DoxyParamCaption})}
+
+
+
+Initialize MPI. 
+
+Initialize the MPI-\/enviroment for any further calls to the MPI routines of SOMA.
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & \mbox{\hyperlink{structPhase}{Phase}} struct, which defines the current state of the simulation. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+This functions is the only function, which does not require a completely initialized \mbox{\hyperlink{structPhase}{Phase}} struct. 
+\end{DoxyNote}
+\begin{DoxyReturn}{Returns}
+Error code. Error occured if not equal to 0. 
+\end{DoxyReturn}
+\begin{DoxyPostcond}{Postcondition}
+All MPI related parts of the \mbox{\hyperlink{structPhase}{Phase}} struct are initialized. 
+\end{DoxyPostcond}
+\begin{DoxyPrecond}{Precondition}
+Initialized p-\/\texorpdfstring{$>$}{>}info\+\_\+\+MPI.\+SOMA\+\_\+\+MPI\+\_\+\+Comm. 
+\end{DoxyPrecond}

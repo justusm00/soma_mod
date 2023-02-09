@@ -1,0 +1,192 @@
+\hypertarget{monotype__conversion_8c}{}\doxysection{monotype\+\_\+conversion.\+c File Reference}
+\label{monotype__conversion_8c}\index{monotype\_conversion.c@{monotype\_conversion.c}}
+
+
+Implementation of \mbox{\hyperlink{monotype__conversion_8h_source}{monotype\+\_\+conversion.\+h}}.  
+
+
+{\ttfamily \#include \char`\"{}monotype\+\_\+conversion.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$hdf5.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}phase.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}io.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}mesh.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}mc.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}monomer.\+h\char`\"{}}\newline
+Include dependency graph for monotype\+\_\+conversion.\+c\+:
+% FIG 0
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{monotype__conversion_8c_a6d8b484b33c7c3ab4e749187a3d495ba}{read\+\_\+mono\+\_\+conversion\+\_\+hdf5}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const p, const hid\+\_\+t file\+\_\+id, const hid\+\_\+t plist\+\_\+id)
+\item 
+int \mbox{\hyperlink{monotype__conversion_8c_a3f3af02761883e3d3c8cd7e2696c2226}{write\+\_\+mono\+\_\+conversion\+\_\+hdf5}} (const struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const p, const hid\+\_\+t file\+\_\+id, const hid\+\_\+t plist\+\_\+id)
+\item 
+int \mbox{\hyperlink{monotype__conversion_8c_a979fb0883335991739b04910f70ed8c9}{copyin\+\_\+mono\+\_\+conversion}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$p)
+\item 
+int \mbox{\hyperlink{monotype__conversion_8c_a3b31cd3775e8378b1693fdcc976cc38e}{copyout\+\_\+mono\+\_\+conversion}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$p)
+\item 
+int \mbox{\hyperlink{monotype__conversion_8c_a58b6c65cbfe2b17ae5232c371a0da7b2}{update\+\_\+self\+\_\+mono\+\_\+conversion}} (const struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const p)
+\item 
+int \mbox{\hyperlink{monotype__conversion_8c_a43aff92e2ebecc549510b27498b8122e}{free\+\_\+mono\+\_\+conversion}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$p)
+\item 
+int \mbox{\hyperlink{monotype__conversion_8c_a8ade673d59b971dee0c82b1acfd9b29e}{convert\+\_\+monotypes}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$p)
+\item 
+int \mbox{\hyperlink{monotype__conversion_8c_a8ad98ac5936a3d2d4f93f9803956af2d}{fully\+\_\+convert\+\_\+monotypes}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$p)
+\item 
+int \mbox{\hyperlink{monotype__conversion_8c_a74abd4a2fcb36451da93c1ef15625adf}{partially\+\_\+convert\+\_\+monotypes}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$p)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementation of \mbox{\hyperlink{monotype__conversion_8h_source}{monotype\+\_\+conversion.\+h}}. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{monotype__conversion_8c_a8ade673d59b971dee0c82b1acfd9b29e}\label{monotype__conversion_8c_a8ade673d59b971dee0c82b1acfd9b29e}} 
+\index{monotype\_conversion.c@{monotype\_conversion.c}!convert\_monotypes@{convert\_monotypes}}
+\index{convert\_monotypes@{convert\_monotypes}!monotype\_conversion.c@{monotype\_conversion.c}}
+\doxysubsubsection{\texorpdfstring{convert\_monotypes()}{convert\_monotypes()}}
+{\footnotesize\ttfamily int convert\+\_\+monotypes (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$}]{p }\end{DoxyParamCaption})}
+
+Convert monomer types according to the reaction description of the \mbox{\hyperlink{structMonoConversion}{Mono\+Conversion}} struct. This updates the center of mass of the monomers and chooses between full or partial (with rates) conversions. 
+\begin{DoxyParams}{Parameters}
+{\em p} & \mbox{\hyperlink{structPhase}{Phase}} struct describing the simulation \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Errorcode 
+\end{DoxyReturn}
+\mbox{\Hypertarget{monotype__conversion_8c_a979fb0883335991739b04910f70ed8c9}\label{monotype__conversion_8c_a979fb0883335991739b04910f70ed8c9}} 
+\index{monotype\_conversion.c@{monotype\_conversion.c}!copyin\_mono\_conversion@{copyin\_mono\_conversion}}
+\index{copyin\_mono\_conversion@{copyin\_mono\_conversion}!monotype\_conversion.c@{monotype\_conversion.c}}
+\doxysubsubsection{\texorpdfstring{copyin\_mono\_conversion()}{copyin\_mono\_conversion()}}
+{\footnotesize\ttfamily int copyin\+\_\+mono\+\_\+conversion (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$}]{p }\end{DoxyParamCaption})}
+
+Helper function to copy the mtc data to the device
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & Fully CPU initialized \mbox{\hyperlink{structPhase}{Phase}} struct \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Errorcode 
+\end{DoxyReturn}
+\mbox{\Hypertarget{monotype__conversion_8c_a3b31cd3775e8378b1693fdcc976cc38e}\label{monotype__conversion_8c_a3b31cd3775e8378b1693fdcc976cc38e}} 
+\index{monotype\_conversion.c@{monotype\_conversion.c}!copyout\_mono\_conversion@{copyout\_mono\_conversion}}
+\index{copyout\_mono\_conversion@{copyout\_mono\_conversion}!monotype\_conversion.c@{monotype\_conversion.c}}
+\doxysubsubsection{\texorpdfstring{copyout\_mono\_conversion()}{copyout\_mono\_conversion()}}
+{\footnotesize\ttfamily int copyout\+\_\+mono\+\_\+conversion (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$}]{p }\end{DoxyParamCaption})}
+
+Helper function delete the mtc data from the device and copy it to the CPU memory
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & Fully CPU initialized \mbox{\hyperlink{structPhase}{Phase}} struct \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Errorcode 
+\end{DoxyReturn}
+\mbox{\Hypertarget{monotype__conversion_8c_a43aff92e2ebecc549510b27498b8122e}\label{monotype__conversion_8c_a43aff92e2ebecc549510b27498b8122e}} 
+\index{monotype\_conversion.c@{monotype\_conversion.c}!free\_mono\_conversion@{free\_mono\_conversion}}
+\index{free\_mono\_conversion@{free\_mono\_conversion}!monotype\_conversion.c@{monotype\_conversion.c}}
+\doxysubsubsection{\texorpdfstring{free\_mono\_conversion()}{free\_mono\_conversion()}}
+{\footnotesize\ttfamily int free\+\_\+mono\+\_\+conversion (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$}]{p }\end{DoxyParamCaption})}
+
+Helper function to free the CPU memory resources of the mtc struct. The function gets automatically called by \mbox{\hyperlink{phase_8c_a4f9fac7804397bf8e34213da3a7b49c6}{free\+\_\+phase()}}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & Initialized \mbox{\hyperlink{structPhase}{Phase}} that is in the process of deallocating its resources. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Errorcode 
+\end{DoxyReturn}
+\mbox{\Hypertarget{monotype__conversion_8c_a8ad98ac5936a3d2d4f93f9803956af2d}\label{monotype__conversion_8c_a8ad98ac5936a3d2d4f93f9803956af2d}} 
+\index{monotype\_conversion.c@{monotype\_conversion.c}!fully\_convert\_monotypes@{fully\_convert\_monotypes}}
+\index{fully\_convert\_monotypes@{fully\_convert\_monotypes}!monotype\_conversion.c@{monotype\_conversion.c}}
+\doxysubsubsection{\texorpdfstring{fully\_convert\_monotypes()}{fully\_convert\_monotypes()}}
+{\footnotesize\ttfamily int fully\+\_\+convert\+\_\+monotypes (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$}]{p }\end{DoxyParamCaption})}
+
+Fully convert monomer types according to the reaction description of the \mbox{\hyperlink{structMonoConversion}{Mono\+Conversion}} struct. 
+\begin{DoxyParams}{Parameters}
+{\em p} & \mbox{\hyperlink{structPhase}{Phase}} struct describing the simulation \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Errorcode 
+\end{DoxyReturn}
+\mbox{\Hypertarget{monotype__conversion_8c_a74abd4a2fcb36451da93c1ef15625adf}\label{monotype__conversion_8c_a74abd4a2fcb36451da93c1ef15625adf}} 
+\index{monotype\_conversion.c@{monotype\_conversion.c}!partially\_convert\_monotypes@{partially\_convert\_monotypes}}
+\index{partially\_convert\_monotypes@{partially\_convert\_monotypes}!monotype\_conversion.c@{monotype\_conversion.c}}
+\doxysubsubsection{\texorpdfstring{partially\_convert\_monotypes()}{partially\_convert\_monotypes()}}
+{\footnotesize\ttfamily int partially\+\_\+convert\+\_\+monotypes (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$}]{p }\end{DoxyParamCaption})}
+
+Partially Convert monomer types according to the reaction description of the \mbox{\hyperlink{structMonoConversion}{Mono\+Conversion}} struct. This converts the monomer only with a probability given by the rate which may depend (linearly) on the normalized density of some type (for reactions involving multiple types). 
+\begin{DoxyParams}{Parameters}
+{\em p} & \mbox{\hyperlink{structPhase}{Phase}} struct describing the simulation \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Errorcode 
+\end{DoxyReturn}
+\mbox{\Hypertarget{monotype__conversion_8c_a6d8b484b33c7c3ab4e749187a3d495ba}\label{monotype__conversion_8c_a6d8b484b33c7c3ab4e749187a3d495ba}} 
+\index{monotype\_conversion.c@{monotype\_conversion.c}!read\_mono\_conversion\_hdf5@{read\_mono\_conversion\_hdf5}}
+\index{read\_mono\_conversion\_hdf5@{read\_mono\_conversion\_hdf5}!monotype\_conversion.c@{monotype\_conversion.c}}
+\doxysubsubsection{\texorpdfstring{read\_mono\_conversion\_hdf5()}{read\_mono\_conversion\_hdf5()}}
+{\footnotesize\ttfamily int read\+\_\+mono\+\_\+conversion\+\_\+hdf5 (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const}]{p,  }\item[{const hid\+\_\+t}]{file\+\_\+id,  }\item[{const hid\+\_\+t}]{plist\+\_\+id }\end{DoxyParamCaption})}
+
+Helper function to read the conversion array from the config HDF5 file.
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & \mbox{\hyperlink{structPhase}{Phase}} describing the system \\
+\hline
+{\em file\+\_\+id} & File identifier of open HDF5 file. \\
+\hline
+{\em plist\+\_\+id} & Access properties to use. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Errorcode 
+\end{DoxyReturn}
+\mbox{\Hypertarget{monotype__conversion_8c_a58b6c65cbfe2b17ae5232c371a0da7b2}\label{monotype__conversion_8c_a58b6c65cbfe2b17ae5232c371a0da7b2}} 
+\index{monotype\_conversion.c@{monotype\_conversion.c}!update\_self\_mono\_conversion@{update\_self\_mono\_conversion}}
+\index{update\_self\_mono\_conversion@{update\_self\_mono\_conversion}!monotype\_conversion.c@{monotype\_conversion.c}}
+\doxysubsubsection{\texorpdfstring{update\_self\_mono\_conversion()}{update\_self\_mono\_conversion()}}
+{\footnotesize\ttfamily int update\+\_\+self\+\_\+mono\+\_\+conversion (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const}]{p }\end{DoxyParamCaption})}
+
+Helper function to update the host with the mtc data
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & Fully initialized \mbox{\hyperlink{structPhase}{Phase}} struct \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Errorcode 
+\end{DoxyReturn}
+\mbox{\Hypertarget{monotype__conversion_8c_a3f3af02761883e3d3c8cd7e2696c2226}\label{monotype__conversion_8c_a3f3af02761883e3d3c8cd7e2696c2226}} 
+\index{monotype\_conversion.c@{monotype\_conversion.c}!write\_mono\_conversion\_hdf5@{write\_mono\_conversion\_hdf5}}
+\index{write\_mono\_conversion\_hdf5@{write\_mono\_conversion\_hdf5}!monotype\_conversion.c@{monotype\_conversion.c}}
+\doxysubsubsection{\texorpdfstring{write\_mono\_conversion\_hdf5()}{write\_mono\_conversion\_hdf5()}}
+{\footnotesize\ttfamily int write\+\_\+mono\+\_\+conversion\+\_\+hdf5 (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const}]{p,  }\item[{const hid\+\_\+t}]{file\+\_\+id,  }\item[{const hid\+\_\+t}]{plist\+\_\+id }\end{DoxyParamCaption})}
+
+Helper function to write the monoconversion array to the config HDF5 file.
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & \mbox{\hyperlink{structPhase}{Phase}} describing the system \\
+\hline
+{\em file\+\_\+id} & File identifier of open HDF5 file. \\
+\hline
+{\em plist\+\_\+id} & Access properties to use. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Errorcode 
+\end{DoxyReturn}

@@ -1,0 +1,16 @@
+digraph "mc.h"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  Node1 [label="mc.h",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="Functions required for any Monte-Carlo move of the system."];
+  Node1 -> Node2 [dir="back",color="steelblue1",style="solid"];
+  Node2 [label="generate_positions.c",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$generate__positions_8c.html",tooltip="Implementation of generate_positions.h."];
+  Node1 -> Node3 [dir="back",color="steelblue1",style="solid"];
+  Node3 [label="monotype_conversion.c",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$monotype__conversion_8c.html",tooltip="Implementation of monotype_conversion.h."];
+  Node1 -> Node4 [dir="back",color="steelblue1",style="solid"];
+  Node4 [label="soma.c",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$soma_8c.html",tooltip="Implementation of the main executable SOMA."];
+  Node1 -> Node5 [dir="back",color="steelblue1",style="solid"];
+  Node5 [label="test.c",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$test_8c.html",tooltip="Implementation of test.h."];
+}

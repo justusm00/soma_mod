@@ -1,0 +1,351 @@
+\hypertarget{ana_8c}{}\doxysection{ana.\+c File Reference}
+\label{ana_8c}\index{ana.c@{ana.c}}
+
+
+Implementation of \mbox{\hyperlink{ana_8h}{ana.\+h}}.  
+
+
+{\ttfamily \#include \char`\"{}ana.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$time.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$assert.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}phase.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}polymer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}mesh.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}io.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}rng.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+Include dependency graph for ana.\+c\+:
+% FIG 0
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{ana_8c_aeec7a0d8e3ff6c286a367cb80b6a1819}{calc\+\_\+\+Re}} (const struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$p, \mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} $\ast$const result)
+\begin{DoxyCompactList}\small\item\em calculate the end-\/to-\/end distance for the polymers of the phase \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ana_8c_a42c240a35efd82cf1ec5f48820410ebd}{calc\+\_\+dvar}} (const struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$p, \mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} $\ast$dvar)
+\begin{DoxyCompactList}\small\item\em calculate the variance between the current density field and the density field at a past time \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ana_8c_a299a12bd4fcbecacd028f29240021935}{calc\+\_\+\+Rg}} (const struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$p, \mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} $\ast$const result)
+\begin{DoxyCompactList}\small\item\em calculate the gyration radius for the polymers of the phase \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ana_8c_ae9f3d7b814e18c50ef9e6d4a56830c7d}{calc\+\_\+anisotropy}} (const struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$p, \mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} $\ast$const result)
+\begin{DoxyCompactList}\small\item\em calculate bond anisotropy \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ana_8c_a107d05c89cf2355f22561117a156ae3b}{calc\+\_\+\+MSD}} (const struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$p, \mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} $\ast$const result)
+\begin{DoxyCompactList}\small\item\em calculate the monomer and chain mean square displacement \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ana_8c_a5b120420cefc5851c12e5e160cf58390}{calc\+\_\+acc\+\_\+ratio}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const p, \mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} $\ast$const acc\+\_\+ratio)
+\begin{DoxyCompactList}\small\item\em calculate the current acceptance ratio. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ana_8c_a7834d14cb7614416be7605db10d32775}{calc\+\_\+non\+\_\+bonded\+\_\+energy}} (const struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const p, \mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} $\ast$const non\+\_\+bonded\+\_\+energy)
+\begin{DoxyCompactList}\small\item\em calculate the non-\/bonded energy for each particle type \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ana_8c_a378f9ab533de04beaba21056e03a3245}{calc\+\_\+bonded\+\_\+energy}} (const struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const p, \mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} $\ast$const bonded\+\_\+energy)
+\begin{DoxyCompactList}\small\item\em calculate the bonded energy for each bond type \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{ana_8c_a2d8156a0afdc3a62bf237bb3eb8b8138}\label{ana_8c_a2d8156a0afdc3a62bf237bb3eb8b8138}} 
+void {\bfseries count\+\_\+monomer\+\_\+type\+\_\+fraction} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const p, \mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} $\ast$const monomer\+\_\+type\+\_\+fraction)
+\item 
+int \mbox{\hyperlink{ana_8c_aac6269e6d70d3ad5fdcd370e334acc38}{extent\+\_\+ana\+\_\+by\+\_\+field}} (const \mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} $\ast$const data, const uint64\+\_\+t n\+\_\+data, const char $\ast$const name, const hid\+\_\+t file\+\_\+id)
+\begin{DoxyCompactList}\small\item\em Helper to ouput soma\+\_\+scalar\+\_\+t data to a hdf5 file, by extending an {\itshape existing} dataset. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{ana_8c_ab3160112a6f72d3c2f5ef993c6de4eff}\label{ana_8c_ab3160112a6f72d3c2f5ef993c6de4eff}} 
+int {\bfseries extent\+\_\+density\+\_\+field\+\_\+old} (const struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const p, const void $\ast$const field\+\_\+pointer, const char $\ast$const field\+\_\+name, hid\+\_\+t hdf5\+\_\+type, const \mbox{\hyperlink{ana_8h_affc17fe964f9f670fb06e09d6134b4ff}{MPI\+\_\+\+Datatype}} mpi\+\_\+type, const size\+\_\+t data\+\_\+size)
+\item 
+int \mbox{\hyperlink{ana_8c_a6958b1f268eac63dcb17e679397bad1f}{extent\+\_\+density\+\_\+field}} (const struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const p, void $\ast$const field\+\_\+pointer, const char $\ast$const field\+\_\+name, hid\+\_\+t hdf5\+\_\+type, const \mbox{\hyperlink{ana_8h_affc17fe964f9f670fb06e09d6134b4ff}{MPI\+\_\+\+Datatype}} mpi\+\_\+type, const size\+\_\+t data\+\_\+size)
+\item 
+\mbox{\Hypertarget{ana_8c_a96c5c2990e198f13b1862caa0f77b053}\label{ana_8c_a96c5c2990e198f13b1862caa0f77b053}} 
+else {\bfseries if} (p-\/$>$info\+\_\+\+MPI.\+domain\+\_\+rank==0)
+\item 
+int \mbox{\hyperlink{ana_8c_a9ff69981d861d2cf3c6a5e1cc89e946c}{analytics}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const p)
+\begin{DoxyCompactList}\small\item\em run the desired analytics \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{ana_8c_aecdac94635226602b07e844ff911a312}{calc\+\_\+structure}} (const struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$p, \mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} $\ast$const result, const enum \mbox{\hyperlink{ana_8h_a346398732ae1319b2d3a20a9f8795d18}{structure\+\_\+factor\+\_\+type}} sf\+\_\+type)
+\begin{DoxyCompactList}\small\item\em calculate the structure for each poly type \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{ana_8c_aaa54de267a42fdf914abab34a4d6a595}{extent\+\_\+structure}} (const struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$p, const \mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} $\ast$const data, const char $\ast$const name, const hid\+\_\+t file\+\_\+id, const enum \mbox{\hyperlink{ana_8h_a346398732ae1319b2d3a20a9f8795d18}{structure\+\_\+factor\+\_\+type}} sf\+\_\+type)
+\begin{DoxyCompactList}\small\item\em Helper to ouput soma\+\_\+scalar\+\_\+t data to a hdf5 file, used for the strcture. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{ana_8c_a9717e7bbecb906637e86cef6da3d83c2}\label{ana_8c_a9717e7bbecb906637e86cef6da3d83c2}} 
+{\bfseries return}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementation of \mbox{\hyperlink{ana_8h}{ana.\+h}}. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{ana_8c_a9ff69981d861d2cf3c6a5e1cc89e946c}\label{ana_8c_a9ff69981d861d2cf3c6a5e1cc89e946c}} 
+\index{ana.c@{ana.c}!analytics@{analytics}}
+\index{analytics@{analytics}!ana.c@{ana.c}}
+\doxysubsubsection{\texorpdfstring{analytics()}{analytics()}}
+{\footnotesize\ttfamily int analytics (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const}]{p }\end{DoxyParamCaption})}
+
+
+
+run the desired analytics 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & Configuration phase to analyze. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Errorcode 
+\end{DoxyReturn}
+\mbox{\Hypertarget{ana_8c_a5b120420cefc5851c12e5e160cf58390}\label{ana_8c_a5b120420cefc5851c12e5e160cf58390}} 
+\index{ana.c@{ana.c}!calc\_acc\_ratio@{calc\_acc\_ratio}}
+\index{calc\_acc\_ratio@{calc\_acc\_ratio}!ana.c@{ana.c}}
+\doxysubsubsection{\texorpdfstring{calc\_acc\_ratio()}{calc\_acc\_ratio()}}
+{\footnotesize\ttfamily void calc\+\_\+acc\+\_\+ratio (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const}]{p,  }\item[{\mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} $\ast$const}]{acc\+\_\+ratio }\end{DoxyParamCaption})}
+
+
+
+calculate the current acceptance ratio. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & System to analyze \\
+\hline
+{\em acc\+\_\+ratio} & Pointer to initialized soma\+\_\+scalar\+\_\+t where the result is going to be stored. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+After every call the result is reset. 
+\end{DoxyNote}
+\mbox{\Hypertarget{ana_8c_ae9f3d7b814e18c50ef9e6d4a56830c7d}\label{ana_8c_ae9f3d7b814e18c50ef9e6d4a56830c7d}} 
+\index{ana.c@{ana.c}!calc\_anisotropy@{calc\_anisotropy}}
+\index{calc\_anisotropy@{calc\_anisotropy}!ana.c@{ana.c}}
+\doxysubsubsection{\texorpdfstring{calc\_anisotropy()}{calc\_anisotropy()}}
+{\footnotesize\ttfamily void calc\+\_\+anisotropy (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$}]{p,  }\item[{\mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} $\ast$const}]{result }\end{DoxyParamCaption})}
+
+
+
+calculate bond anisotropy 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & \mbox{\hyperlink{structPhase}{Phase}} configuration to analyze. \\
+\hline
+{\em result} & Array to store the tensor. xx yy zz xy xz yz. Length of array must be 6$\ast$n\+\_\+poly\+\_\+types. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyPostcond}{Postcondition}
+the memory of where the pointers point is set to the result of calculation. 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{ana_8c_a378f9ab533de04beaba21056e03a3245}\label{ana_8c_a378f9ab533de04beaba21056e03a3245}} 
+\index{ana.c@{ana.c}!calc\_bonded\_energy@{calc\_bonded\_energy}}
+\index{calc\_bonded\_energy@{calc\_bonded\_energy}!ana.c@{ana.c}}
+\doxysubsubsection{\texorpdfstring{calc\_bonded\_energy()}{calc\_bonded\_energy()}}
+{\footnotesize\ttfamily void calc\+\_\+bonded\+\_\+energy (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const}]{p,  }\item[{\mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} $\ast$const}]{bonded\+\_\+energy }\end{DoxyParamCaption})}
+
+
+
+calculate the bonded energy for each bond type 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & System to analyze \\
+\hline
+{\em bonded\+\_\+energy} & Pointer to array of size NUMBER\+\_\+\+SOMA\+\_\+\+BOND\+\_\+\+TYPES to store the result \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{ana_8c_a42c240a35efd82cf1ec5f48820410ebd}\label{ana_8c_a42c240a35efd82cf1ec5f48820410ebd}} 
+\index{ana.c@{ana.c}!calc\_dvar@{calc\_dvar}}
+\index{calc\_dvar@{calc\_dvar}!ana.c@{ana.c}}
+\doxysubsubsection{\texorpdfstring{calc\_dvar()}{calc\_dvar()}}
+{\footnotesize\ttfamily void calc\+\_\+dvar (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$}]{p,  }\item[{\mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} $\ast$}]{dvar }\end{DoxyParamCaption})}
+
+
+
+calculate the variance between the current density field and the density field at a past time 
+
+\texorpdfstring{$>$}{>}
+\begin{DoxyParams}{Parameters}
+{\em p} & \mbox{\hyperlink{structPhase}{Phase}} configuration to analyze \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+global $ dvar $ 
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em dvar} & pointer to return density variance \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{ana_8c_a107d05c89cf2355f22561117a156ae3b}\label{ana_8c_a107d05c89cf2355f22561117a156ae3b}} 
+\index{ana.c@{ana.c}!calc\_MSD@{calc\_MSD}}
+\index{calc\_MSD@{calc\_MSD}!ana.c@{ana.c}}
+\doxysubsubsection{\texorpdfstring{calc\_MSD()}{calc\_MSD()}}
+{\footnotesize\ttfamily void calc\+\_\+\+MSD (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$}]{p,  }\item[{\mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} $\ast$const}]{result }\end{DoxyParamCaption})}
+
+
+
+calculate the monomer and chain mean square displacement 
+
+\texorpdfstring{$>$}{>}
+\begin{DoxyParams}{Parameters}
+{\em p} & \mbox{\hyperlink{structPhase}{Phase}} configuration to analyze \\
+\hline
+{\em result} & array to store the result. Size should be 8$\ast$n\+\_\+poly\+\_\+types. The order is\+: x-\/component of MSD, y-\/component of MSD,z-\/component of MSD, MSD in 3D and x-\/componenet of mass center MSD, y-\/componenet of mass center MSD, z-\/componenet of mass center MSD, mass center MSD. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{ana_8c_a7834d14cb7614416be7605db10d32775}\label{ana_8c_a7834d14cb7614416be7605db10d32775}} 
+\index{ana.c@{ana.c}!calc\_non\_bonded\_energy@{calc\_non\_bonded\_energy}}
+\index{calc\_non\_bonded\_energy@{calc\_non\_bonded\_energy}!ana.c@{ana.c}}
+\doxysubsubsection{\texorpdfstring{calc\_non\_bonded\_energy()}{calc\_non\_bonded\_energy()}}
+{\footnotesize\ttfamily void calc\+\_\+non\+\_\+bonded\+\_\+energy (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const}]{p,  }\item[{\mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} $\ast$const}]{non\+\_\+bonded\+\_\+energy }\end{DoxyParamCaption})}
+
+
+
+calculate the non-\/bonded energy for each particle type 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & System to analyze \\
+\hline
+{\em non\+\_\+bonded\+\_\+energy} & Pointer to array of size p-\/\texorpdfstring{$>$}{>}n\+\_\+types to store the result \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{ana_8c_aeec7a0d8e3ff6c286a367cb80b6a1819}\label{ana_8c_aeec7a0d8e3ff6c286a367cb80b6a1819}} 
+\index{ana.c@{ana.c}!calc\_Re@{calc\_Re}}
+\index{calc\_Re@{calc\_Re}!ana.c@{ana.c}}
+\doxysubsubsection{\texorpdfstring{calc\_Re()}{calc\_Re()}}
+{\footnotesize\ttfamily void calc\+\_\+\+Re (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$}]{p,  }\item[{\mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} $\ast$const}]{result }\end{DoxyParamCaption})}
+
+
+
+calculate the end-\/to-\/end distance for the polymers of the phase 
+
+\texorpdfstring{$>$}{>}
+\begin{DoxyParams}{Parameters}
+{\em p} & \mbox{\hyperlink{structPhase}{Phase}} configuration to analyze \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+global $ Re $ 
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em result} & pointer to return the result. The length of this array should be p-\/\texorpdfstring{$>$}{>}n\+\_\+poly\+\_\+types $\ast$ 4. Order is Re2 Rex Rey Rez for each poly type. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{ana_8c_a299a12bd4fcbecacd028f29240021935}\label{ana_8c_a299a12bd4fcbecacd028f29240021935}} 
+\index{ana.c@{ana.c}!calc\_Rg@{calc\_Rg}}
+\index{calc\_Rg@{calc\_Rg}!ana.c@{ana.c}}
+\doxysubsubsection{\texorpdfstring{calc\_Rg()}{calc\_Rg()}}
+{\footnotesize\ttfamily void calc\+\_\+\+Rg (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$}]{p,  }\item[{\mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} $\ast$const}]{result }\end{DoxyParamCaption})}
+
+
+
+calculate the gyration radius for the polymers of the phase 
+
+\texorpdfstring{$>$}{>}
+\begin{DoxyParams}{Parameters}
+{\em p} & \mbox{\hyperlink{structPhase}{Phase}} configuration to analyze \\
+\hline
+{\em result} & pointer to return the result. The length of this array should be p-\/\texorpdfstring{$>$}{>}n\+\_\+poly\+\_\+types $\ast$ 4. Order is Rg2 Rgx Rgy Rgz for each poly type. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+global $ Rg^2 $ and its squared components independently of the polymer type 
+\end{DoxyReturn}
+\mbox{\Hypertarget{ana_8c_aecdac94635226602b07e844ff911a312}\label{ana_8c_aecdac94635226602b07e844ff911a312}} 
+\index{ana.c@{ana.c}!calc\_structure@{calc\_structure}}
+\index{calc\_structure@{calc\_structure}!ana.c@{ana.c}}
+\doxysubsubsection{\texorpdfstring{calc\_structure()}{calc\_structure()}}
+{\footnotesize\ttfamily int calc\+\_\+structure (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$}]{p,  }\item[{\mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} $\ast$const}]{result,  }\item[{const enum \mbox{\hyperlink{ana_8h_a346398732ae1319b2d3a20a9f8795d18}{structure\+\_\+factor\+\_\+type}}}]{sf\+\_\+type }\end{DoxyParamCaption})}
+
+
+
+calculate the structure for each poly type 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & System to analyze \\
+\hline
+{\em result} & Pointer to array to store the result \\
+\hline
+{\em sf\+\_\+type} & Type of structure factor. 0 stands for dynamical, 1 stand for static \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Errorcode. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{ana_8c_aac6269e6d70d3ad5fdcd370e334acc38}\label{ana_8c_aac6269e6d70d3ad5fdcd370e334acc38}} 
+\index{ana.c@{ana.c}!extent\_ana\_by\_field@{extent\_ana\_by\_field}}
+\index{extent\_ana\_by\_field@{extent\_ana\_by\_field}!ana.c@{ana.c}}
+\doxysubsubsection{\texorpdfstring{extent\_ana\_by\_field()}{extent\_ana\_by\_field()}}
+{\footnotesize\ttfamily int extent\+\_\+ana\+\_\+by\+\_\+field (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} $\ast$const}]{data,  }\item[{const uint64\+\_\+t}]{n\+\_\+data,  }\item[{const char $\ast$const}]{name,  }\item[{const hid\+\_\+t}]{file\+\_\+id }\end{DoxyParamCaption})}
+
+
+
+Helper to ouput soma\+\_\+scalar\+\_\+t data to a hdf5 file, by extending an {\itshape existing} dataset. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & Pointer to the data to ouput. \\
+\hline
+{\em n\+\_\+data} & number of data elements. \\
+\hline
+{\em name} & Dataset name \\
+\hline
+{\em file\+\_\+id} & File specifier for HDF5 output ana file \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Errorcode. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{ana_8c_a6958b1f268eac63dcb17e679397bad1f}\label{ana_8c_a6958b1f268eac63dcb17e679397bad1f}} 
+\index{ana.c@{ana.c}!extent\_density\_field@{extent\_density\_field}}
+\index{extent\_density\_field@{extent\_density\_field}!ana.c@{ana.c}}
+\doxysubsubsection{\texorpdfstring{extent\_density\_field()}{extent\_density\_field()}}
+{\footnotesize\ttfamily int extent\+\_\+density\+\_\+field (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const}]{p,  }\item[{void $\ast$const}]{field\+\_\+pointer,  }\item[{const char $\ast$const}]{field\+\_\+name,  }\item[{hid\+\_\+t}]{hdf5\+\_\+type,  }\item[{const \mbox{\hyperlink{ana_8h_affc17fe964f9f670fb06e09d6134b4ff}{MPI\+\_\+\+Datatype}}}]{mpi\+\_\+type,  }\item[{const size\+\_\+t}]{data\+\_\+size }\end{DoxyParamCaption})}
+
+Helper to ouput data to a hdf5 , may be used for the density fields.
+
+\begin{DoxyNote}{Note}
+This function does not feature a parallel output of the (density) field. If anyone knows how to fix it, you are welcome to help.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em p} & Pointer to the state of the system. \\
+\hline
+{\em field\+\_\+pointer} & Pointer to the field that should be outputted \\
+\hline
+{\em field\+\_\+name} & Name of the field, eg. \char`\"{}\textbackslash{}density\+\_\+field\char`\"{} \\
+\hline
+{\em hdf5\+\_\+type} & The H5-\/\+Datatype for the output of the field \\
+\hline
+{\em mpi\+\_\+type} & The MPI\+\_\+\+Datatype of the field \\
+\hline
+{\em data\+\_\+size} & sizeof( datatype ) to get the number of bytes \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Errorcode. 
+\end{DoxyReturn}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000001}{Todo}}]The ouput is not yet parallel. \end{DoxyRefDesc}
+\mbox{\Hypertarget{ana_8c_aaa54de267a42fdf914abab34a4d6a595}\label{ana_8c_aaa54de267a42fdf914abab34a4d6a595}} 
+\index{ana.c@{ana.c}!extent\_structure@{extent\_structure}}
+\index{extent\_structure@{extent\_structure}!ana.c@{ana.c}}
+\doxysubsubsection{\texorpdfstring{extent\_structure()}{extent\_structure()}}
+{\footnotesize\ttfamily int extent\+\_\+structure (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$}]{p,  }\item[{const \mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} $\ast$const}]{data,  }\item[{const char $\ast$const}]{name,  }\item[{const hid\+\_\+t}]{file\+\_\+id,  }\item[{const enum \mbox{\hyperlink{ana_8h_a346398732ae1319b2d3a20a9f8795d18}{structure\+\_\+factor\+\_\+type}}}]{sf\+\_\+type }\end{DoxyParamCaption})}
+
+
+
+Helper to ouput soma\+\_\+scalar\+\_\+t data to a hdf5 file, used for the strcture. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & Pointer to the state of the system. \\
+\hline
+{\em data} & Pointer to the data to ouput. \\
+\hline
+{\em name} & Dataset name \\
+\hline
+{\em file\+\_\+id} & File specifier for HDF5 output ana file \\
+\hline
+{\em sf\+\_\+type} & Type of structure factor. 0 stands for dynamical, 1 stand for static \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Errorcode. 
+\end{DoxyReturn}

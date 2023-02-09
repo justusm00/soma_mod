@@ -1,0 +1,67 @@
+\hypertarget{monotype__conversion_8h_source}{}\doxysection{monotype\+\_\+conversion.\+h}
+\label{monotype__conversion_8h_source}\index{monotype\_conversion.h@{monotype\_conversion.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{/* Copyright (C) 2016-\/2022 Gregor Ibbeken, Ludwig Schneider}}
+\DoxyCodeLine{2 \textcolor{comment}{}}
+\DoxyCodeLine{3 \textcolor{comment}{ This file is part of SOMA.}}
+\DoxyCodeLine{4 \textcolor{comment}{}}
+\DoxyCodeLine{5 \textcolor{comment}{ SOMA is free software: you can redistribute it and/or modify}}
+\DoxyCodeLine{6 \textcolor{comment}{ it under the terms of the GNU Lesser General Public License as published by}}
+\DoxyCodeLine{7 \textcolor{comment}{ the Free Software Foundation, either version 3 of the License, or}}
+\DoxyCodeLine{8 \textcolor{comment}{ (at your option) any later version.}}
+\DoxyCodeLine{9 \textcolor{comment}{}}
+\DoxyCodeLine{10 \textcolor{comment}{ SOMA is distributed in the hope that it will be useful,}}
+\DoxyCodeLine{11 \textcolor{comment}{ but WITHOUT ANY WARRANTY; without even the implied warranty of}}
+\DoxyCodeLine{12 \textcolor{comment}{ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the}}
+\DoxyCodeLine{13 \textcolor{comment}{ GNU Lesser General Public License for more details.}}
+\DoxyCodeLine{14 \textcolor{comment}{}}
+\DoxyCodeLine{15 \textcolor{comment}{ You should have received a copy of the GNU Lesser General Public License}}
+\DoxyCodeLine{16 \textcolor{comment}{ along with SOMA.  If not, see <http://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{17 \textcolor{comment}{*/}}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#ifndef SOMA\_MONOTYPE\_CONVERSION\_H}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#define SOMA\_MONOTYPE\_CONVERSION\_H}}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{soma__config_8h}{soma\_config.h}}"{}}}
+\DoxyCodeLine{23 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{soma__util_8h}{soma\_util.h}}"{}}}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{27 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structMonoConversion}{MonoConversion}} \{}
+\DoxyCodeLine{28     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structMonoConversion_af55a874d8f058303794f3b094666d063}{deltaMC}};       }
+\DoxyCodeLine{29     uint8\_t *\mbox{\hyperlink{structMonoConversion_a667d2cd7c7b946b231830bd11c00fec8}{array}};             }
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} *\mbox{\hyperlink{structMonoConversion_a714783d58cb76f22fcb0b3fbd542fb59}{input\_type}};   }
+\DoxyCodeLine{32     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} *\mbox{\hyperlink{structMonoConversion_a6e09991ac456d55953737032b2e7f005}{output\_type}};  }
+\DoxyCodeLine{33     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} *\mbox{\hyperlink{structMonoConversion_a34f903cedabff3e92ec462b13811a19f}{reaction\_end}}; }
+\DoxyCodeLine{34     \mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\_scalar\_t}} *\mbox{\hyperlink{structMonoConversion_a5dbfcd0060f4d56b994e42b68a1b5ddf}{rate}};        }
+\DoxyCodeLine{35     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structMonoConversion_ab331279e0a91de6a250acfd2c59e7bfd}{block\_size}};    }
+\DoxyCodeLine{36     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} *\mbox{\hyperlink{structMonoConversion_a2badf53f76b342d36c2244d00dd48bf4}{dependency\_ntype}};     }
+\DoxyCodeLine{37     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} *\mbox{\hyperlink{structMonoConversion_a4a5b48004686d1e66d44aaf3955a8412}{dependency\_type\_offset}};       }
+\DoxyCodeLine{38     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} *\mbox{\hyperlink{structMonoConversion_a601dd730a90eb8b3920830760690f3ec}{dependency\_type}};      }
+\DoxyCodeLine{39     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structMonoConversion_a484281dc98323dac0147b35bcc04665e}{len\_reactions}}; }
+\DoxyCodeLine{40     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structMonoConversion_ac6374db20cb9a2ca2917b26891bf9a17}{len\_dependencies}};      }
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42 \} \mbox{\hyperlink{structMonoConversion}{MonoConversion}};}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{48 \textcolor{keywordtype}{int} \mbox{\hyperlink{monotype__conversion_8c_a979fb0883335991739b04910f70ed8c9}{copyin\_mono\_conversion}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structPhase}{Phase}} *p);}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{54 \textcolor{keywordtype}{int} \mbox{\hyperlink{monotype__conversion_8c_a3b31cd3775e8378b1693fdcc976cc38e}{copyout\_mono\_conversion}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structPhase}{Phase}} *p);}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{60 \textcolor{keywordtype}{int} \mbox{\hyperlink{monotype__conversion_8c_a58b6c65cbfe2b17ae5232c371a0da7b2}{update\_self\_mono\_conversion}}(\textcolor{keyword}{const} \textcolor{keyword}{struct} \mbox{\hyperlink{structPhase}{Phase}} *\textcolor{keyword}{const} p);}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{69 \textcolor{keywordtype}{int} \mbox{\hyperlink{monotype__conversion_8c_a6d8b484b33c7c3ab4e749187a3d495ba}{read\_mono\_conversion\_hdf5}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structPhase}{Phase}} *\textcolor{keyword}{const} p, \textcolor{keyword}{const} hid\_t file\_id, \textcolor{keyword}{const} hid\_t plist\_id);}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{78 \textcolor{keywordtype}{int} \mbox{\hyperlink{monotype__conversion_8c_a3f3af02761883e3d3c8cd7e2696c2226}{write\_mono\_conversion\_hdf5}}(\textcolor{keyword}{const} \textcolor{keyword}{struct} \mbox{\hyperlink{structPhase}{Phase}} *\textcolor{keyword}{const} p, \textcolor{keyword}{const} hid\_t file\_id, \textcolor{keyword}{const} hid\_t plist\_id);}
+\DoxyCodeLine{79 }
+\DoxyCodeLine{85 \textcolor{keywordtype}{int} \mbox{\hyperlink{monotype__conversion_8c_a43aff92e2ebecc549510b27498b8122e}{free\_mono\_conversion}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structPhase}{Phase}} *p);}
+\DoxyCodeLine{86 }
+\DoxyCodeLine{92 \textcolor{keywordtype}{int} \mbox{\hyperlink{monotype__conversion_8c_a8ade673d59b971dee0c82b1acfd9b29e}{convert\_monotypes}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structPhase}{Phase}} *p);}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{98 \textcolor{keywordtype}{int} \mbox{\hyperlink{monotype__conversion_8c_a8ad98ac5936a3d2d4f93f9803956af2d}{fully\_convert\_monotypes}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structPhase}{Phase}} *p);}
+\DoxyCodeLine{99 }
+\DoxyCodeLine{105 \textcolor{keywordtype}{int} \mbox{\hyperlink{monotype__conversion_8c_a74abd4a2fcb36451da93c1ef15625adf}{partially\_convert\_monotypes}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structPhase}{Phase}} *p);}
+\DoxyCodeLine{106 }
+\DoxyCodeLine{112 \textcolor{keywordtype}{int} perform\_semi\_gc\_conversions(\textcolor{keyword}{struct} \mbox{\hyperlink{structPhase}{Phase}} *p);}
+\DoxyCodeLine{113 \textcolor{preprocessor}{\#endif                          }\textcolor{comment}{//SOMA\_MONOTYPE\_CONVERSION\_H}}
+
+\end{DoxyCode}

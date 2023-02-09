@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<!DOCTYPE Xdmf SYSTEM "Xdmf.dtd" []>
+<Xdmf xmlns:xi="http://www.w3.org/2003/XInclude" Version="2.2">
+<Domain>
+<Topology name="topo" TopologyType="3DCoRectMesh" Dimensions="6 3 3"></Topology>
+<Geometry name="geo" Type="ORIGIN_DXDYDZ">
+<DataItem Format="XML" Dimensions="3">
+0.0 0.0 0.0
+</DataItem>
+<DataItem Format="XML" Dimensions="3">
+1 1 1
+</DataItem>
+</Geometry>
+<Grid GridType="Collection" CollectionType="Temporal">
+<Grid Name="0" GridType="Uniform">
+<Topology Reference="/Xdmf/Domain/Topology[1]"/>
+<Geometry Reference="/Xdmf/Domain/Geometry[1]"/>
+<Time Value="0"/>
+<Attribute Type="Scalar" Center="Node" Name="Area51">
+<!-- Result will be 3 dimensions --><DataItem Format="HDF" NumberType="UInt" Precision="2" Dimensions="6 3 3">
+coord_area51.h5:/area51
+</DataItem>
+</Attribute>
+</Grid>
+</Grid>
+</Domain>
+</Xdmf>

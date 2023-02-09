@@ -1,0 +1,206 @@
+\hypertarget{cmdline_8h_source}{}\doxysection{cmdline.\+h}
+\label{cmdline_8h_source}\index{cmdline.h@{cmdline.h}}
+\mbox{\hyperlink{cmdline_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#include <\mbox{\hyperlink{soma__config_8h}{soma\_config.h}}>}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#ifndef CMDLINE\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#define CMDLINE\_H}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{comment}{/* If we use autoconf.  */}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#ifdef HAVE\_CONFIG\_H}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include "{}config.h"{}}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <stdio.h>}              \textcolor{comment}{/* for FILE */}}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#ifdef \_\_cplusplus}}
+\DoxyCodeLine{20 \textcolor{keyword}{extern} \textcolor{stringliteral}{"{}C"{}} \{}
+\DoxyCodeLine{21 \textcolor{preprocessor}{\#endif                          }\textcolor{comment}{/* \_\_cplusplus */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23 \textcolor{preprocessor}{\#ifndef CMDLINE\_PARSER\_PACKAGE}}
+\DoxyCodeLine{25 \textcolor{preprocessor}{\#define CMDLINE\_PARSER\_PACKAGE "{}SOMA"{}}}
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{28 \textcolor{preprocessor}{\#ifndef CMDLINE\_PARSER\_PACKAGE\_NAME}}
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#define CMDLINE\_PARSER\_PACKAGE\_NAME "{}SOMA"{}}}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#ifndef CMDLINE\_PARSER\_VERSION}}
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#define CMDLINE\_PARSER\_VERSION get\_soma\_version()}}
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38     \textcolor{keyword}{enum} enum\_pseudo\_random\_number\_generator \{ pseudo\_random\_number\_generator\_\_NULL =}
+\DoxyCodeLine{39             -\/1, pseudo\_random\_number\_generator\_arg\_PCG32 =}
+\DoxyCodeLine{40             0, pseudo\_random\_number\_generator\_arg\_MT, pseudo\_random\_number\_generator\_arg\_TT800}
+\DoxyCodeLine{41     \};}
+\DoxyCodeLine{42     \textcolor{keyword}{enum} enum\_move\_type \{ move\_type\_\_NULL = -\/1, move\_type\_arg\_TRIAL = 0, move\_type\_arg\_SMART \};}
+\DoxyCodeLine{43     \textcolor{keyword}{enum} enum\_iteration\_alg \{ iteration\_alg\_\_NULL = -\/1, iteration\_alg\_arg\_POLYMER = 0, iteration\_alg\_arg\_SET \};}
+\DoxyCodeLine{44     \textcolor{keyword}{enum} enum\_set\_generation\_algorithm \{ set\_generation\_algorithm\_\_NULL = -\/1, set\_generation\_algorithm\_arg\_SIMPLE =}
+\DoxyCodeLine{45             0, set\_generation\_algorithm\_arg\_FIXEDMINUS\_NMINUS\_SETS}
+\DoxyCodeLine{46     \};}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{49     \textcolor{keyword}{struct }\mbox{\hyperlink{structsom__args}{som\_args}} \{}
+\DoxyCodeLine{50         \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_a0e4c93f788110f236dc244a0b6e4397b}{help\_help}};}
+\DoxyCodeLine{52         \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_a8e19e59d981b6fb4046a196f834426dc}{detailed\_help\_help}};}
+\DoxyCodeLine{54         \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_a9f30408b055daf33bce961a0b4728880}{version\_help}};}
+\DoxyCodeLine{56         \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_a5f6560070e96e9133187650fd2b52429}{coord\_file\_arg}};   }
+\DoxyCodeLine{57         \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_a1b1782868f8bd39f5a14d0085a2acc37}{coord\_file\_orig}};  }
+\DoxyCodeLine{58         \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_a3574a26a8a1262b61237f23421c28a02}{coord\_file\_help}};}
+\DoxyCodeLine{60         \textcolor{keywordtype}{int} \mbox{\hyperlink{structsom__args_a27b6a46a82603a058fb6056584e474a0}{timesteps\_arg}};}
+\DoxyCodeLine{62         \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_a872a2375c27e65752cece51446eeec4e}{timesteps\_orig}};   }
+\DoxyCodeLine{63         \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_a459516084cc64bb0e0043209b4c2c95f}{timesteps\_help}};}
+\DoxyCodeLine{65         \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_adf971286cb7607e2c900feec84bf25c3}{ana\_file\_arg}};}
+\DoxyCodeLine{67         \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_a81384743d4a1e56f6faf0f7f7ebfdd61}{ana\_file\_orig}};}
+\DoxyCodeLine{69         \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_ae184d24a481520952c4526384f159070}{ana\_file\_help}};}
+\DoxyCodeLine{71         \textcolor{keywordtype}{int} \mbox{\hyperlink{structsom__args_a20b21e43835c78273870eae62361b33e}{gpus\_arg}};}
+\DoxyCodeLine{73         \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_a3af32c4df0c3b102e5bc1b4e8db83494}{gpus\_orig}};}
+\DoxyCodeLine{74         \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_ab88356d574ece9511985322337e29529}{gpus\_help}};}
+\DoxyCodeLine{76         \textcolor{keywordtype}{int} \mbox{\hyperlink{structsom__args_a9c2a8f333ce1a9c91b76c474538b4a1d}{only\_gpu\_arg}};}
+\DoxyCodeLine{78         \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_adc7813a7703e5478bfd2668bbfd8b7fe}{only\_gpu\_orig}};}
+\DoxyCodeLine{80         \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_a08052af0c60e0899217b4517c9a92214}{only\_gpu\_help}};}
+\DoxyCodeLine{82         \textcolor{keywordtype}{double} \mbox{\hyperlink{structsom__args_a84414f40cfa5afe63ca539a2b98e768e}{screen\_output\_interval\_arg}};}
+\DoxyCodeLine{84         \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_aca5c27c98094299ea6e589db4683e3aa}{screen\_output\_interval\_orig}};}
+\DoxyCodeLine{86         \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_a5461ac89d6a6153c443d094d2c4d9711}{screen\_output\_interval\_help}};}
+\DoxyCodeLine{88         \textcolor{keywordtype}{int} \mbox{\hyperlink{structsom__args_a7689e9b284b974a37dff2c0e186eaf76}{rng\_seed\_arg}};}
+\DoxyCodeLine{90         \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_aac35d962a542d01af0ad577f79dbcd80}{rng\_seed\_orig}};}
+\DoxyCodeLine{92         \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_a67535f74879d895bc18a51d2b9b05135}{rng\_seed\_help}};}
+\DoxyCodeLine{94         \textcolor{keyword}{enum} enum\_pseudo\_random\_number\_generator \mbox{\hyperlink{structsom__args_a9752f3749ec8f06d806406fcbf516738}{pseudo\_random\_number\_generator\_arg}};}
+\DoxyCodeLine{96         \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_a7ee68c39500b409d085ea5fe9f1b051a}{pseudo\_random\_number\_generator\_orig}};}
+\DoxyCodeLine{98         \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_adccd6df14b0f29e423d10109b7757cda}{pseudo\_random\_number\_generator\_help}};}
+\DoxyCodeLine{100         \textcolor{keywordtype}{int} \mbox{\hyperlink{structsom__args_a558fa3459dce0c560011f65c0b337454}{omp\_threads\_arg}};}
+\DoxyCodeLine{102         \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_a797f738f94d56161fd67b093b2516d4b}{omp\_threads\_orig}}; }
+\DoxyCodeLine{103         \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_a2ea402541a2807332eeda9fc8bfecf43}{omp\_threads\_help}};}
+\DoxyCodeLine{105         \textcolor{keywordtype}{int} \mbox{\hyperlink{structsom__args_a5128a8b34e3346349b258e238f4eec33}{nonexact\_area51\_flag}};}
+\DoxyCodeLine{107         \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_a41fbe08223e824512ca211298d36a7cc}{nonexact\_area51\_help}};}
+\DoxyCodeLine{109         \textcolor{keyword}{enum} enum\_move\_type \mbox{\hyperlink{structsom__args_aeaf3f8c6560c3cee14cac26e59907c71}{move\_type\_arg}};}
+\DoxyCodeLine{111         \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_ae42803a34cf617bde2b172c11d954a9e}{move\_type\_orig}};   }
+\DoxyCodeLine{112         \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_a9b5bec63e05c83a563ceaf13bc568993}{move\_type\_help}};}
+\DoxyCodeLine{114         \textcolor{keyword}{enum} enum\_iteration\_alg \mbox{\hyperlink{structsom__args_a47ae7ed4698d1f2fffb43cbbdc755f79}{iteration\_alg\_arg}};}
+\DoxyCodeLine{116         \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_ac4473e96b27559d30dcadcf68edd3b73}{iteration\_alg\_orig}};}
+\DoxyCodeLine{118         \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_a2f6d76564e495345a348873c0aa3dc66}{iteration\_alg\_help}};}
+\DoxyCodeLine{120         \textcolor{keywordtype}{int} \mbox{\hyperlink{structsom__args_a5e2b52bb4c9d3913123227d82d96af77}{skip\_tests\_flag}};}
+\DoxyCodeLine{122         \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_a9a2689ef9253d9ed12a31eb5f358663e}{skip\_tests\_help}};}
+\DoxyCodeLine{124         \textcolor{keywordtype}{int} \mbox{\hyperlink{structsom__args_a5db76954f0ac1b2146e4d3dcde370e8d}{load\_balance\_arg}};}
+\DoxyCodeLine{126         \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_a906c40967b3f1fc9877576c7b94acb91}{load\_balance\_orig}};}
+\DoxyCodeLine{127         \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_ab8ed5006ab06ce84a3b09a569fe8ac42}{load\_balance\_help}};}
+\DoxyCodeLine{129         \textcolor{keywordtype}{double} \mbox{\hyperlink{structsom__args_ae44bada445df4b3e2ca775092bf37f6a}{accepted\_load\_inbalance\_arg}};}
+\DoxyCodeLine{131         \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_a1af3c747b37046e196ab54e409117113}{accepted\_load\_inbalance\_orig}};}
+\DoxyCodeLine{133         \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_a2bf670b3c16091abf92662d03b54c30c}{accepted\_load\_inbalance\_help}};}
+\DoxyCodeLine{135         \textcolor{keywordtype}{int} \mbox{\hyperlink{structsom__args_a5235e4ec2232c3c3bca3c2a12e568fa4}{autotuner\_restart\_period\_arg}};}
+\DoxyCodeLine{137         \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_a8808b2168bc3eb74d3c90e59cffb9a2d}{autotuner\_restart\_period\_orig}};}
+\DoxyCodeLine{139         \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_a3bb13e98c66b2eab69187fb5fe38d4b3}{autotuner\_restart\_period\_help}};}
+\DoxyCodeLine{141         \textcolor{keywordtype}{int} \mbox{\hyperlink{structsom__args_a765cf3b7df1d84c1e6adad6d26e3b7fa}{N\_domains\_arg}};}
+\DoxyCodeLine{143         \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_a0cb8cab649efeeaa1a0f9d5c5ab2028f}{N\_domains\_orig}};   }
+\DoxyCodeLine{144         \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_a230739ad3f0ba1a611c622e3ca2be8bd}{N\_domains\_help}};}
+\DoxyCodeLine{146         \textcolor{keywordtype}{int} \mbox{\hyperlink{structsom__args_aeb21ce5b87b71d4ad84417684f0cdebb}{domain\_buffer\_arg}};  }
+\DoxyCodeLine{147         \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_a77b0884c12e0809127afdaa811779b91}{domain\_buffer\_orig}};}
+\DoxyCodeLine{149         \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_aa7098340dd7650b04d24fb03a649ec1e}{domain\_buffer\_help}};}
+\DoxyCodeLine{151         \textcolor{keywordtype}{int} \mbox{\hyperlink{structsom__args_a125d0d45bd8b8047ef06663b406dd25a}{rcm\_update\_arg}};}
+\DoxyCodeLine{153         \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_ae3bf6c0355c06674e0848526cda64059}{rcm\_update\_orig}};  }
+\DoxyCodeLine{154         \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_abb141d35b84a6de5d90022a2e54ecd78}{rcm\_update\_help}};}
+\DoxyCodeLine{156         \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_a2116d35f0646cb0681af5a4bf7670d82}{user\_arg}}; }
+\DoxyCodeLine{157         \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_a1462018e6380b946b55eb8f2e13eb749}{user\_orig}};}
+\DoxyCodeLine{158         \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_a38652ddb0fb598529506fc031dc2f48f}{user\_help}};}
+\DoxyCodeLine{160         \textcolor{keyword}{enum} enum\_set\_generation\_algorithm \mbox{\hyperlink{structsom__args_adca14cc8baa022dff21706c30bfef0b5}{set\_generation\_algorithm\_arg}};}
+\DoxyCodeLine{161         \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_aa2f870e16717e7df6b12ec714100caed}{set\_generation\_algorithm\_orig}};}
+\DoxyCodeLine{163         \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_a1622f94b1837602838613d788e6320e3}{set\_generation\_algorithm\_help}};}
+\DoxyCodeLine{165         \textcolor{keywordtype}{int} \mbox{\hyperlink{structsom__args_a8fb24f1b4fd8811705c70a92825110e3}{bond\_minimum\_image\_convention\_flag}}; }
+\DoxyCodeLine{166         \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_a066ed83805649c4b5f1ab3fa8f542de4}{bond\_minimum\_image\_convention\_help}};}
+\DoxyCodeLine{168         \textcolor{keywordtype}{int} \mbox{\hyperlink{structsom__args_af1256f558e54efb319e4d7453619655f}{no\_sync\_signal\_flag}};}
+\DoxyCodeLine{169         \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_a7541ec94c2778322a80f72f630aa56e7}{no\_sync\_signal\_help}};}
+\DoxyCodeLine{171         \textcolor{keywordtype}{int} \mbox{\hyperlink{structsom__args_a04b4f315571c70c3b7023712cb72083f}{long\_chain\_threshold\_arg}};}
+\DoxyCodeLine{173         \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_a0e2950969fa3dea8ad025317f6abb1ae}{long\_chain\_threshold\_orig}};}
+\DoxyCodeLine{174         \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_a7487d6b55f4392c5361536f374e6ad62}{long\_chain\_threshold\_help}};}
+\DoxyCodeLine{176         \textcolor{keywordtype}{int} \mbox{\hyperlink{structsom__args_add117782ee69147d3437417ecbb1e217}{set\_order\_frequency\_arg}};}
+\DoxyCodeLine{178         \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_a1ee744f1022717dc138d86d6ad3de71a}{set\_order\_frequency\_orig}}; }
+\DoxyCodeLine{179         \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_a079a6eb0ea83a68b6efe947a2e005cd8}{set\_order\_frequency\_help}};}
+\DoxyCodeLine{181         \textcolor{keywordtype}{int} \mbox{\hyperlink{structsom__args_aa0ed43f56e4489304553d3febce63ab2}{n\_random\_q\_arg}};}
+\DoxyCodeLine{183         \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_a763fabceff4fcb4c64776a4a0e8c2533}{n\_random\_q\_orig}};  }
+\DoxyCodeLine{184         \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_aa31f1ab61b171f2d9f6fe54d52a0fc13}{n\_random\_q\_help}};}
+\DoxyCodeLine{186         \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_a1b62aa1f04121bd32ffb1da1f825ddda}{final\_file\_arg}};   }
+\DoxyCodeLine{187         \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_a4c52178741fac4e12bcb09dcb907ee8e}{final\_file\_orig}};  }
+\DoxyCodeLine{188         \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_a94a35019c9c983d3b3de81727f27bf5e}{final\_file\_help}};}
+\DoxyCodeLine{190         \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_a74b4ce9e431229839c9886b4b2cec080}{purpose\_arg}};}
+\DoxyCodeLine{192         \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_a043e9bf9e9844f6f7cfffba86f0b8768}{purpose\_orig}};}
+\DoxyCodeLine{194         \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\mbox{\hyperlink{structsom__args_a7df0bfd750252169b13fd9b209208d00}{purpose\_help}};}
+\DoxyCodeLine{197         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structsom__args_a14cf9d96e8bdba364e7c22ec54f76980}{help\_given}};}
+\DoxyCodeLine{198         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structsom__args_ad4a03d9accaad8b07498f4d943fc1605}{detailed\_help\_given}};}
+\DoxyCodeLine{200         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structsom__args_acb02e80d65cd1e097ee95ba48447e099}{version\_given}};}
+\DoxyCodeLine{202         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structsom__args_a4b62eb781a22342c303faade87c60133}{coord\_file\_given}};  }
+\DoxyCodeLine{203         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structsom__args_ab02dcf7a3567740c30e22cabc8ae43d6}{timesteps\_given}};   }
+\DoxyCodeLine{204         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structsom__args_afaa0ed8d00e64e49589a2283e24ea0b9}{ana\_file\_given}};}
+\DoxyCodeLine{206         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structsom__args_a8e7d7b266b607ee60e87861dad0b0ce0}{gpus\_given}};}
+\DoxyCodeLine{207         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structsom__args_a7624714c32cc3134de02ec67c3c6754c}{only\_gpu\_given}};}
+\DoxyCodeLine{209         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structsom__args_a0f094cd1699d489d0a7e7165846a27f4}{screen\_output\_interval\_given}};}
+\DoxyCodeLine{211         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structsom__args_ac9f60fabf0c85f7563fc9da046160a1a}{rng\_seed\_given}};}
+\DoxyCodeLine{213         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structsom__args_a363948849bd3a792fdc1ed84ea899d74}{pseudo\_random\_number\_generator\_given}};}
+\DoxyCodeLine{215         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structsom__args_a5e81e54ea4f8ad836359e101aa9e63dc}{omp\_threads\_given}}; }
+\DoxyCodeLine{216         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structsom__args_a3f1afe0d76d87e817076180cbde336d6}{nonexact\_area51\_given}};}
+\DoxyCodeLine{218         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structsom__args_a7db25c52b13769816c4ed0a9a59cfb3d}{move\_type\_given}};   }
+\DoxyCodeLine{219         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structsom__args_a9d8b73adffbc38f20dfb21e0b7d38ca8}{iteration\_alg\_given}};}
+\DoxyCodeLine{221         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structsom__args_a940dbbef38efae7c75c50ed7631f1b76}{skip\_tests\_given}};  }
+\DoxyCodeLine{222         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structsom__args_a48fd1ff7c91746867b0bef754579e327}{load\_balance\_given}};}
+\DoxyCodeLine{223         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structsom__args_a6b9765f5b446bac687c5a42fd73fff63}{accepted\_load\_inbalance\_given}};}
+\DoxyCodeLine{225         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structsom__args_a89d50c93251af3ecaf346e9982078e6f}{autotuner\_restart\_period\_given}};}
+\DoxyCodeLine{227         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structsom__args_afa2fd941f611d760f36f2dbe9e17e412}{N\_domains\_given}};   }
+\DoxyCodeLine{228         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structsom__args_acb74347fb6e38dae4ff8101412f0ba20}{domain\_buffer\_given}};}
+\DoxyCodeLine{230         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structsom__args_a3aa599266258fae6b88574c0800d280c}{rcm\_update\_given}};  }
+\DoxyCodeLine{231         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structsom__args_abd4eef51fefdf2806ddfc7761b7d1953}{user\_given}};}
+\DoxyCodeLine{232         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structsom__args_aef10e903aa40c546575ddff70f943e71}{set\_generation\_algorithm\_given}};}
+\DoxyCodeLine{234         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structsom__args_a787fd4a1d5e8eafddd53bbec0a6c8fc1}{bond\_minimum\_image\_convention\_given}};}
+\DoxyCodeLine{236         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structsom__args_acaab62fc7e77923171c985b778db7061}{no\_sync\_signal\_given}};}
+\DoxyCodeLine{238         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structsom__args_add12acfa9f5127733e3eeecbf61ba86e}{long\_chain\_threshold\_given}};}
+\DoxyCodeLine{239         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structsom__args_ab474c7138d308569dc3feedbbc743d5c}{set\_order\_frequency\_given}}; }
+\DoxyCodeLine{240         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structsom__args_af34f5ac57ebffaada6f9e3861eaac75b}{n\_random\_q\_given}};  }
+\DoxyCodeLine{241         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structsom__args_a806285fdd3c5d3c2b955139674ac43b5}{final\_file\_given}};  }
+\DoxyCodeLine{242         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structsom__args_a0953ca2876e54f6e6f8faadf9332f6c7}{purpose\_given}};}
+\DoxyCodeLine{245     \};}
+\DoxyCodeLine{246 }
+\DoxyCodeLine{248     \textcolor{keyword}{struct }\mbox{\hyperlink{structcmdline__parser__params}{cmdline\_parser\_params}} \{}
+\DoxyCodeLine{249         \textcolor{keywordtype}{int} \textcolor{keyword}{override};}
+\DoxyCodeLine{251         \textcolor{keywordtype}{int} \mbox{\hyperlink{structcmdline__parser__params_a97ed8a6eabd39291ae7d73f273e12c11}{initialize}};}
+\DoxyCodeLine{253         \textcolor{keywordtype}{int} \mbox{\hyperlink{structcmdline__parser__params_a44ff439d7e9e36799e59173af74829c6}{check\_required}};}
+\DoxyCodeLine{255         \textcolor{keywordtype}{int} \mbox{\hyperlink{structcmdline__parser__params_a6e4442704fc40b0b655f7cc602f13ec4}{check\_ambiguity}};}
+\DoxyCodeLine{257         \textcolor{keywordtype}{int} \mbox{\hyperlink{structcmdline__parser__params_a3236f066777488e8502abe05ccd24455}{print\_errors}};}
+\DoxyCodeLine{259     \};}
+\DoxyCodeLine{260 }
+\DoxyCodeLine{262     \textcolor{keyword}{extern} \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\mbox{\hyperlink{cmdline_8h_af1b76c71cf240ab6cddaecd7e18cb076}{som\_args\_purpose}};}
+\DoxyCodeLine{264     \textcolor{keyword}{extern} \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\mbox{\hyperlink{cmdline_8h_a34e4f2c9f24342c3e63ffd22452c3454}{som\_args\_usage}};}
+\DoxyCodeLine{266     \textcolor{keyword}{extern} \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\mbox{\hyperlink{cmdline_8h_a4965042a1cf00351d43b3c94c18cccd1}{som\_args\_description}};}
+\DoxyCodeLine{268     \textcolor{keyword}{extern} \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\mbox{\hyperlink{cmdline_8h_a4393db51cc97a113cd442f80ed8b510b}{som\_args\_help}}[];}
+\DoxyCodeLine{270     \textcolor{keyword}{extern} \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\mbox{\hyperlink{cmdline_8h_a0138b2ad6d82475fb378200004b8820e}{som\_args\_detailed\_help}}[];}
+\DoxyCodeLine{271 }
+\DoxyCodeLine{279     \textcolor{keywordtype}{int} \mbox{\hyperlink{cmdline_8h_abc65fec007d33b869d37b085d7d8d078}{cmdline\_parser}}(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char} **argv, \textcolor{keyword}{struct} \mbox{\hyperlink{structsom__args}{som\_args}} *args\_info);}
+\DoxyCodeLine{280 }
+\DoxyCodeLine{292     \textcolor{keywordtype}{int} \mbox{\hyperlink{cmdline_8h_a15dd6fa9dafef64e3c79ff34ac473d89}{cmdline\_parser2}}(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char} **argv,}
+\DoxyCodeLine{293                         \textcolor{keyword}{struct} \mbox{\hyperlink{structsom__args}{som\_args}} *args\_info, \textcolor{keywordtype}{int} \textcolor{keyword}{override}, \textcolor{keywordtype}{int} initialize, \textcolor{keywordtype}{int} check\_required);}
+\DoxyCodeLine{294 }
+\DoxyCodeLine{303     \textcolor{keywordtype}{int} \mbox{\hyperlink{cmdline_8h_ac3cb9aea7bea5f7d03488c1752d2a199}{cmdline\_parser\_ext}}(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char} **argv, \textcolor{keyword}{struct} \mbox{\hyperlink{structsom__args}{som\_args}} *args\_info, \textcolor{keyword}{struct} \mbox{\hyperlink{structcmdline__parser__params}{cmdline\_parser\_params}} *params);}
+\DoxyCodeLine{304 }
+\DoxyCodeLine{311     \textcolor{keywordtype}{int} \mbox{\hyperlink{cmdline_8h_ae4eeb708698b8e181cbc16a01e57397d}{cmdline\_parser\_dump}}(FILE * outfile, \textcolor{keyword}{struct} \mbox{\hyperlink{structsom__args}{som\_args}} *args\_info);}
+\DoxyCodeLine{312 }
+\DoxyCodeLine{320     \textcolor{keywordtype}{int} \mbox{\hyperlink{cmdline_8h_a4a6bfea187e95c896badffae44b0553d}{cmdline\_parser\_file\_save}}(\textcolor{keyword}{const} \textcolor{keywordtype}{char} *filename, \textcolor{keyword}{struct} \mbox{\hyperlink{structsom__args}{som\_args}} *args\_info);}
+\DoxyCodeLine{321 }
+\DoxyCodeLine{325     \textcolor{keywordtype}{void} \mbox{\hyperlink{cmdline_8h_ad4f7db2fa4002379eb30e5206f3b7492}{cmdline\_parser\_print\_help}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{329     \textcolor{keywordtype}{void} \mbox{\hyperlink{cmdline_8h_aae986168102a76fa66ca3864f853f5f2}{cmdline\_parser\_print\_detailed\_help}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{333     \textcolor{keywordtype}{void} \mbox{\hyperlink{cmdline_8h_a96f27bf35ce0ab8eea7a1f6e6b59a5e2}{cmdline\_parser\_print\_version}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{334 }
+\DoxyCodeLine{340     \textcolor{keywordtype}{void} \mbox{\hyperlink{cmdline_8h_af72b814611cffc706b2135ccdfe7e997}{cmdline\_parser\_params\_init}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structcmdline__parser__params}{cmdline\_parser\_params}} *params);}
+\DoxyCodeLine{341 }
+\DoxyCodeLine{347     \textcolor{keyword}{struct }\mbox{\hyperlink{structcmdline__parser__params}{cmdline\_parser\_params}} *\mbox{\hyperlink{cmdline_8h_a9aebceb64ae4d24414bccbfc8010284f}{cmdline\_parser\_params\_create}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{348 }
+\DoxyCodeLine{354     \textcolor{keywordtype}{void} \mbox{\hyperlink{cmdline_8h_a37f610cf0bffc92f4f90702a7c402d60}{cmdline\_parser\_init}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structsom__args}{som\_args}} *args\_info);}
+\DoxyCodeLine{360     \textcolor{keywordtype}{void} \mbox{\hyperlink{cmdline_8h_a63f6a5a2cf16238757f2cde175f452d9}{cmdline\_parser\_free}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structsom__args}{som\_args}} *args\_info);}
+\DoxyCodeLine{361 }
+\DoxyCodeLine{369     \textcolor{keywordtype}{int} \mbox{\hyperlink{cmdline_8h_a0330b887119002c81a8300c972d5cf0e}{cmdline\_parser\_required}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structsom__args}{som\_args}} *args\_info, \textcolor{keyword}{const} \textcolor{keywordtype}{char} *prog\_name);}
+\DoxyCodeLine{370 }
+\DoxyCodeLine{371     \textcolor{keyword}{extern} \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\mbox{\hyperlink{cmdline_8h_a6662e4a9a4a2e3a664f1a3e1fff9cbcd}{cmdline\_parser\_pseudo\_random\_number\_generator\_values}}[];}
+\DoxyCodeLine{373     \textcolor{keyword}{extern} \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\mbox{\hyperlink{cmdline_8h_abcce3ce1257e28b747104f2b474b7373}{cmdline\_parser\_move\_type\_values}}[];}
+\DoxyCodeLine{375     \textcolor{keyword}{extern} \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\mbox{\hyperlink{cmdline_8h_a5f0713651b0e0e6bf7d4e6340177d909}{cmdline\_parser\_iteration\_alg\_values}}[];}
+\DoxyCodeLine{377     \textcolor{keyword}{extern} \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\mbox{\hyperlink{cmdline_8h_a9a07cb1479e3a7e5c4c27e2f11abd0f2}{cmdline\_parser\_set\_generation\_algorithm\_values}}[];}
+\DoxyCodeLine{380 \textcolor{preprocessor}{\#ifdef \_\_cplusplus}}
+\DoxyCodeLine{381 \}}
+\DoxyCodeLine{382 \textcolor{preprocessor}{\#endif                          }\textcolor{comment}{/* \_\_cplusplus */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{383 \textcolor{preprocessor}{\#endif                          }\textcolor{comment}{/* CMDLINE\_H */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

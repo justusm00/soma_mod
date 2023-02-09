@@ -1,0 +1,138 @@
+\hypertarget{test_8c}{}\doxysection{test.\+c File Reference}
+\label{test_8c}\index{test.c@{test.c}}
+
+
+Implementation of \mbox{\hyperlink{test_8h}{test.\+h}}.  
+
+
+{\ttfamily \#include \char`\"{}test.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}rng.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}io.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}init.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}mesh.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}mc.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}independent\+\_\+sets.\+h\char`\"{}}\newline
+Include dependency graph for test.\+c\+:
+% FIG 0
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{test_8c_a0dcf1de081bfbfaee9a3fb61f9d93667}{test\+\_\+particle\+\_\+types}} (const struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const p)
+\item 
+int \mbox{\hyperlink{test_8c_a9289062cc77e7e250abc02a903f5aa78}{test\+\_\+area51\+\_\+violation}} (const struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const p)
+\item 
+int \mbox{\hyperlink{test_8c_a956b0bc01c7b6a226181518186c0951e}{test\+\_\+independet\+\_\+sets}} (const struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const p)
+\item 
+int \mbox{\hyperlink{test_8c_aa67f3fe81f81eb0ce76f44e523313a8c}{test\+\_\+area51\+\_\+exact}} (const struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const p)
+\item 
+int \mbox{\hyperlink{test_8c_a1faacff7d9d0a69061d4f45d96ea1b7c}{test\+\_\+chains\+\_\+in\+\_\+domain}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const p)
+\item 
+int \mbox{\hyperlink{test_8c_a1c13c3f24b58b275a03a8000a23e70cb}{test\+\_\+poly\+\_\+conversion}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const p)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementation of \mbox{\hyperlink{test_8h}{test.\+h}}. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{test_8c_aa67f3fe81f81eb0ce76f44e523313a8c}\label{test_8c_aa67f3fe81f81eb0ce76f44e523313a8c}} 
+\index{test.c@{test.c}!test\_area51\_exact@{test\_area51\_exact}}
+\index{test\_area51\_exact@{test\_area51\_exact}!test.c@{test.c}}
+\doxysubsubsection{\texorpdfstring{test\_area51\_exact()}{test\_area51\_exact()}}
+{\footnotesize\ttfamily int test\+\_\+area51\+\_\+exact (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const}]{p }\end{DoxyParamCaption})}
+
+Test, whether the forbidden area51, is violated.
+
+In contrast to \mbox{\hyperlink{test_8h_a9289062cc77e7e250abc02a903f5aa78}{test\+\_\+area51\+\_\+violation()}} this function checks, whether a molecule penetrates through a forbidden area. 
+\begin{DoxyParams}{Parameters}
+{\em p} & System to test. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Errorcode 
+\end{DoxyReturn}
+\mbox{\Hypertarget{test_8c_a9289062cc77e7e250abc02a903f5aa78}\label{test_8c_a9289062cc77e7e250abc02a903f5aa78}} 
+\index{test.c@{test.c}!test\_area51\_violation@{test\_area51\_violation}}
+\index{test\_area51\_violation@{test\_area51\_violation}!test.c@{test.c}}
+\doxysubsubsection{\texorpdfstring{test\_area51\_violation()}{test\_area51\_violation()}}
+{\footnotesize\ttfamily int test\+\_\+area51\+\_\+violation (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const}]{p }\end{DoxyParamCaption})}
+
+Test, whether the forbidden area51, is violated, by any particle position.
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & System to test. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Errorcode 
+\end{DoxyReturn}
+\mbox{\Hypertarget{test_8c_a1faacff7d9d0a69061d4f45d96ea1b7c}\label{test_8c_a1faacff7d9d0a69061d4f45d96ea1b7c}} 
+\index{test.c@{test.c}!test\_chains\_in\_domain@{test\_chains\_in\_domain}}
+\index{test\_chains\_in\_domain@{test\_chains\_in\_domain}!test.c@{test.c}}
+\doxysubsubsection{\texorpdfstring{test\_chains\_in\_domain()}{test\_chains\_in\_domain()}}
+{\footnotesize\ttfamily int test\+\_\+chains\+\_\+in\+\_\+domain (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const}]{p }\end{DoxyParamCaption})}
+
+Test if all the polymer chains are in their correct domain.
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & \mbox{\hyperlink{structPhase}{Phase}} to check \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Errorcode 
+\end{DoxyReturn}
+\mbox{\Hypertarget{test_8c_a956b0bc01c7b6a226181518186c0951e}\label{test_8c_a956b0bc01c7b6a226181518186c0951e}} 
+\index{test.c@{test.c}!test\_independet\_sets@{test\_independet\_sets}}
+\index{test\_independet\_sets@{test\_independet\_sets}!test.c@{test.c}}
+\doxysubsubsection{\texorpdfstring{test\_independet\_sets()}{test\_independet\_sets()}}
+{\footnotesize\ttfamily int test\+\_\+independet\+\_\+sets (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const}]{p }\end{DoxyParamCaption})}
+
+If independet sets are used, test if they are really independet.
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & \mbox{\hyperlink{structPhase}{Phase}} to check \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Errorcode 
+\end{DoxyReturn}
+\mbox{\Hypertarget{test_8c_a0dcf1de081bfbfaee9a3fb61f9d93667}\label{test_8c_a0dcf1de081bfbfaee9a3fb61f9d93667}} 
+\index{test.c@{test.c}!test\_particle\_types@{test\_particle\_types}}
+\index{test\_particle\_types@{test\_particle\_types}!test.c@{test.c}}
+\doxysubsubsection{\texorpdfstring{test\_particle\_types()}{test\_particle\_types()}}
+{\footnotesize\ttfamily int test\+\_\+particle\+\_\+types (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const}]{p }\end{DoxyParamCaption})}
+
+Test the particle types to be in bounds
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & \mbox{\hyperlink{structPhase}{Phase}} to test. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+error code (wrong type). 
+\end{DoxyReturn}
+\mbox{\Hypertarget{test_8c_a1c13c3f24b58b275a03a8000a23e70cb}\label{test_8c_a1c13c3f24b58b275a03a8000a23e70cb}} 
+\index{test.c@{test.c}!test\_poly\_conversion@{test\_poly\_conversion}}
+\index{test\_poly\_conversion@{test\_poly\_conversion}!test.c@{test.c}}
+\doxysubsubsection{\texorpdfstring{test\_poly\_conversion()}{test\_poly\_conversion()}}
+{\footnotesize\ttfamily int test\+\_\+poly\+\_\+conversion (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const}]{p }\end{DoxyParamCaption})}
+
+Test polyconversion type setup
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & \mbox{\hyperlink{structPhase}{Phase}} to check \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Errorcode 
+\end{DoxyReturn}

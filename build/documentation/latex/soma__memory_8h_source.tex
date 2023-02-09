@@ -1,0 +1,61 @@
+\hypertarget{soma__memory_8h_source}{}\doxysection{soma\+\_\+memory.\+h}
+\label{soma__memory_8h_source}\index{soma\_memory.h@{soma\_memory.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{/* Copyright (C) 2016-\/2021 Ludwig Schneider}}
+\DoxyCodeLine{2 \textcolor{comment}{   Copyright (C) 2016 Ulrich Welling}}
+\DoxyCodeLine{3 \textcolor{comment}{   Copyright (C) 2016-\/2017 Marcel Langenberg}}
+\DoxyCodeLine{4 \textcolor{comment}{   Copyright (C) 2016 Fabien Leonforte}}
+\DoxyCodeLine{5 \textcolor{comment}{   Copyright (C) 2016 Juan Orozco}}
+\DoxyCodeLine{6 \textcolor{comment}{   Copyright (C) 2016 Yongzhi Ren}}
+\DoxyCodeLine{7 \textcolor{comment}{}}
+\DoxyCodeLine{8 \textcolor{comment}{ This file is part of SOMA.}}
+\DoxyCodeLine{9 \textcolor{comment}{}}
+\DoxyCodeLine{10 \textcolor{comment}{ SOMA is free software: you can redistribute it and/or modify}}
+\DoxyCodeLine{11 \textcolor{comment}{ it under the terms of the GNU Lesser General Public License as published by}}
+\DoxyCodeLine{12 \textcolor{comment}{ the Free Software Foundation, either version 3 of the License, or}}
+\DoxyCodeLine{13 \textcolor{comment}{ (at your option) any later version.}}
+\DoxyCodeLine{14 \textcolor{comment}{}}
+\DoxyCodeLine{15 \textcolor{comment}{ SOMA is distributed in the hope that it will be useful,}}
+\DoxyCodeLine{16 \textcolor{comment}{ but WITHOUT ANY WARRANTY; without even the implied warranty of}}
+\DoxyCodeLine{17 \textcolor{comment}{ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the}}
+\DoxyCodeLine{18 \textcolor{comment}{ GNU Lesser General Public License for more details.}}
+\DoxyCodeLine{19 \textcolor{comment}{}}
+\DoxyCodeLine{20 \textcolor{comment}{ You should have received a copy of the GNU Lesser General Public License}}
+\DoxyCodeLine{21 \textcolor{comment}{ along with SOMA.  If not, see <http://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{22 \textcolor{comment}{*/}}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#ifndef SOMA\_MEMORY\_H}}
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#define SOMA\_MEMORY\_H}}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <stdbool.h>}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <stdint.h>}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#include <stdlib.h>}}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{40 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structSomaMemory}{SomaMemory}} \{}
+\DoxyCodeLine{41     \textcolor{keywordtype}{void} *\mbox{\hyperlink{structSomaMemory_a57d5e0757a21d56d3190e68c3fae068f}{ptr}};                  }
+\DoxyCodeLine{42     uint64\_t \mbox{\hyperlink{structSomaMemory_a54d69ab1ddcf30307742a4530532dc55}{length}};            }
+\DoxyCodeLine{43     uint64\_t \mbox{\hyperlink{structSomaMemory_a6e11e99b10f5661a72bc00a53b42b92f}{used}};              }
+\DoxyCodeLine{44     \textcolor{keywordtype}{bool} \mbox{\hyperlink{structSomaMemory_a4551a4b5616834d748ed9248995fa0ca}{device\_present}};        }
+\DoxyCodeLine{45     \textcolor{keywordtype}{size\_t} \mbox{\hyperlink{structSomaMemory_ae46d5510f4c71f543ef5c2b618c29e9d}{typelength}};          }
+\DoxyCodeLine{46 \} \mbox{\hyperlink{structSomaMemory}{SomaMemory}};}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{54 \textcolor{keywordtype}{int} init\_soma\_memory(\textcolor{keyword}{struct} \mbox{\hyperlink{structSomaMemory}{SomaMemory}} *state, \textcolor{keyword}{const} uint64\_t length, \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} typelength);}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{60 \textcolor{keywordtype}{int} free\_soma\_memory(\textcolor{keyword}{struct} \mbox{\hyperlink{structSomaMemory}{SomaMemory}} *state);}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{68 uint64\_t get\_new\_soma\_memory\_offset(\textcolor{keyword}{struct} \mbox{\hyperlink{structSomaMemory}{SomaMemory}} *state, \textcolor{keyword}{const} uint64\_t n);}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{74 \textcolor{keywordtype}{int} copyin\_soma\_memory(\textcolor{keyword}{struct} \mbox{\hyperlink{structSomaMemory}{SomaMemory}} *state);}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{80 \textcolor{keywordtype}{int} copyout\_soma\_memory(\textcolor{keyword}{struct} \mbox{\hyperlink{structSomaMemory}{SomaMemory}} *state);}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{86 \textcolor{keywordtype}{int} update\_device\_soma\_memory(\textcolor{keyword}{struct} \mbox{\hyperlink{structSomaMemory}{SomaMemory}} *state);}
+\DoxyCodeLine{87 }
+\DoxyCodeLine{92 \textcolor{keywordtype}{int} update\_self\_soma\_memory(\textcolor{keyword}{struct} \mbox{\hyperlink{structSomaMemory}{SomaMemory}} *state);}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{100 \textcolor{keywordtype}{int} reallocate\_soma\_memory(\textcolor{keyword}{struct} \mbox{\hyperlink{structSomaMemory}{SomaMemory}} *state, \textcolor{keyword}{const} uint64\_t min\_increase);}
+\DoxyCodeLine{101 }
+\DoxyCodeLine{102 \textcolor{preprocessor}{\#endif                          }\textcolor{comment}{//SOMA\_MEMORY\_H}}
+
+\end{DoxyCode}

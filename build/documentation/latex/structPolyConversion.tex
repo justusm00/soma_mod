@@ -1,0 +1,53 @@
+\hypertarget{structPolyConversion}{}\doxysection{Poly\+Conversion Struct Reference}
+\label{structPolyConversion}\index{PolyConversion@{PolyConversion}}
+
+
+{\ttfamily \#include $<$polytype\+\_\+conversion.\+h$>$}
+
+\doxysubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structPolyConversion_af696ac74e270216a4855ec89313d8a5f}\label{structPolyConversion_af696ac74e270216a4855ec89313d8a5f}} 
+unsigned int {\bfseries delta\+MC}
+\begin{DoxyCompactList}\small\item\em control execution frequency of the conversion \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPolyConversion_a612ee2795c4653d577733d04d9469629}\label{structPolyConversion_a612ee2795c4653d577733d04d9469629}} 
+uint8\+\_\+t $\ast$ {\bfseries array}
+\begin{DoxyCompactList}\small\item\em Array that contains the reaction start index of the conversion list. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPolyConversion_a7adb2d44b59a7bd434cf2fca53d04bd1}\label{structPolyConversion_a7adb2d44b59a7bd434cf2fca53d04bd1}} 
+unsigned int $\ast$ {\bfseries input\+\_\+type}
+\begin{DoxyCompactList}\small\item\em Array that contains the input poly type for each reaction (educt) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPolyConversion_a8d09cc2c5430e665bc3404d67bc07e7b}\label{structPolyConversion_a8d09cc2c5430e665bc3404d67bc07e7b}} 
+unsigned int $\ast$ {\bfseries output\+\_\+type}
+\begin{DoxyCompactList}\small\item\em Array that contains the output poly type for each reaction (product) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPolyConversion_a40013d43f4f7c46117d06faa350a7eaf}\label{structPolyConversion_a40013d43f4f7c46117d06faa350a7eaf}} 
+unsigned int $\ast$ {\bfseries reaction\+\_\+end}
+\begin{DoxyCompactList}\small\item\em Array indicating if this is the last reaction in the list. (boolean) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPolyConversion_a1b26658e05a353191a4bb1addd1f5fd1}\label{structPolyConversion_a1b26658e05a353191a4bb1addd1f5fd1}} 
+\mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} $\ast$ {\bfseries rate}
+\begin{DoxyCompactList}\small\item\em control execution probability of the conversion \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPolyConversion_a2cc776c3153fff2d5ef7abbd09fc9336}\label{structPolyConversion_a2cc776c3153fff2d5ef7abbd09fc9336}} 
+unsigned int $\ast$ {\bfseries dependency\+\_\+ntype}
+\begin{DoxyCompactList}\small\item\em Array that contains the number of dependency indices. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPolyConversion_af987485cd49298e2ae695db903ac1c03}\label{structPolyConversion_af987485cd49298e2ae695db903ac1c03}} 
+unsigned int $\ast$ {\bfseries dependency\+\_\+type\+\_\+offset}
+\begin{DoxyCompactList}\small\item\em Array that contains the start/offset of dependency indices. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPolyConversion_a1dc696dd4d25bf1842d2e3036b6d4403}\label{structPolyConversion_a1dc696dd4d25bf1842d2e3036b6d4403}} 
+unsigned int $\ast$ {\bfseries dependency\+\_\+type}
+\begin{DoxyCompactList}\small\item\em Array that contains the dependency types. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPolyConversion_a4826b6f229fd6c5426d044103d2e2ae1}\label{structPolyConversion_a4826b6f229fd6c5426d044103d2e2ae1}} 
+unsigned int {\bfseries len\+\_\+reactions}
+\begin{DoxyCompactList}\small\item\em length of the reaction related arrays input\+\_\+type, output\+\_\+type and reaction\+\_\+end \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPolyConversion_af0a822d7b4b5c5116fae514f41b30e24}\label{structPolyConversion_af0a822d7b4b5c5116fae514f41b30e24}} 
+unsigned int {\bfseries len\+\_\+dependencies}
+\begin{DoxyCompactList}\small\item\em length of the density dependency array dependency\+\_\+type (=sum over dependency\+\_\+ntype) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPolyConversion_a4ea4e04b486d0fb0624f15455c6c0a70}\label{structPolyConversion_a4ea4e04b486d0fb0624f15455c6c0a70}} 
+unsigned int $\ast$ {\bfseries num\+\_\+conversions}
+\begin{DoxyCompactList}\small\item\em n\+\_\+poly\+\_\+type $\ast$ n\+\_\+poly\+\_\+type Matrix containing the corresponding conversions counters \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+@\+Author\+: Your name @\+Date\+: 2022-\/12-\/09 16\+:16\+:32 @\+Last Modified by\+: Your name @\+Last Modified time\+: 2023-\/01-\/19 16\+:32\+:41 Top level struct for polymer type conversions. controls the execution frequency. All other fields are only valid, if delta\+MC != 0 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+polytype\+\_\+conversion.\+h\end{DoxyCompactItemize}

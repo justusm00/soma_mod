@@ -1,0 +1,24 @@
+We perform Monte-\/\+Carlo Simulations therefore good random numbers are a prior condition. To validate the efficiency of an random number generator (RNG), we use the statistics of the end to end distance Re, bond isotropy, and Diffusion time of a polymer chain. However strictly formal we cannot speak from a Diffusion because of the characteristics of a Monte-\/\+Carlo Simulation. Our main focus is the performance of SOMA on GPUs. Since our simulation is a memory bounded problem and not a computational one we have to take the memory access of our RNG into account. The internal state of the PCG32 is quite small and the statistics was satisfactory, therefore we decided to use this RNG by default. If you have the feeling that something with your random numbers went wrong select the Mersenne-\/\+Twister or reduced Mersenne-\/\+Twister TT800 with a command line flag \begin{DoxyNote}{Note}
+PCG32 is used by default without any cmdline flags. Independent of the choice of your rng every polymer will have a different one which is used by every polymer exclusively. 
+\end{DoxyNote}
+\hypertarget{prng_gen_PCG32}{}\doxysection{PCG32}\label{prng_gen_PCG32}
+
+\begin{DoxyItemize}
+\item used by default, -\/p PCG32
+\item internal state 1x uint64\+\_\+t
+\item internal stream 1x uint64\+\_\+t
+\item seeded with seed, MPI process, polymer id
+\item \href{http://www.pcg-random.org/}{\texttt{ PCG32 developer page }}
+\end{DoxyItemize}\hypertarget{prng_gen_MTWISTER}{}\doxysection{Mersenne-\/\+Twister}\label{prng_gen_MTWISTER}
+
+\begin{DoxyItemize}
+\item use with\+: -\/p MT
+\item internal state 624x uint32\+\_\+t
+\item internal state is seeded with PCG32
+\end{DoxyItemize}\hypertarget{prng_gen_TT800}{}\doxysection{TT800}\label{prng_gen_TT800}
+
+\begin{DoxyItemize}
+\item use with\+: -\/p TT800
+\item internal state 27x uint32\+\_\+t
+\item internal state is seeded with PCG32 
+\end{DoxyItemize}

@@ -1,0 +1,34 @@
+\hypertarget{structRNG__STATE}{}\doxysection{RNG\+\_\+\+STATE Struct Reference}
+\label{structRNG__STATE}\index{RNG\_STATE@{RNG\_STATE}}
+
+
+Struct which contains the random number generators.  
+
+
+
+
+{\ttfamily \#include $<$rng.\+h$>$}
+
+
+
+Collaboration diagram for RNG\+\_\+\+STATE\+:
+% FIG 0
+\doxysubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structRNG__STATE_a6a2b1890703039e17b9187ff1f83a44e}\label{structRNG__STATE_a6a2b1890703039e17b9187ff1f83a44e}} 
+\mbox{\hyperlink{structPCG__STATE}{PCG\+\_\+\+STATE}} {\bfseries default\+\_\+state}
+\begin{DoxyCompactList}\small\item\em PCG32. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structRNG__STATE_af0325e79c73380148c48864eb909b9aa}\label{structRNG__STATE_af0325e79c73380148c48864eb909b9aa}} 
+uint64\+\_\+t {\bfseries alternative\+\_\+rng\+\_\+offset}
+\begin{DoxyCompactList}\small\item\em offset to read in the global memory (Depending on the switch in phase indicating the RNG to be used, this offsets to different. UINT64\+\_\+\+MAX if invalid \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Struct which contains the random number generators. 
+
+Option to select the pseudo random number enerator (possible values=\char`\"{}\+PCG32\char`\"{}, \char`\"{}\+MT\char`\"{} default=`PCG32') Defualt is PCG32. For every other {\itshape alternative} RNG the state only stores an offset to the global array of RNGs. See \mbox{\hyperlink{rng__alternative_8h}{rng\+\_\+alternative.\+h}} for details. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{rng_8h}{rng.\+h}}\end{DoxyCompactItemize}

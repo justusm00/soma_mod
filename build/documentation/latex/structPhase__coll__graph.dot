@@ -1,0 +1,40 @@
+digraph "Phase"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="LR";
+  Node1 [label="Phase",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="All relevant information for a system configuration."];
+  Node2 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" polymers" ];
+  Node2 [label="Polymer",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structPolymer.html",tooltip="Polymer information."];
+  Node3 -> Node2 [dir="back",color="darkorchid3",style="dashed",label=" poly_state" ];
+  Node3 [label="RNG_STATE",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structRNG__STATE.html",tooltip="Struct which contains the random number generators."];
+  Node4 -> Node3 [dir="back",color="darkorchid3",style="dashed",label=" default_state" ];
+  Node4 [label="PCG_STATE",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structPCG__STATE.html",tooltip="State of the random number generator (PCG)"];
+  Node5 -> Node2 [dir="back",color="darkorchid3",style="dashed",label=" rcm" ];
+  Node5 [label="Monomer",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structMonomer.html",tooltip="Monomer struct contains spatial position and type."];
+  Node6 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" info_MPI" ];
+  Node6 [label="Info_MPI",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structInfo__MPI.html",tooltip="All information about the MPI setup. Information about the MPI setup of the simulation...."];
+  Node7 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" ana_info" ];
+  Node7 [label="Ana_Info",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structAna__Info.html",tooltip="Basic information for analysis."];
+  Node8 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" args" ];
+  Node8 [label="som_args",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structsom__args.html",tooltip="Where the command line options are stored."];
+  Node9 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" sets" ];
+  Node9 [label="IndependetSets",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structIndependetSets.html",tooltip="Struct to store the independet set information for a polymer type."];
+  Node10 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" cm_mc_autotuner\nmc_autotuner" ];
+  Node10 [label="Autotuner",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structAutotuner.html",tooltip="Autotuner to struct to hold data, which is necessary to determine an optimal parameter for ACC kernel..."];
+  Node11 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" pc" ];
+  Node11 [label="PolyConversion",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structPolyConversion.html",tooltip=" "];
+  Node12 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" mobility" ];
+  Node12 [label="Mobility",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structMobility.html",tooltip="Struct to bundle the mobility modifier parameter."];
+  Node13 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" sd" ];
+  Node13 [label="SelfDocumentation",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structSelfDocumentation.html",tooltip=" "];
+  Node14 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" ph" ];
+  Node14 [label="PolymerHeavy",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structPolymerHeavy.html",tooltip=" "];
+  Node15 -> Node14 [dir="back",color="darkorchid3",style="dashed",label=" beads\nmsd_beads\nset_permutation\nset_states" ];
+  Node15 [label="SomaMemory",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structSomaMemory.html",tooltip=" "];
+  Node16 -> Node1 [dir="back",color="darkorchid3",style="dashed",label=" rh" ];
+  Node16 [label="RNG_HEAVY",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structRNG__HEAVY.html",tooltip=" "];
+  Node15 -> Node16 [dir="back",color="darkorchid3",style="dashed",label=" mt\ntt800" ];
+}

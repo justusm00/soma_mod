@@ -1,0 +1,62 @@
+\hypertarget{polymer_8h_source}{}\doxysection{polymer.\+h}
+\label{polymer_8h_source}\index{polymer.h@{polymer.h}}
+\mbox{\hyperlink{polymer_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{/* Copyright (C) 2016-\/2021 Ludwig Schneider}}
+\DoxyCodeLine{2 \textcolor{comment}{}}
+\DoxyCodeLine{3 \textcolor{comment}{ This file is part of SOMA.}}
+\DoxyCodeLine{4 \textcolor{comment}{}}
+\DoxyCodeLine{5 \textcolor{comment}{ SOMA is free software: you can redistribute it and/or modify}}
+\DoxyCodeLine{6 \textcolor{comment}{ it under the terms of the GNU Lesser General Public License as published by}}
+\DoxyCodeLine{7 \textcolor{comment}{ the Free Software Foundation, either version 3 of the License, or}}
+\DoxyCodeLine{8 \textcolor{comment}{ (at your option) any later version.}}
+\DoxyCodeLine{9 \textcolor{comment}{}}
+\DoxyCodeLine{10 \textcolor{comment}{ SOMA is distributed in the hope that it will be useful,}}
+\DoxyCodeLine{11 \textcolor{comment}{ but WITHOUT ANY WARRANTY; without even the implied warranty of}}
+\DoxyCodeLine{12 \textcolor{comment}{ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the}}
+\DoxyCodeLine{13 \textcolor{comment}{ GNU Lesser General Public License for more details.}}
+\DoxyCodeLine{14 \textcolor{comment}{}}
+\DoxyCodeLine{15 \textcolor{comment}{ You should have received a copy of the GNU Lesser General Public License}}
+\DoxyCodeLine{16 \textcolor{comment}{ along with SOMA.  If not, see <http://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{17 \textcolor{comment}{*/}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#ifndef POLYMER\_H}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#define POLYMER\_H}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{soma__config_8h}{soma\_config.h}}"{}}}
+\DoxyCodeLine{21 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{rng_8h}{rng.h}}"{}}}
+\DoxyCodeLine{22 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{monomer_8h}{monomer.h}}"{}}}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{26 }
+\DoxyCodeLine{31 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structPolymer}{Polymer}} \{}
+\DoxyCodeLine{32     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structPolymer_ab682a6cda9162c3107975b7e61229e11}{type}};          }
+\DoxyCodeLine{33     \mbox{\hyperlink{structRNG__STATE}{RNG\_STATE}} \mbox{\hyperlink{structPolymer_a9e0a6d91947bfd79ec1270a6b4e42ae5}{poly\_state}};       }
+\DoxyCodeLine{34     \mbox{\hyperlink{structMonomer}{Monomer}} \mbox{\hyperlink{structPolymer_af4bfb93fa851946d497d719d41fd0949}{rcm}};                }
+\DoxyCodeLine{35     uint64\_t \mbox{\hyperlink{structPolymer_a35cb0ff9d4db2c9addb372b2db41c441}{tag}};               }
+\DoxyCodeLine{36     uint64\_t \mbox{\hyperlink{structPolymer_a84a8873ccb5170f024376f1a45050d75}{bead\_offset}};       }
+\DoxyCodeLine{37     uint64\_t \mbox{\hyperlink{structPolymer_abf59ffec14df52552a9cbbad337f291c}{msd\_bead\_offset}};   }
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#if ( ENABLE\_MONOTYPE\_CONVERSIONS == 1 )}}
+\DoxyCodeLine{39     uint64\_t monomer\_type\_offset;       }
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#endif                          }\textcolor{comment}{//ENABLE\_MONOTYPE\_CONVERSIONS}}
+\DoxyCodeLine{41     uint64\_t \mbox{\hyperlink{structPolymer_a1beb28d5747fe839b07fa1f2ad15b052}{set\_states\_offset}}; }
+\DoxyCodeLine{42     uint64\_t \mbox{\hyperlink{structPolymer_a100fe6f49bb00d157de89a49e16b43aa}{set\_permutation\_offset}};    }
+\DoxyCodeLine{43 \} \mbox{\hyperlink{structPolymer}{Polymer}};}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{52 \textcolor{keywordtype}{int} \mbox{\hyperlink{polymer_8h_a82fd650c67fcc719a73f93ca2bd918c8}{reallocate\_polymer\_mem}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structPhase}{Phase}} *\textcolor{keyword}{const} p, uint64\_t new\_storage);}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{66 \textcolor{keywordtype}{int} \mbox{\hyperlink{polymer_8h_aff5fa000cf4b8dfde9fb8d979ac55ae7}{push\_polymer}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structPhase}{Phase}} *\textcolor{keyword}{const} p, \textcolor{keyword}{const} \mbox{\hyperlink{structPolymer}{Polymer}} * \textcolor{keyword}{const} poly);}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{79 \textcolor{keywordtype}{int} \mbox{\hyperlink{polymer_8h_a45a5e1f0f580322fb3d9296cbb0f4588}{pop\_polymer}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structPhase}{Phase}} *\textcolor{keyword}{const} p, \textcolor{keyword}{const} uint64\_t poly\_id, \mbox{\hyperlink{structPolymer}{Polymer}} * \textcolor{keyword}{const} poly);}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{89 \textcolor{keywordtype}{int} \mbox{\hyperlink{polymer_8h_a0f726c89f5af95ddc205e267f30fa55e}{exchange\_polymer}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structPhase}{Phase}} *\textcolor{keyword}{const} p, \textcolor{keyword}{const} uint64\_t poly\_i, \textcolor{keyword}{const} uint64\_t poly\_j);}
+\DoxyCodeLine{90 }
+\DoxyCodeLine{97 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{polymer_8h_acf6cbf0802aafadd87b6730e9db9a6dd}{poly\_serial\_length}}(\textcolor{keyword}{const} \textcolor{keyword}{struct} \mbox{\hyperlink{structPhase}{Phase}} *\textcolor{keyword}{const} p, \textcolor{keyword}{const} \mbox{\hyperlink{structPolymer}{Polymer}} * \textcolor{keyword}{const} poly);}
+\DoxyCodeLine{98 }
+\DoxyCodeLine{107 \textcolor{keywordtype}{int} \mbox{\hyperlink{polymer_8h_a0f36ef492c0f57143795887ecc5a121f}{serialize\_polymer}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structPhase}{Phase}} *\textcolor{keyword}{const} p, \textcolor{keyword}{const} \mbox{\hyperlink{structPolymer}{Polymer}} * \textcolor{keyword}{const} poly, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} *\textcolor{keyword}{const} buffer);}
+\DoxyCodeLine{108 }
+\DoxyCodeLine{119 \textcolor{keywordtype}{int} \mbox{\hyperlink{polymer_8h_a2e07e0d25516f643fb2d80c3ebeb9fee}{deserialize\_polymer}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structPhase}{Phase}} *\textcolor{keyword}{const} p, \mbox{\hyperlink{structPolymer}{Polymer}} * \textcolor{keyword}{const} poly, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} *\textcolor{keyword}{const} buffer);}
+\DoxyCodeLine{120 }
+\DoxyCodeLine{125 \textcolor{keywordtype}{int} \mbox{\hyperlink{polymer_8h_ac8cf98e73f14c3f9bb1fad07ce60b806}{update\_polymer\_rcm}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structPhase}{Phase}} *\textcolor{keyword}{const} p);}
+\DoxyCodeLine{126 }
+\DoxyCodeLine{132 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{polymer_8h_a15bd16b78df6a0c71f6f068ff4280871}{get\_domain\_id}}(\textcolor{keyword}{const} \textcolor{keyword}{struct} \mbox{\hyperlink{structPhase}{Phase}} *\textcolor{keyword}{const} p, \textcolor{keyword}{const} \mbox{\hyperlink{structMonomer}{Monomer}} * \textcolor{keyword}{const} rcm);}
+\DoxyCodeLine{133 \textcolor{preprocessor}{\#endif                          }\textcolor{comment}{//POLYMER\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,66 @@
+\hypertarget{ana__info_8h_source}{}\doxysection{ana\+\_\+info.\+h}
+\label{ana__info_8h_source}\index{ana\_info.h@{ana\_info.h}}
+\mbox{\hyperlink{ana__info_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{/* Copyright (C) 2016-\/2021 Ludwig Schneider}}
+\DoxyCodeLine{2 \textcolor{comment}{}}
+\DoxyCodeLine{3 \textcolor{comment}{ This file is part of SOMA.}}
+\DoxyCodeLine{4 \textcolor{comment}{}}
+\DoxyCodeLine{5 \textcolor{comment}{ SOMA is free software: you can redistribute it and/or modify}}
+\DoxyCodeLine{6 \textcolor{comment}{ it under the terms of the GNU Lesser General Public License as published by}}
+\DoxyCodeLine{7 \textcolor{comment}{ the Free Software Foundation, either version 3 of the License, or}}
+\DoxyCodeLine{8 \textcolor{comment}{ (at your option) any later version.}}
+\DoxyCodeLine{9 \textcolor{comment}{}}
+\DoxyCodeLine{10 \textcolor{comment}{ SOMA is distributed in the hope that it will be useful,}}
+\DoxyCodeLine{11 \textcolor{comment}{ but WITHOUT ANY WARRANTY; without even the implied warranty of}}
+\DoxyCodeLine{12 \textcolor{comment}{ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the}}
+\DoxyCodeLine{13 \textcolor{comment}{ GNU Lesser General Public License for more details.}}
+\DoxyCodeLine{14 \textcolor{comment}{}}
+\DoxyCodeLine{15 \textcolor{comment}{ You should have received a copy of the GNU Lesser General Public License}}
+\DoxyCodeLine{16 \textcolor{comment}{ along with SOMA.  If not, see <http://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{17 \textcolor{comment}{*/}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#ifndef ANA\_INFO\_H}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#define ANA\_INFO\_H}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{soma__config_8h}{soma\_config.h}}"{}}}
+\DoxyCodeLine{21 \textcolor{preprocessor}{\#include <hdf5.h>}}
+\DoxyCodeLine{22 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{soma__config_8h}{soma\_config.h}}"{}}}
+\DoxyCodeLine{23 \textcolor{keyword}{struct }\mbox{\hyperlink{structPhase}{Phase}};}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{27 }
+\DoxyCodeLine{29 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structAna__Info}{Ana\_Info}} \{}
+\DoxyCodeLine{30     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structAna__Info_a235542b6f20f66a75166465828684bdd}{delta\_mc\_Re}};   }
+\DoxyCodeLine{31     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structAna__Info_aa9e9a01c96f6a81565b09ee18a4055f0}{delta\_mc\_Rg}};   }
+\DoxyCodeLine{32     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structAna__Info_a06865f90224e8d280401f871a6a07d99}{delta\_mc\_b\_anisotropy}}; }
+\DoxyCodeLine{33     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structAna__Info_abbb300a8ec2e5e50e319f6baaa94c05e}{delta\_mc\_density\_field}};        }
+\DoxyCodeLine{34     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structAna__Info_a05156ad4029896094cfd9cbfbea1d1cd}{delta\_mc\_acc\_ratio}};    }
+\DoxyCodeLine{35     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structAna__Info_a1b9731de598146966aab8661bf3f14b1}{delta\_mc\_MSD}};  }
+\DoxyCodeLine{36     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structAna__Info_a7f04ac7dc978d2255867a485086833eb}{delta\_mc\_dump}}; }
+\DoxyCodeLine{37     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structAna__Info_a19c0e169db3f056f24ce559caa75c570}{delta\_mc\_density\_var}};  }
+\DoxyCodeLine{38     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structAna__Info_a02740eec7a9946055401d85052413775}{delta\_mc\_non\_bonded\_energy}};    }
+\DoxyCodeLine{39     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structAna__Info_a58f22dd4b8225c8ce4db73381058510b}{delta\_mc\_bonded\_energy}};        }
+\DoxyCodeLine{40     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structAna__Info_a3d953891140864925327a0a62b661c30}{delta\_mc\_umbrella\_field}};       }
+\DoxyCodeLine{41     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structAna__Info_a84ce0ab6d1462dca3be54e9415e46407}{delta\_mc\_dynamical\_structure}};  }
+\DoxyCodeLine{42     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structAna__Info_a93340b2bb4335c01a42d051b561378af}{delta\_mc\_static\_structure}};     }
+\DoxyCodeLine{43     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structAna__Info_aade91fdd62b93814656642afd7c87cea}{delta\_mc\_num\_conversions}};      }
+\DoxyCodeLine{44     \mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\_scalar\_t}} *\mbox{\hyperlink{structAna__Info_a5b0f4ac9327d09831f1efbb277a02d4d}{q\_static}};    }
+\DoxyCodeLine{45     \mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\_scalar\_t}} *\mbox{\hyperlink{structAna__Info_a6febe301e3e3a479e547ce21be8a40f7}{q\_dynamical}}; }
+\DoxyCodeLine{46     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structAna__Info_a0b62de1c8e71e464410c6fccc9c5d18e}{q\_size\_static}}; }
+\DoxyCodeLine{47     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structAna__Info_aeb138143b3045f478422f403803bad5a}{q\_size\_dynamical}};      }
+\DoxyCodeLine{48     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structAna__Info_afff88f9e90b9500ae3b07b57282b34d5}{delta\_mc\_mono\_type\_fraction}};   }
+\DoxyCodeLine{49     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structAna__Info_a5b2ef9e6fd16911c9f86fbe477751537}{mtf\_tested\_type}};       }
+\DoxyCodeLine{50     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{structAna__Info_a5358c4ed96e6edff98678135242435ff}{mtf\_tested\_type\_N}};     }
+\DoxyCodeLine{51     \textcolor{keywordtype}{char} *\mbox{\hyperlink{structAna__Info_ab416ff26931ae3191c09e428ca36f113}{filename}};             }
+\DoxyCodeLine{52     \textcolor{keywordtype}{char} *\mbox{\hyperlink{structAna__Info_ac382ba887d0bebbdff91f72d10579d91}{coord\_filename}};       }
+\DoxyCodeLine{53     hid\_t \mbox{\hyperlink{structAna__Info_afe188d4cd404cfa541871f98dc3f6d7a}{file\_id}};              }
+\DoxyCodeLine{54 \textcolor{preprocessor}{\#if (ENABLE\_MPI == 1)}}
+\DoxyCodeLine{55     MPI\_Comm inter\_domain\_communicator; }
+\DoxyCodeLine{56 \textcolor{preprocessor}{\#endif                          }\textcolor{comment}{//ENABLE\_MPI}}
+\DoxyCodeLine{57 \} \mbox{\hyperlink{structAna__Info}{Ana\_Info}};}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{67 \textcolor{keywordtype}{int} \mbox{\hyperlink{ana__info_8h_a13d5dca7a6103567c852ca6ecb9b3839}{init\_ana}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structPhase}{Phase}} *\textcolor{keyword}{const} p, \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\textcolor{keyword}{const} filename, \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\textcolor{keyword}{const} coord\_filename);}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{73 \textcolor{keywordtype}{int} \mbox{\hyperlink{ana__info_8h_a3bdfdc6de4b4197a21632449f3700c61}{close\_ana}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structAna__Info}{Ana\_Info}} *\textcolor{keyword}{const} a);}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{75 \textcolor{preprocessor}{\#endif                          }\textcolor{comment}{//ANA\_INFO\_H}}
+
+\end{DoxyCode}

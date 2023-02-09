@@ -1,0 +1,18 @@
+digraph "init.h"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  Node1 [label="init.h",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="Header file functions required for initialization processes."];
+  Node1 -> Node2 [dir="back",color="steelblue1",style="solid"];
+  Node2 [label="convert.c",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$convert_8c.html",tooltip="Implementation of CONVERT executable."];
+  Node1 -> Node3 [dir="back",color="steelblue1",style="solid"];
+  Node3 [label="init.c",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$init_8c.html",tooltip="Implementation of init.h."];
+  Node1 -> Node4 [dir="back",color="steelblue1",style="solid"];
+  Node4 [label="phase.c",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$phase_8c.html",tooltip="Implementation of phase.h."];
+  Node1 -> Node5 [dir="back",color="steelblue1",style="solid"];
+  Node5 [label="soma.c",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$soma_8c.html",tooltip="Implementation of the main executable SOMA."];
+  Node1 -> Node6 [dir="back",color="steelblue1",style="solid"];
+  Node6 [label="test.c",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$test_8c.html",tooltip="Implementation of test.h."];
+}

@@ -1,0 +1,80 @@
+All implemented features of SOMA are compiled on this page on a list. In addition, a short description how to enable the features is given.\hypertarget{features_list}{}\doxysection{List of All Features}\label{features_list}
+
+\begin{DoxyItemize}
+\item Full implementation of the model.
+\item Two different levels of parallelism for iteration of all beads on the GPU\+:
+\begin{DoxyItemize}
+\item Polymer level\+: The parallelism is entirely on the level of polymers. This ensures detailed balance and known Rouse dynamics in combination with smart Monte-\/\+Carlo moves.
+\item Independent Set level\+: In addition to the polymer level. Independent beads inside a single polymer are moved in parallel. To do so, at the initialization sets of independent beads are calculated. Each Monte-\/\+Carlo move selects a random permutation of these sets and iterates the sets sequentially. This can improve the performance for GPU simulation significantly. Instead of detailed balance this move fulfills only global balance and the dynamics is a little bit different, compared to the other iteration scheme.
+\end{DoxyItemize}
+
+Choose the \char`\"{}-\/-\/iteration-\/alg\char`\"{} flag to select the iteration algorithm of SOMA. Default is polymer iteration.
+\item Two options to calculate the independent sets.
+\begin{DoxyItemize}
+\item SIMPLE heuristic to obtain the fewest number of balanced sets. O(\+N$^\wedge$2) where N is the number of beads in a molecule. Suitable for simple molecules (like linear chains).
+\item FIXED-\/\+N-\/\+SETS set generation that scales like O(\+N), but uses m+1 sets. m is max number of bonds a bead has. Suitable for large molecules like networks.
+\end{DoxyItemize}
+\item Two non-\/bonded hamiltonian available (SCMF0 and SCMF1), for details refer \mbox{\hyperlink{mesh_8c_a618d71a3f05754263864a225388aa1cb}{update\+\_\+omega\+\_\+fields\+\_\+scmf0()}} and \mbox{\hyperlink{mesh_8c_ac653af526188b98300934b90ea760073}{update\+\_\+omega\+\_\+fields\+\_\+scmf1()}}.
+\item Documentation via Doxygen. Almost all executables offer a help page.
+\item Simple random displacement MC.
+\item Smart Monte-\/\+Carlo moves.
+\item Distributed computation via MPI.
+\item CPU and GPU implementations via Open\+ACC.
+\item Shared memory CPU parallelism via Open\+MP.
+\item Human readable xml input files.
+\item XDMF file conversion for analytics of density fields as an interface to paraview.
+\item Forbidden areas (area51) for confinement or non-\/periodic boundary conditions.
+\item Exact non passing area51.
+\item External fields.
+\item 3 different random number generators.
+\item Walltime management with environment variable SOMA\+\_\+\+WALLTIME\+\_\+\+STOP. Set up SOMA to finish in 23 hours and 45 minutes independent of the simulation progress with \char`\"{}export SOMA\+\_\+\+WALLTIME\+\_\+\+STOP=\$((\`{}date +\%s\`{} + 23 $\ast$ 3600 -\/ 15 $\ast$ 60))\char`\"{}. The final configuration is written in the \textquotesingle{}normal\textquotesingle{} output file and can be used to restart the simulation.
+\item Signal management is deprecated. Use the environment variable SOMA\+\_\+\+WALLTIME\+\_\+\+STOP instead. A running process can be stopped by attaching (with gdb) to the process and change the variable.
+\item Checkpointing\+: User specified interval to \char`\"{}dump\char`\"{} full configurations.
+\item Online output file compression. (gzip for density\+\_\+field).
+\item Automatic random configuration generation.
+\item Human readable updating of existing configurations.
+\item Scripts to handle hdf5 output data.
+\item Conversion tools to support the old data format.
+\item Online run estimation time output.
+\item Center of mass simple Monte-\/\+Carlo algorithm for full molecule diffusion.
+\item Doxygen API documentation.
+\item Domain decomposition as a third layer of parallelism.
+\item Time dependent external field.
+\item The user can define reaction zones, where one polymer type is converted into another.
+\item Self documentation. SOMA is storing a string describing each simulation run. This accumulative stored in the configuration and analysis file. This allows to track this full evolution of a simulation, even if the user changes parameter in between run. In addition, SOMA allows the specification of a purpose for each simulation step e.\+g. \char`\"{}equilibration\char`\"{}, \char`\"{}quench\char`\"{}, \char`\"{}measurement\char`\"{} etc..
+\item Enable density dependent mobility modifiers by rejecting additional MC moves. The reference for this method is\+: \href{https://onlinelibrary.wiley.com/doi/abs/10.1002/polb.20385}{\texttt{ https\+://onlinelibrary.\+wiley.\+com/doi/abs/10.\+1002/polb.\+20385}} Equation 33 and 34. And Equation 20. 2nd method implemented based on the tanh and different for each type.
+\item Implementation of full CUDA aware MPI for domain decoposition and \char`\"{}normal\char`\"{}. In addition the NCCL library for device reduction has been implemented as well to gain full speed ups from the direct device communication such that no memory transfer is needed. Both features have to be manually activated via CMake options the default is off.
+\item Enable different MC frequencies for different polymer types for a contrast in mobility.
+\item \mbox{\hyperlink{structPolymer}{Polymer}} type conversions with (monomer-\/type)-\/density dependent rates
+\item \mbox{\hyperlink{structMonomer}{Monomer}} type conversions with (monomer-\/type)-\/density dependent rates
+\end{DoxyItemize}\hypertarget{features_observables}{}\doxysubsection{Available Observables}\label{features_observables}
+Observables are averaged in a single time frame per polymer type. The radius of gyration for example generates 4 values for each polymer type. Suppose you simulated 2 polymer types in 5 time frames. The output matrix in the hdf5 has than the dimensions 5x8, the first dimension is counting the time frames.
+
+
+\begin{DoxyItemize}
+\item $ Re $ Average squared distance of the first and last (in memory) monomer of a polymer. In some topologies this might be the end-\/to-\/end distance of the polymer. 4 values per polymer type\+: $ Re^2 Re_x^2 Re_y^2 Re_z^2 $
+\item The radius of gyration $ R_g $. 4 values per polymer type\+: $ Rgx^2 Rg_x^2 Rg_y^2 Rg_z^2 $
+\item Mean squared displacement. 8 values per polymer\+\_\+type\+: $ g_{1x} g_{1y} g_{1z} g_{1} g_{3x} g_{3y} g_{3z} g_{3}$
+\item Stress tensor of the bond stresses. 6 values per polymer type $ \sigma_{xx} \sigma_{yy} \sigma_{zz} \sigma_{xy} \sigma_{xz} \sigma_{yz}$
+\item Output of the density-\/field. For each particle type a matrix of the grid dimension.
+\item The acceptance ratio of the Monte-\/\+Carlo move. (Normal single bead moves.) \begin{DoxyWarning}{Warning}
+Because of reduction problems in the GPU implementation. Open\+ACC builds return -\/1.
+\end{DoxyWarning}
+
+\item The acceptance ratio of the Monte-\/\+Carlo move. (Center of Mass moves.) \begin{DoxyWarning}{Warning}
+Because of reduction problems in the GPU implementation. Open\+ACC builds return -\/1.
+\end{DoxyWarning}
+
+\item Density variation. Variance of the density fields compared to the last analysed step.
+\item Non-\/\+Bonded energy\+: For each particle type $ k $\+: $ E_k = \sum_{c}^{N_cells} \omega_k(c) \cdot N_k(c) $, where $ N_k(c) $ denotes the number of particles of type $k$ in cell $c$.
+\item Non-\/\+Bonded energy\+: For each bond type $ k $\+: $ E_k = \sum_{<ij>} V_k(r_{ij}) \delta_{i<j} $, where $ <ij> $ denotes all bonded (of bond type $ k $) particles $ i,j$.
+\item Static-\/\+Structure-\/\+Factor\+: For each polymer\+\_\+type\+: $ S_q = \frac{1}{N}\sum_{<kj>} \exp(i\vec{q}(\vec{r}_k(t)-\vec{r}_j(t)))$, where $ <kj> $ denotes all monomers in a chain and $ N $ is the chain length.
+\item Dynamical-\/\+Structure-\/\+Factor\+: For each polymer\+\_\+type\+: $ S_q(t) = \frac{1}{N}\sum_{<kj>} \exp(i\vec{q}(\vec{r}_k(0)-\vec{r}_j(t)))$, where $ <kj> $ denotes all monomers in a chain and $ N $ is the chain length.
+\item Monomer-\/type fraction\+: (For use of monomer type conversions) For a specific polymer type test the distribution of monomer type fractions.
+\end{DoxyItemize}\hypertarget{features_no-features}{}\doxysubsection{Not Available Features}\label{features_no-features}
+If you want to implement a feature, please do not hesitate to help us. But talk to us during the process.
+
+
+\begin{DoxyItemize}
+\item Smoothing neighbor functions like NEIGHBOUR8 or NEIGHBOUR27, because useful physical application is rare. 
+\end{DoxyItemize}

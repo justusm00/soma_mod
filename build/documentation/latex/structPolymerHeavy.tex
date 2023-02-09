@@ -1,0 +1,37 @@
+\hypertarget{structPolymerHeavy}{}\doxysection{Polymer\+Heavy Struct Reference}
+\label{structPolymerHeavy}\index{PolymerHeavy@{PolymerHeavy}}
+
+
+{\ttfamily \#include $<$poly\+\_\+heavy.\+h$>$}
+
+
+
+Collaboration diagram for Polymer\+Heavy\+:
+% FIG 0
+\doxysubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structPolymerHeavy_a0284a52ec91cd1ced3c5430a76f104b8}\label{structPolymerHeavy_a0284a52ec91cd1ced3c5430a76f104b8}} 
+\mbox{\hyperlink{structSomaMemory}{Soma\+Memory}} {\bfseries beads}
+\begin{DoxyCompactList}\small\item\em Memory handle struct for the beads data. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPolymerHeavy_ab638249f9158f2bd39142d2015bb77b5}\label{structPolymerHeavy_ab638249f9158f2bd39142d2015bb77b5}} 
+\mbox{\hyperlink{structSomaMemory}{Soma\+Memory}} {\bfseries msd\+\_\+beads}
+\begin{DoxyCompactList}\small\item\em Memory handle struct for the msd\+\_\+beads data (typically not present on device) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPolymerHeavy_a246a7a617050988b8deee9b8a9b591dd}\label{structPolymerHeavy_a246a7a617050988b8deee9b8a9b591dd}} 
+\mbox{\hyperlink{structSomaMemory}{Soma\+Memory}} {\bfseries set\+\_\+states}
+\begin{DoxyCompactList}\small\item\em Memory handle struct for set states memory. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structPolymerHeavy_a94d73fd7bc072cf3e7a2ffea51217baf}\label{structPolymerHeavy_a94d73fd7bc072cf3e7a2ffea51217baf}} 
+\mbox{\hyperlink{structSomaMemory}{Soma\+Memory}} {\bfseries set\+\_\+permutation}
+\begin{DoxyCompactList}\small\item\em Memory handle struct for the set permutation info. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Struct to combine all heavy data pointer for the polymers of this rank. Each individual polymer contains offset values that clarify which area of the memory belongs to the respective polymer. It is important to ensure that these areas are initialised to not overlap.
+
+Advantage of these large memory blocks, instead of small pointer for each polymers is, that they can be more easily allocated and transferred to GPUs and/or other ranks. The use of offset integer, instead of pointers, referring to the large memory block is, that we can avoid any kind of deep-\/copy issues with Open\+ACC.
+
+Pointers that are not used, because the current execution mode doesn\textquotesingle{}t need them are set to NULL. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+poly\+\_\+heavy.\+h\end{DoxyCompactItemize}

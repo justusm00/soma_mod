@@ -1,0 +1,52 @@
+\hypertarget{structIndependetSets}{}\doxysection{Independet\+Sets Struct Reference}
+\label{structIndependetSets}\index{IndependetSets@{IndependetSets}}
+
+
+Struct to store the independet set information for a polymer type.  
+
+
+
+
+{\ttfamily \#include $<$independent\+\_\+sets.\+h$>$}
+
+\doxysubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structIndependetSets_a9364c5cdd594512be4ea52d691df9908}\label{structIndependetSets_a9364c5cdd594512be4ea52d691df9908}} 
+unsigned int {\bfseries n\+\_\+sets}
+\begin{DoxyCompactList}\small\item\em Number of sets. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structIndependetSets_af36c3a37c5322f8ec281b42426f8e775}\label{structIndependetSets_af36c3a37c5322f8ec281b42426f8e775}} 
+unsigned int {\bfseries max\+\_\+member}
+\begin{DoxyCompactList}\small\item\em Max number of members per set. \end{DoxyCompactList}\item 
+unsigned int $\ast$ \mbox{\hyperlink{structIndependetSets_a17b7f2fbfb8cc2e69a261dd536c9adf7}{set\+\_\+length}}
+\item 
+unsigned int $\ast$ \mbox{\hyperlink{structIndependetSets_ab48b644f8160ad84b4385f41bee9c59f}{sets}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Struct to store the independet set information for a polymer type. 
+
+\doxysubsection{Field Documentation}
+\mbox{\Hypertarget{structIndependetSets_a17b7f2fbfb8cc2e69a261dd536c9adf7}\label{structIndependetSets_a17b7f2fbfb8cc2e69a261dd536c9adf7}} 
+\index{IndependetSets@{IndependetSets}!set\_length@{set\_length}}
+\index{set\_length@{set\_length}!IndependetSets@{IndependetSets}}
+\doxysubsubsection{\texorpdfstring{set\_length}{set\_length}}
+{\footnotesize\ttfamily unsigned int$\ast$ Independet\+Sets\+::set\+\_\+length}
+
+Length of each set \mbox{\Hypertarget{structIndependetSets_ab48b644f8160ad84b4385f41bee9c59f}\label{structIndependetSets_ab48b644f8160ad84b4385f41bee9c59f}} 
+\index{IndependetSets@{IndependetSets}!sets@{sets}}
+\index{sets@{sets}!IndependetSets@{IndependetSets}}
+\doxysubsubsection{\texorpdfstring{sets}{sets}}
+{\footnotesize\ttfamily unsigned int$\ast$ Independet\+Sets\+::sets}
+
+array storing the sets. Flatten array\+: Access 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{structIndependetSets_ab48b644f8160ad84b4385f41bee9c59f}{sets}}[iSet*\mbox{\hyperlink{structIndependetSets_af36c3a37c5322f8ec281b42426f8e775}{max\_member}} + iElement]; }
+
+\end{DoxyCode}
+ Length\+: n\+\_\+set$\ast$max\+\_\+member. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{independent__sets_8h}{independent\+\_\+sets.\+h}}\end{DoxyCompactItemize}

@@ -1,0 +1,85 @@
+\hypertarget{ana__info_8h}{}\doxysection{ana\+\_\+info.\+h File Reference}
+\label{ana__info_8h}\index{ana\_info.h@{ana\_info.h}}
+
+
+Info needed for output routines.  
+
+
+{\ttfamily \#include \char`\"{}soma\+\_\+config.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$hdf5.\+h$>$}\newline
+Include dependency graph for ana\+\_\+info.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structAna__Info}{Ana\+\_\+\+Info}}
+\begin{DoxyCompactList}\small\item\em Basic information for analysis. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{ana__info_8h_a0cab4a3141746a3fd8b2f29487855628}\label{ana__info_8h_a0cab4a3141746a3fd8b2f29487855628}} 
+typedef struct \mbox{\hyperlink{structAna__Info}{Ana\+\_\+\+Info}} {\bfseries Ana\+\_\+\+Info}
+\begin{DoxyCompactList}\small\item\em Basic information for analysis. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{ana__info_8h_a13d5dca7a6103567c852ca6ecb9b3839}{init\+\_\+ana}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const p, const char $\ast$const filename, const char $\ast$const coord\+\_\+filename)
+\begin{DoxyCompactList}\small\item\em Initialization of the information needed for analysis routines. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{ana__info_8h_a3bdfdc6de4b4197a21632449f3700c61}{close\+\_\+ana}} (struct \mbox{\hyperlink{structAna__Info}{Ana\+\_\+\+Info}} $\ast$const a)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Info needed for output routines. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{ana__info_8h_a3bdfdc6de4b4197a21632449f3700c61}\label{ana__info_8h_a3bdfdc6de4b4197a21632449f3700c61}} 
+\index{ana\_info.h@{ana\_info.h}!close\_ana@{close\_ana}}
+\index{close\_ana@{close\_ana}!ana\_info.h@{ana\_info.h}}
+\doxysubsubsection{\texorpdfstring{close\_ana()}{close\_ana()}}
+{\footnotesize\ttfamily int close\+\_\+ana (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structAna__Info}{Ana\+\_\+\+Info}} $\ast$const}]{a }\end{DoxyParamCaption})}
+
+Release resources connected to the \mbox{\hyperlink{structAna__Info}{Ana\+\_\+\+Info}} struct after init\+\_\+ana.
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & Pointer to \mbox{\hyperlink{structAna__Info}{Ana\+\_\+\+Info}} to release \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+errorcode 
+\end{DoxyReturn}
+\mbox{\Hypertarget{ana__info_8h_a13d5dca7a6103567c852ca6ecb9b3839}\label{ana__info_8h_a13d5dca7a6103567c852ca6ecb9b3839}} 
+\index{ana\_info.h@{ana\_info.h}!init\_ana@{init\_ana}}
+\index{init\_ana@{init\_ana}!ana\_info.h@{ana\_info.h}}
+\doxysubsubsection{\texorpdfstring{init\_ana()}{init\_ana()}}
+{\footnotesize\ttfamily int init\+\_\+ana (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const}]{p,  }\item[{const char $\ast$const}]{filename,  }\item[{const char $\ast$const}]{coord\+\_\+filename }\end{DoxyParamCaption})}
+
+
+
+Initialization of the information needed for analysis routines. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & almost fully initialized \mbox{\hyperlink{structPhase}{Phase}} pointer. \\
+\hline
+{\em filename} & Filename used for output of the analysis. If pointer to \char`\"{}\char`\"{} or NULL is passed analysis is turned off. \\
+\hline
+{\em coord\+\_\+filename} & Filename of the readin coord.\+h5 file. This used to setup proper dumping filenames. (Passing NULL disables dumping.) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyPostcond}{Postcondition}
+initialized p-\/\texorpdfstring{$>$}{>}ana\+\_\+info 
+\end{DoxyPostcond}
+\begin{DoxyReturn}{Returns}
+Errorcode. 
+\end{DoxyReturn}
+Number of known observables to SOMA.
+
+structure\+\_\+start
+
+dynamic structure static structure

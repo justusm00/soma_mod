@@ -1,0 +1,452 @@
+\hypertarget{polytype__conversion_8c}{}\doxysection{polytype\+\_\+conversion.\+c File Reference}
+\label{polytype__conversion_8c}\index{polytype\_conversion.c@{polytype\_conversion.c}}
+
+
+Implementation of \mbox{\hyperlink{polytype__conversion_8h_source}{polytype\+\_\+conversion.\+h}}.  
+
+
+{\ttfamily \#include \char`\"{}polytype\+\_\+conversion.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$hdf5.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}phase.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}io.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}mesh.\+h\char`\"{}}\newline
+Include dependency graph for polytype\+\_\+conversion.\+c\+:
+% FIG 0
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{polytype__conversion_8c_abf247cfdee4c48c9922daaf05879e7b7}{read\+\_\+poly\+\_\+conversion\+\_\+hdf5}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const p, const hid\+\_\+t file\+\_\+id, const hid\+\_\+t plist\+\_\+id)
+\item 
+int \mbox{\hyperlink{polytype__conversion_8c_aa5a55150c408446a004f4a2eeab3ef37}{write\+\_\+poly\+\_\+conversion\+\_\+hdf5}} (const struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const p, const hid\+\_\+t file\+\_\+id, const hid\+\_\+t plist\+\_\+id)
+\item 
+int \mbox{\hyperlink{polytype__conversion_8c_acf2399bed8f408401b99ea94beabfa37}{copyin\+\_\+poly\+\_\+conversion}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$p)
+\item 
+int \mbox{\hyperlink{polytype__conversion_8c_a313463d16c9111749fa4792316165071}{copyout\+\_\+poly\+\_\+conversion}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$p)
+\item 
+int \mbox{\hyperlink{polytype__conversion_8c_a2539c9442fed8e40e15f4acc7bf96f4f}{update\+\_\+self\+\_\+poly\+\_\+conversion}} (const struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const p)
+\item 
+int \mbox{\hyperlink{polytype__conversion_8c_a22a423e19db255c2d00df0bf99f2f3e0}{free\+\_\+poly\+\_\+conversion}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$p)
+\item 
+int \mbox{\hyperlink{polytype__conversion_8c_a89f65a473be2cecbfeb440d1e8759292}{convert\+\_\+polytypes}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$p)
+\item 
+int \mbox{\hyperlink{polytype__conversion_8c_a221a5ba395e05de4c5cef8ea63c94a2b}{fully\+\_\+convert\+\_\+polytypes}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$p)
+\item 
+int \mbox{\hyperlink{polytype__conversion_8c_a8802d6b7d864f43caeefea2da0266cf2}{partially\+\_\+convert\+\_\+polytypes}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$p)
+\item 
+int \mbox{\hyperlink{polytype__conversion_8c_ade7e21c1b0288d08e5f8e2b77e80542a}{print\+\_\+info}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$p)
+\item 
+int \mbox{\hyperlink{polytype__conversion_8c_a4bd199708f489f077a277f8aad21deed}{simulated\+\_\+annealing}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$p)
+\item 
+int \mbox{\hyperlink{polytype__conversion_8c_aaa178026ff13e667efcb0104a55252e7}{comp}} (const void $\ast$elem1, const void $\ast$elem2)
+\item 
+int \mbox{\hyperlink{polytype__conversion_8c_aba67a3236276601607fb52309571451e}{flip}} (int initial\+\_\+type)
+\item 
+void \mbox{\hyperlink{polytype__conversion_8c_a1118de04b95dba73f0b692eb70579ad1}{get\+\_\+flip\+\_\+candidates}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$p, int64\+\_\+t $\ast$poly\+\_\+isflippable, int64\+\_\+t $\ast$poly\+\_\+cell\+\_\+indices, int64\+\_\+t $\ast$poly\+\_\+cell\+\_\+num)
+\item 
+void \mbox{\hyperlink{polytype__conversion_8c_aa104ae0926534b409e2ae5827a943e56}{update\+\_\+delta\+\_\+fields}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$p, uint64\+\_\+t poly, unsigned int initial\+\_\+type, unsigned int final\+\_\+type, int64\+\_\+t $\ast$poly\+\_\+cell\+\_\+indices, int64\+\_\+t $\ast$poly\+\_\+cell\+\_\+num, int64\+\_\+t $\ast$delta\+\_\+fields\+\_\+unified)
+\item 
+\mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} \mbox{\hyperlink{polytype__conversion_8c_afa22cf7e45f964df7041702b929fec16}{anneal\+\_\+polytypes}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$p, \mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} total\+\_\+cost, uint64\+\_\+t num\+\_\+poly\+\_\+flippable, uint64\+\_\+t $\ast$total\+\_\+flip\+\_\+attempts, uint64\+\_\+t $\ast$total\+\_\+flips\+\_\+accepted, int64\+\_\+t $\ast$poly\+\_\+cell\+\_\+indices, int64\+\_\+t $\ast$poly\+\_\+cell\+\_\+num, int64\+\_\+t $\ast$poly\+\_\+flippable\+\_\+indices, int64\+\_\+t $\ast$delta\+\_\+fields\+\_\+unified, int64\+\_\+t $\ast$delta\+\_\+fields\+\_\+unified\+\_\+best, unsigned int $\ast$poly\+\_\+types, unsigned int $\ast$poly\+\_\+types\+\_\+best)
+\item 
+\mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} \mbox{\hyperlink{polytype__conversion_8c_a6566c5228b6e15f3199d7d7f910d4c81}{flip\+\_\+polytypes}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$p, \mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} total\+\_\+cost, uint64\+\_\+t num\+\_\+poly\+\_\+flippable, uint64\+\_\+t $\ast$total\+\_\+flip\+\_\+attempts, uint64\+\_\+t $\ast$total\+\_\+flips\+\_\+accepted, int64\+\_\+t $\ast$poly\+\_\+cell\+\_\+indices, int64\+\_\+t $\ast$poly\+\_\+cell\+\_\+num, int64\+\_\+t $\ast$poly\+\_\+flippable\+\_\+indices, int64\+\_\+t $\ast$delta\+\_\+fields\+\_\+unified, int64\+\_\+t $\ast$delta\+\_\+fields\+\_\+unified\+\_\+best, unsigned int $\ast$poly\+\_\+types, unsigned int $\ast$poly\+\_\+types\+\_\+best)
+\item 
+\mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} \mbox{\hyperlink{polytype__conversion_8c_a0fdc86884649ed1a34746a6692e937f9}{get\+\_\+density\+\_\+cost}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$p, int64\+\_\+t $\ast$delta\+\_\+fields\+\_\+unified, uint64\+\_\+t $\ast$num\+\_\+target\+\_\+cells)
+\item 
+\mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} \mbox{\hyperlink{polytype__conversion_8c_a9f68119e5078899f0a4c0a50e6881426}{get\+\_\+composition\+\_\+cost}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$p, int64\+\_\+t $\ast$delta\+\_\+fields\+\_\+unified, uint64\+\_\+t $\ast$num\+\_\+target\+\_\+cells)
+\item 
+\mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} \mbox{\hyperlink{polytype__conversion_8c_a9d9debfbee86deef748effeb9ed810ee}{get\+\_\+density\+\_\+flip\+\_\+cost}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$p, uint64\+\_\+t poly, unsigned int initial\+\_\+type, unsigned int final\+\_\+type, int64\+\_\+t $\ast$poly\+\_\+cell\+\_\+indices, int64\+\_\+t $\ast$poly\+\_\+cell\+\_\+num, int64\+\_\+t $\ast$delta\+\_\+fields\+\_\+unified)
+\item 
+\mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} \mbox{\hyperlink{polytype__conversion_8c_ace9d2ac9a24744b6d2de629f095d2958}{get\+\_\+composition\+\_\+flip\+\_\+cost}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$p, uint64\+\_\+t poly, unsigned int initial\+\_\+type, unsigned int final\+\_\+type, int64\+\_\+t $\ast$poly\+\_\+cell\+\_\+indices, int64\+\_\+t $\ast$poly\+\_\+cell\+\_\+num, int64\+\_\+t $\ast$delta\+\_\+fields\+\_\+unified)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementation of \mbox{\hyperlink{polytype__conversion_8h_source}{polytype\+\_\+conversion.\+h}}. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{polytype__conversion_8c_afa22cf7e45f964df7041702b929fec16}\label{polytype__conversion_8c_afa22cf7e45f964df7041702b929fec16}} 
+\index{polytype\_conversion.c@{polytype\_conversion.c}!anneal\_polytypes@{anneal\_polytypes}}
+\index{anneal\_polytypes@{anneal\_polytypes}!polytype\_conversion.c@{polytype\_conversion.c}}
+\doxysubsubsection{\texorpdfstring{anneal\_polytypes()}{anneal\_polytypes()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} anneal\+\_\+polytypes (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$}]{p,  }\item[{\mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}}}]{total\+\_\+cost,  }\item[{uint64\+\_\+t}]{num\+\_\+poly\+\_\+flippable,  }\item[{uint64\+\_\+t $\ast$}]{total\+\_\+flip\+\_\+attempts,  }\item[{uint64\+\_\+t $\ast$}]{total\+\_\+flips\+\_\+accepted,  }\item[{int64\+\_\+t $\ast$}]{poly\+\_\+cell\+\_\+indices,  }\item[{int64\+\_\+t $\ast$}]{poly\+\_\+cell\+\_\+num,  }\item[{int64\+\_\+t $\ast$}]{poly\+\_\+flippable\+\_\+indices,  }\item[{int64\+\_\+t $\ast$}]{delta\+\_\+fields\+\_\+unified,  }\item[{int64\+\_\+t $\ast$}]{delta\+\_\+fields\+\_\+unified\+\_\+best,  }\item[{unsigned int $\ast$}]{poly\+\_\+types,  }\item[{unsigned int $\ast$}]{poly\+\_\+types\+\_\+best }\end{DoxyParamCaption})}
+
+Run simulated annealing 
+\begin{DoxyParams}{Parameters}
+{\em p} & \mbox{\hyperlink{structPhase}{Phase}} struct describing the simulation \\
+\hline
+{\em total\+\_\+cost} & Cost value before function call \\
+\hline
+{\em num\+\_\+poly\+\_\+flippable} & Polymers available for flip \\
+\hline
+{\em Tmin} & Minimum temperature after which annealing will be stopped \\
+\hline
+{\em Tmax} & Starting temperature for SA run \\
+\hline
+{\em alpha} & Temperature decreasing factor \\
+\hline
+{\em sa\+\_\+buffer\+\_\+size} & Maximum number of polymers in single SA run \\
+\hline
+{\em poly\+\_\+cell\+\_\+indices} & For flippable polymers, contains indices in which cells the polymer has monomers \\
+\hline
+{\em poly\+\_\+cell\+\_\+num} & Number of monomers corresponding to the cells in poly\+\_\+cell\+\_\+indices \\
+\hline
+{\em poly\+\_\+flippable\+\_\+indices} & Sequentially stores indices of flippable polymers for faster iteration \\
+\hline
+{\em delta\+\_\+fields\+\_\+unified} & Changes in density fields caused by flips \\
+\hline
+{\em delta\+\_\+fields\+\_\+unified\+\_\+best} & Changes in density fields caused by flips corresponding to current best value of cost function \\
+\hline
+{\em poly\+\_\+types} & \mbox{\hyperlink{structPolymer}{Polymer}} types of flippable polymers \\
+\hline
+{\em poly\+\_\+types\+\_\+best} & \mbox{\hyperlink{structPolymer}{Polymer}} types of flippable polymers corresponding to current best value of cost function \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{polytype__conversion_8c_aaa178026ff13e667efcb0104a55252e7}\label{polytype__conversion_8c_aaa178026ff13e667efcb0104a55252e7}} 
+\index{polytype\_conversion.c@{polytype\_conversion.c}!comp@{comp}}
+\index{comp@{comp}!polytype\_conversion.c@{polytype\_conversion.c}}
+\doxysubsubsection{\texorpdfstring{comp()}{comp()}}
+{\footnotesize\ttfamily int comp (\begin{DoxyParamCaption}\item[{const void $\ast$}]{elem1,  }\item[{const void $\ast$}]{elem2 }\end{DoxyParamCaption})}
+
+Helper function to compare elements for quicksort. 
+\begin{DoxyParams}{Parameters}
+{\em elem1} & First element \\
+\hline
+{\em elem2} & Second element \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{polytype__conversion_8c_a89f65a473be2cecbfeb440d1e8759292}\label{polytype__conversion_8c_a89f65a473be2cecbfeb440d1e8759292}} 
+\index{polytype\_conversion.c@{polytype\_conversion.c}!convert\_polytypes@{convert\_polytypes}}
+\index{convert\_polytypes@{convert\_polytypes}!polytype\_conversion.c@{polytype\_conversion.c}}
+\doxysubsubsection{\texorpdfstring{convert\_polytypes()}{convert\_polytypes()}}
+{\footnotesize\ttfamily int convert\+\_\+polytypes (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$}]{p }\end{DoxyParamCaption})}
+
+Convert polymer types according to the reaction description of the \mbox{\hyperlink{structPolyConversion}{Poly\+Conversion}} struct. This updates the center of mass of the polymers and chooses between full or partial (with rates) conversions. 
+\begin{DoxyParams}{Parameters}
+{\em p} & \mbox{\hyperlink{structPhase}{Phase}} struct describing the simulation \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Errorcode 
+\end{DoxyReturn}
+\mbox{\Hypertarget{polytype__conversion_8c_acf2399bed8f408401b99ea94beabfa37}\label{polytype__conversion_8c_acf2399bed8f408401b99ea94beabfa37}} 
+\index{polytype\_conversion.c@{polytype\_conversion.c}!copyin\_poly\_conversion@{copyin\_poly\_conversion}}
+\index{copyin\_poly\_conversion@{copyin\_poly\_conversion}!polytype\_conversion.c@{polytype\_conversion.c}}
+\doxysubsubsection{\texorpdfstring{copyin\_poly\_conversion()}{copyin\_poly\_conversion()}}
+{\footnotesize\ttfamily int copyin\+\_\+poly\+\_\+conversion (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$}]{p }\end{DoxyParamCaption})}
+
+Helper function to copy the pc data to the device
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & Fully CPU initialized \mbox{\hyperlink{structPhase}{Phase}} struct \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Errorcode 
+\end{DoxyReturn}
+\mbox{\Hypertarget{polytype__conversion_8c_a313463d16c9111749fa4792316165071}\label{polytype__conversion_8c_a313463d16c9111749fa4792316165071}} 
+\index{polytype\_conversion.c@{polytype\_conversion.c}!copyout\_poly\_conversion@{copyout\_poly\_conversion}}
+\index{copyout\_poly\_conversion@{copyout\_poly\_conversion}!polytype\_conversion.c@{polytype\_conversion.c}}
+\doxysubsubsection{\texorpdfstring{copyout\_poly\_conversion()}{copyout\_poly\_conversion()}}
+{\footnotesize\ttfamily int copyout\+\_\+poly\+\_\+conversion (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$}]{p }\end{DoxyParamCaption})}
+
+Helper function delete the pc data from the device and copy it to the CPU memory
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & Fully CPU initialized \mbox{\hyperlink{structPhase}{Phase}} struct \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Errorcode 
+\end{DoxyReturn}
+\mbox{\Hypertarget{polytype__conversion_8c_aba67a3236276601607fb52309571451e}\label{polytype__conversion_8c_aba67a3236276601607fb52309571451e}} 
+\index{polytype\_conversion.c@{polytype\_conversion.c}!flip@{flip}}
+\index{flip@{flip}!polytype\_conversion.c@{polytype\_conversion.c}}
+\doxysubsubsection{\texorpdfstring{flip()}{flip()}}
+{\footnotesize\ttfamily int flip (\begin{DoxyParamCaption}\item[{int}]{initial\+\_\+type }\end{DoxyParamCaption})}
+
+Helper function to flip polymer type. 
+\begin{DoxyParams}{Parameters}
+{\em initial\+\_\+type} & Initial type. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{polytype__conversion_8c_a6566c5228b6e15f3199d7d7f910d4c81}\label{polytype__conversion_8c_a6566c5228b6e15f3199d7d7f910d4c81}} 
+\index{polytype\_conversion.c@{polytype\_conversion.c}!flip\_polytypes@{flip\_polytypes}}
+\index{flip\_polytypes@{flip\_polytypes}!polytype\_conversion.c@{polytype\_conversion.c}}
+\doxysubsubsection{\texorpdfstring{flip\_polytypes()}{flip\_polytypes()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} flip\+\_\+polytypes (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$}]{p,  }\item[{\mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}}}]{total\+\_\+cost,  }\item[{uint64\+\_\+t}]{num\+\_\+poly\+\_\+flippable,  }\item[{uint64\+\_\+t $\ast$}]{total\+\_\+flip\+\_\+attempts,  }\item[{uint64\+\_\+t $\ast$}]{total\+\_\+flips\+\_\+accepted,  }\item[{int64\+\_\+t $\ast$}]{poly\+\_\+cell\+\_\+indices,  }\item[{int64\+\_\+t $\ast$}]{poly\+\_\+cell\+\_\+num,  }\item[{int64\+\_\+t $\ast$}]{poly\+\_\+flippable\+\_\+indices,  }\item[{int64\+\_\+t $\ast$}]{delta\+\_\+fields\+\_\+unified,  }\item[{int64\+\_\+t $\ast$}]{delta\+\_\+fields\+\_\+unified\+\_\+best,  }\item[{unsigned int $\ast$}]{poly\+\_\+types,  }\item[{unsigned int $\ast$}]{poly\+\_\+types\+\_\+best }\end{DoxyParamCaption})}
+
+Simulated annealing at T=0 
+\begin{DoxyParams}{Parameters}
+{\em p} & \mbox{\hyperlink{structPhase}{Phase}} struct describing the simulation \\
+\hline
+{\em total\+\_\+cost} & Cost value before function call \\
+\hline
+{\em num\+\_\+poly\+\_\+flippable} & Polymers available for flip \\
+\hline
+{\em acc\+\_\+rate\+\_\+target} & Target acceptance rate after which iteration will be stopped \\
+\hline
+{\em poly\+\_\+cell\+\_\+indices} & For flippable polymers, contains indices in which cells the polymer has monomers \\
+\hline
+{\em poly\+\_\+cell\+\_\+num} & Number of monomers corresponding to the cells in poly\+\_\+cell\+\_\+indices \\
+\hline
+{\em poly\+\_\+flippable\+\_\+indices} & Sequentially stores indices of flippable polymers for faster iteration \\
+\hline
+{\em delta\+\_\+fields\+\_\+unified} & Changes in density fields caused by flips \\
+\hline
+{\em delta\+\_\+fields\+\_\+unified\+\_\+best} & Changes in density fields caused by flips corresponding to current best value of cost function \\
+\hline
+{\em poly\+\_\+types} & \mbox{\hyperlink{structPolymer}{Polymer}} types of flippable polymers \\
+\hline
+{\em poly\+\_\+types\+\_\+best} & \mbox{\hyperlink{structPolymer}{Polymer}} types of flippable polymers corresponding to current best value of cost function \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{polytype__conversion_8c_a22a423e19db255c2d00df0bf99f2f3e0}\label{polytype__conversion_8c_a22a423e19db255c2d00df0bf99f2f3e0}} 
+\index{polytype\_conversion.c@{polytype\_conversion.c}!free\_poly\_conversion@{free\_poly\_conversion}}
+\index{free\_poly\_conversion@{free\_poly\_conversion}!polytype\_conversion.c@{polytype\_conversion.c}}
+\doxysubsubsection{\texorpdfstring{free\_poly\_conversion()}{free\_poly\_conversion()}}
+{\footnotesize\ttfamily int free\+\_\+poly\+\_\+conversion (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$}]{p }\end{DoxyParamCaption})}
+
+Helper function to free the CPU memory resources of the pc struct. The function gets automatically called by \mbox{\hyperlink{phase_8c_a4f9fac7804397bf8e34213da3a7b49c6}{free\+\_\+phase()}}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & Initialized \mbox{\hyperlink{structPhase}{Phase}} that is in the process of deallocating its resources. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Errorcode 
+\end{DoxyReturn}
+\mbox{\Hypertarget{polytype__conversion_8c_a221a5ba395e05de4c5cef8ea63c94a2b}\label{polytype__conversion_8c_a221a5ba395e05de4c5cef8ea63c94a2b}} 
+\index{polytype\_conversion.c@{polytype\_conversion.c}!fully\_convert\_polytypes@{fully\_convert\_polytypes}}
+\index{fully\_convert\_polytypes@{fully\_convert\_polytypes}!polytype\_conversion.c@{polytype\_conversion.c}}
+\doxysubsubsection{\texorpdfstring{fully\_convert\_polytypes()}{fully\_convert\_polytypes()}}
+{\footnotesize\ttfamily int fully\+\_\+convert\+\_\+polytypes (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$}]{p }\end{DoxyParamCaption})}
+
+Fully convert polymer types according to the reaction description of the \mbox{\hyperlink{structPolyConversion}{Poly\+Conversion}} struct. 
+\begin{DoxyParams}{Parameters}
+{\em p} & \mbox{\hyperlink{structPhase}{Phase}} struct describing the simulation \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Errorcode 
+\end{DoxyReturn}
+\mbox{\Hypertarget{polytype__conversion_8c_a9f68119e5078899f0a4c0a50e6881426}\label{polytype__conversion_8c_a9f68119e5078899f0a4c0a50e6881426}} 
+\index{polytype\_conversion.c@{polytype\_conversion.c}!get\_composition\_cost@{get\_composition\_cost}}
+\index{get\_composition\_cost@{get\_composition\_cost}!polytype\_conversion.c@{polytype\_conversion.c}}
+\doxysubsubsection{\texorpdfstring{get\_composition\_cost()}{get\_composition\_cost()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} get\+\_\+composition\+\_\+cost (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$}]{p,  }\item[{int64\+\_\+t $\ast$}]{delta\+\_\+fields\+\_\+unified,  }\item[{uint64\+\_\+t $\ast$}]{num\+\_\+target\+\_\+cells }\end{DoxyParamCaption})}
+
+Compute cost function based on composition. Close to an area51 it makes more sense to use composition instead of density. 
+\begin{DoxyParams}{Parameters}
+{\em p} & \mbox{\hyperlink{structPhase}{Phase}} struct describing the simulation \\
+\hline
+{\em delta\+\_\+fields\+\_\+unified} & Array containing changes in density fields. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Errorcode 
+\end{DoxyReturn}
+\mbox{\Hypertarget{polytype__conversion_8c_ace9d2ac9a24744b6d2de629f095d2958}\label{polytype__conversion_8c_ace9d2ac9a24744b6d2de629f095d2958}} 
+\index{polytype\_conversion.c@{polytype\_conversion.c}!get\_composition\_flip\_cost@{get\_composition\_flip\_cost}}
+\index{get\_composition\_flip\_cost@{get\_composition\_flip\_cost}!polytype\_conversion.c@{polytype\_conversion.c}}
+\doxysubsubsection{\texorpdfstring{get\_composition\_flip\_cost()}{get\_composition\_flip\_cost()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} get\+\_\+composition\+\_\+flip\+\_\+cost (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$}]{p,  }\item[{uint64\+\_\+t}]{poly,  }\item[{unsigned int}]{initial\+\_\+type,  }\item[{unsigned int}]{final\+\_\+type,  }\item[{int64\+\_\+t $\ast$}]{poly\+\_\+cell\+\_\+indices,  }\item[{int64\+\_\+t $\ast$}]{poly\+\_\+cell\+\_\+num,  }\item[{int64\+\_\+t $\ast$}]{delta\+\_\+fields\+\_\+unified }\end{DoxyParamCaption})}
+
+Calculate cost difference based on composition if a polymer is flipped. 
+\begin{DoxyParams}{Parameters}
+{\em p} & \mbox{\hyperlink{structPhase}{Phase}} struct describing the simulation \\
+\hline
+{\em poly} & \mbox{\hyperlink{structPolymer}{Polymer}} index \\
+\hline
+{\em initial\+\_\+type} & Type before flip \\
+\hline
+{\em final\+\_\+type} & Type after flip \\
+\hline
+{\em poly\+\_\+cell\+\_\+indices} & For flippable polymers, contains indices in which cells the polymer has monomers \\
+\hline
+{\em poly\+\_\+cell\+\_\+num} & Number of monomers corresponding to the cells in poly\+\_\+cell\+\_\+indices \\
+\hline
+{\em delta\+\_\+fields\+\_\+unified} & Changes in density fields caused by flips \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{polytype__conversion_8c_a0fdc86884649ed1a34746a6692e937f9}\label{polytype__conversion_8c_a0fdc86884649ed1a34746a6692e937f9}} 
+\index{polytype\_conversion.c@{polytype\_conversion.c}!get\_density\_cost@{get\_density\_cost}}
+\index{get\_density\_cost@{get\_density\_cost}!polytype\_conversion.c@{polytype\_conversion.c}}
+\doxysubsubsection{\texorpdfstring{get\_density\_cost()}{get\_density\_cost()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} get\+\_\+density\+\_\+cost (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$}]{p,  }\item[{int64\+\_\+t $\ast$}]{delta\+\_\+fields\+\_\+unified,  }\item[{uint64\+\_\+t $\ast$}]{num\+\_\+target\+\_\+cells }\end{DoxyParamCaption})}
+
+Compute cost function based on density. 
+\begin{DoxyParams}{Parameters}
+{\em p} & \mbox{\hyperlink{structPhase}{Phase}} struct describing the simulation \\
+\hline
+{\em delta\+\_\+fields\+\_\+unified} & Array containing changes in density fields. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Errorcode 
+\end{DoxyReturn}
+\mbox{\Hypertarget{polytype__conversion_8c_a9d9debfbee86deef748effeb9ed810ee}\label{polytype__conversion_8c_a9d9debfbee86deef748effeb9ed810ee}} 
+\index{polytype\_conversion.c@{polytype\_conversion.c}!get\_density\_flip\_cost@{get\_density\_flip\_cost}}
+\index{get\_density\_flip\_cost@{get\_density\_flip\_cost}!polytype\_conversion.c@{polytype\_conversion.c}}
+\doxysubsubsection{\texorpdfstring{get\_density\_flip\_cost()}{get\_density\_flip\_cost()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{soma__config_8h_a59e3fe53d267a97ff32b8a16fea1f683}{soma\+\_\+scalar\+\_\+t}} get\+\_\+density\+\_\+flip\+\_\+cost (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$}]{p,  }\item[{uint64\+\_\+t}]{poly,  }\item[{unsigned int}]{initial\+\_\+type,  }\item[{unsigned int}]{final\+\_\+type,  }\item[{int64\+\_\+t $\ast$}]{poly\+\_\+cell\+\_\+indices,  }\item[{int64\+\_\+t $\ast$}]{poly\+\_\+cell\+\_\+num,  }\item[{int64\+\_\+t $\ast$}]{delta\+\_\+fields\+\_\+unified }\end{DoxyParamCaption})}
+
+Calculate cost difference based on density if a polymer is flipped. 
+\begin{DoxyParams}{Parameters}
+{\em p} & \mbox{\hyperlink{structPhase}{Phase}} struct describing the simulation \\
+\hline
+{\em poly} & \mbox{\hyperlink{structPolymer}{Polymer}} index \\
+\hline
+{\em initial\+\_\+type} & Type before flip \\
+\hline
+{\em final\+\_\+type} & Type after flip \\
+\hline
+{\em poly\+\_\+cell\+\_\+indices} & For flippable polymers, contains indices in which cells the polymer has monomers \\
+\hline
+{\em poly\+\_\+cell\+\_\+num} & Number of monomers corresponding to the cells in poly\+\_\+cell\+\_\+indices \\
+\hline
+{\em delta\+\_\+fields\+\_\+unified} & Changes in density fields caused by flips \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{polytype__conversion_8c_a1118de04b95dba73f0b692eb70579ad1}\label{polytype__conversion_8c_a1118de04b95dba73f0b692eb70579ad1}} 
+\index{polytype\_conversion.c@{polytype\_conversion.c}!get\_flip\_candidates@{get\_flip\_candidates}}
+\index{get\_flip\_candidates@{get\_flip\_candidates}!polytype\_conversion.c@{polytype\_conversion.c}}
+\doxysubsubsection{\texorpdfstring{get\_flip\_candidates()}{get\_flip\_candidates()}}
+{\footnotesize\ttfamily void get\+\_\+flip\+\_\+candidates (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$}]{p,  }\item[{int64\+\_\+t $\ast$}]{poly\+\_\+isflippable,  }\item[{int64\+\_\+t $\ast$}]{poly\+\_\+cell\+\_\+indices,  }\item[{int64\+\_\+t $\ast$}]{poly\+\_\+cell\+\_\+num }\end{DoxyParamCaption})}
+
+Get all information about flip candidates and where they have how many monomers. 
+\begin{DoxyParams}{Parameters}
+{\em p} & \mbox{\hyperlink{structPhase}{Phase}} struct describing the simulation \\
+\hline
+{\em poly\+\_\+isflippable} & Arrays are 0 if polymer is not flippable, 1 if it is \\
+\hline
+{\em poly\+\_\+cell\+\_\+indices} & For flippable polymers, contains indices in which cells the polymer has monomers \\
+\hline
+{\em poly\+\_\+cell\+\_\+num} & Number of monomers corresponding to the cells in poly\+\_\+cell\+\_\+indices \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{polytype__conversion_8c_a8802d6b7d864f43caeefea2da0266cf2}\label{polytype__conversion_8c_a8802d6b7d864f43caeefea2da0266cf2}} 
+\index{polytype\_conversion.c@{polytype\_conversion.c}!partially\_convert\_polytypes@{partially\_convert\_polytypes}}
+\index{partially\_convert\_polytypes@{partially\_convert\_polytypes}!polytype\_conversion.c@{polytype\_conversion.c}}
+\doxysubsubsection{\texorpdfstring{partially\_convert\_polytypes()}{partially\_convert\_polytypes()}}
+{\footnotesize\ttfamily int partially\+\_\+convert\+\_\+polytypes (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$}]{p }\end{DoxyParamCaption})}
+
+Partially Convert polymer types according to the reaction description of the \mbox{\hyperlink{structPolyConversion}{Poly\+Conversion}} struct. This converts the polymer only with a probability given by the rate which may depend (linearly) on the normalized density of some type (for reactions involving multiple types). 
+\begin{DoxyParams}{Parameters}
+{\em p} & \mbox{\hyperlink{structPhase}{Phase}} struct describing the simulation \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Errorcode 
+\end{DoxyReturn}
+\mbox{\Hypertarget{polytype__conversion_8c_ade7e21c1b0288d08e5f8e2b77e80542a}\label{polytype__conversion_8c_ade7e21c1b0288d08e5f8e2b77e80542a}} 
+\index{polytype\_conversion.c@{polytype\_conversion.c}!print\_info@{print\_info}}
+\index{print\_info@{print\_info}!polytype\_conversion.c@{polytype\_conversion.c}}
+\doxysubsubsection{\texorpdfstring{print\_info()}{print\_info()}}
+{\footnotesize\ttfamily int print\+\_\+info (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$}]{p }\end{DoxyParamCaption})}
+
+Helper function to export density field and polymer position info for use outside of soma (remove this before release!) 
+\begin{DoxyParams}{Parameters}
+{\em p} & \mbox{\hyperlink{structPhase}{Phase}} struct describing the simulation \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Errorcode 
+\end{DoxyReturn}
+\mbox{\Hypertarget{polytype__conversion_8c_abf247cfdee4c48c9922daaf05879e7b7}\label{polytype__conversion_8c_abf247cfdee4c48c9922daaf05879e7b7}} 
+\index{polytype\_conversion.c@{polytype\_conversion.c}!read\_poly\_conversion\_hdf5@{read\_poly\_conversion\_hdf5}}
+\index{read\_poly\_conversion\_hdf5@{read\_poly\_conversion\_hdf5}!polytype\_conversion.c@{polytype\_conversion.c}}
+\doxysubsubsection{\texorpdfstring{read\_poly\_conversion\_hdf5()}{read\_poly\_conversion\_hdf5()}}
+{\footnotesize\ttfamily int read\+\_\+poly\+\_\+conversion\+\_\+hdf5 (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const}]{p,  }\item[{const hid\+\_\+t}]{file\+\_\+id,  }\item[{const hid\+\_\+t}]{plist\+\_\+id }\end{DoxyParamCaption})}
+
+Helper function to read the conversion array from the config HDF5 file.
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & \mbox{\hyperlink{structPhase}{Phase}} describing the system \\
+\hline
+{\em file\+\_\+id} & File identifier of open HDF5 file. \\
+\hline
+{\em plist\+\_\+id} & Access properties to use. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Errorcode 
+\end{DoxyReturn}
+\mbox{\Hypertarget{polytype__conversion_8c_a4bd199708f489f077a277f8aad21deed}\label{polytype__conversion_8c_a4bd199708f489f077a277f8aad21deed}} 
+\index{polytype\_conversion.c@{polytype\_conversion.c}!simulated\_annealing@{simulated\_annealing}}
+\index{simulated\_annealing@{simulated\_annealing}!polytype\_conversion.c@{polytype\_conversion.c}}
+\doxysubsubsection{\texorpdfstring{simulated\_annealing()}{simulated\_annealing()}}
+{\footnotesize\ttfamily int simulated\+\_\+annealing (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$}]{p }\end{DoxyParamCaption})}
+
+Convert polymer types using a mixture of simulated annealing and random flipping. 
+\begin{DoxyParams}{Parameters}
+{\em p} & \mbox{\hyperlink{structPhase}{Phase}} struct describing the simulation \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Errorcode 
+\end{DoxyReturn}
+\mbox{\Hypertarget{polytype__conversion_8c_aa104ae0926534b409e2ae5827a943e56}\label{polytype__conversion_8c_aa104ae0926534b409e2ae5827a943e56}} 
+\index{polytype\_conversion.c@{polytype\_conversion.c}!update\_delta\_fields@{update\_delta\_fields}}
+\index{update\_delta\_fields@{update\_delta\_fields}!polytype\_conversion.c@{polytype\_conversion.c}}
+\doxysubsubsection{\texorpdfstring{update\_delta\_fields()}{update\_delta\_fields()}}
+{\footnotesize\ttfamily void update\+\_\+delta\+\_\+fields (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$}]{p,  }\item[{uint64\+\_\+t}]{poly,  }\item[{unsigned int}]{initial\+\_\+type,  }\item[{unsigned int}]{final\+\_\+type,  }\item[{int64\+\_\+t $\ast$}]{poly\+\_\+cell\+\_\+indices,  }\item[{int64\+\_\+t $\ast$}]{poly\+\_\+cell\+\_\+num,  }\item[{int64\+\_\+t $\ast$}]{delta\+\_\+fields\+\_\+unified }\end{DoxyParamCaption})}
+
+Update differences in density fields cause by flips 
+\begin{DoxyParams}{Parameters}
+{\em p} & \mbox{\hyperlink{structPhase}{Phase}} struct describing the simulation \\
+\hline
+{\em poly} & \mbox{\hyperlink{structPolymer}{Polymer}} index \\
+\hline
+{\em initial\+\_\+type} & Type before flip \\
+\hline
+{\em final\+\_\+type} & Type after flip \\
+\hline
+{\em poly\+\_\+cell\+\_\+indices} & For flippable polymers, contains indices in which cells the polymer has monomers \\
+\hline
+{\em poly\+\_\+cell\+\_\+num} & Number of monomers corresponding to the cells in poly\+\_\+cell\+\_\+indices \\
+\hline
+{\em delta\+\_\+fields\+\_\+unified} & Changes in density fields caused by flips \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{polytype__conversion_8c_a2539c9442fed8e40e15f4acc7bf96f4f}\label{polytype__conversion_8c_a2539c9442fed8e40e15f4acc7bf96f4f}} 
+\index{polytype\_conversion.c@{polytype\_conversion.c}!update\_self\_poly\_conversion@{update\_self\_poly\_conversion}}
+\index{update\_self\_poly\_conversion@{update\_self\_poly\_conversion}!polytype\_conversion.c@{polytype\_conversion.c}}
+\doxysubsubsection{\texorpdfstring{update\_self\_poly\_conversion()}{update\_self\_poly\_conversion()}}
+{\footnotesize\ttfamily int update\+\_\+self\+\_\+poly\+\_\+conversion (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const}]{p }\end{DoxyParamCaption})}
+
+Helper function to update the host with the pc data
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & Fully initialized \mbox{\hyperlink{structPhase}{Phase}} struct \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Errorcode 
+\end{DoxyReturn}
+\mbox{\Hypertarget{polytype__conversion_8c_aa5a55150c408446a004f4a2eeab3ef37}\label{polytype__conversion_8c_aa5a55150c408446a004f4a2eeab3ef37}} 
+\index{polytype\_conversion.c@{polytype\_conversion.c}!write\_poly\_conversion\_hdf5@{write\_poly\_conversion\_hdf5}}
+\index{write\_poly\_conversion\_hdf5@{write\_poly\_conversion\_hdf5}!polytype\_conversion.c@{polytype\_conversion.c}}
+\doxysubsubsection{\texorpdfstring{write\_poly\_conversion\_hdf5()}{write\_poly\_conversion\_hdf5()}}
+{\footnotesize\ttfamily int write\+\_\+poly\+\_\+conversion\+\_\+hdf5 (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const}]{p,  }\item[{const hid\+\_\+t}]{file\+\_\+id,  }\item[{const hid\+\_\+t}]{plist\+\_\+id }\end{DoxyParamCaption})}
+
+Helper function to write the polyconversion array to the config HDF5 file.
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & \mbox{\hyperlink{structPhase}{Phase}} describing the system \\
+\hline
+{\em file\+\_\+id} & File identifier of open HDF5 file. \\
+\hline
+{\em plist\+\_\+id} & Access properties to use. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Errorcode 
+\end{DoxyReturn}

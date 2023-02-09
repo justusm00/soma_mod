@@ -1,0 +1,21 @@
+The HDF5 file format is one of the key features you will need to perform simulations with SOMA on a HPC Cluster. The HDF5 is a data model, library, and file format for storing and managing data. In our case it will guarantee a well optimized real parallel IO. It means every MPI process writes at the same time to a previous defined data container exclusively. If you want to know how to compile with hdf5\+: \mbox{\hyperlink{install_HDF5}{HDF5 Library}}.\hypertarget{hdf5_hdf5edit}{}\doxysection{How to edit a hdf5 file}\label{hdf5_hdf5edit}
+To edit a hdf5 file you can follow different strategies. In a terminal you can use h5dump to dump data out of your file. If you prefer a visual tool you can use hdfviewer as well but therefore an X server is required which can become difficult in some cluster environments. The most gently way to deal with hdf5 files from our point of view is the usage of python (import h5py). To get an idea how to perform with python you can go for our handle\+Ana\+H5.\+py example.
+
+
+\begin{DoxyItemize}
+\item \href{http://docs.h5py.org/}{\texttt{ python module }}\+: import h5py, most flexible but has to installed
+\item \href{https://www.hdfgroup.org/HDF5/doc/RM/Tools.html\#Tools-Dump/}{\texttt{ h5dump }}, more or less always available first step to check specific observables
+\item \href{https://www.hdfgroup.org/products/java/hdfview/}{\texttt{ hdfviewer }}, visual environment with simple statistical analysis included.
+\end{DoxyItemize}\hypertarget{hdf5_hdf5info}{}\doxysection{Full documentation of HDF5}\label{hdf5_hdf5info}
+For more information visit the page of the \href{https://www.hdfgroup.org/}{\texttt{ HDF5 Group }}.
+
+The HDF5 file format is one of the key features you will need to perform simulations with SOMA on a HPC Cluster. The HDF5 is a data model, library, and file format for storing and managing data. In our case it will guarantee a well optimized real parallel IO. It means every MPI process writes at the same time to a previous defined data container exclusively. If you want to know how to compile with hdf5\+: \mbox{\hyperlink{install_HDF5}{HDF5 Library}}.\hypertarget{hdf5_hdf5edit2}{}\doxysection{How to edit a hdf5 file}\label{hdf5_hdf5edit2}
+To edit a hdf5 file you can follow different strategies. In a terminal you can use h5dump to dump data out of your file. If you prefer a visual tool you can use hdfviewer as well but therefore an X server is required which can become difficult in some cluster environments. The most gently way to deal with hdf5 files from our point of view is the usage of python (import h5py). To get an idea how to perform with python you can go for our handle\+Ana\+H5.\+py example.
+
+
+\begin{DoxyItemize}
+\item \href{http://docs.h5py.org/}{\texttt{ python module }}\+: import h5py, most flexible but has to installed
+\item \href{https://www.hdfgroup.org/HDF5/doc/RM/Tools.html\#Tools-Dump/}{\texttt{ h5dump }}, more or less always available first step to check specific observables
+\item \href{https://www.hdfgroup.org/products/java/hdfview/}{\texttt{ hdfviewer }}, visual environment with simple statistical analysis included.
+\end{DoxyItemize}\hypertarget{hdf5_hdf5info2}{}\doxysection{Full documentation of HDF5}\label{hdf5_hdf5info2}
+For more information visit the page of the \href{https://www.hdfgroup.org/}{\texttt{ HDF5 Group }}. 

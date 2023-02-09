@@ -1,0 +1,46 @@
+\hypertarget{io_8h_source}{}\doxysection{io.\+h}
+\label{io_8h_source}\index{io.h@{io.h}}
+\mbox{\hyperlink{io_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{/* Copyright (C) 2016-\/2021 Ludwig Schneider}}
+\DoxyCodeLine{2 \textcolor{comment}{   Copyright (C) 2016 Ulrich Welling}}
+\DoxyCodeLine{3 \textcolor{comment}{   Copyright (C) 2016 Marcel Langenberg}}
+\DoxyCodeLine{4 \textcolor{comment}{}}
+\DoxyCodeLine{5 \textcolor{comment}{ This file is part of SOMA.}}
+\DoxyCodeLine{6 \textcolor{comment}{}}
+\DoxyCodeLine{7 \textcolor{comment}{ SOMA is free software: you can redistribute it and/or modify}}
+\DoxyCodeLine{8 \textcolor{comment}{ it under the terms of the GNU Lesser General Public License as published by}}
+\DoxyCodeLine{9 \textcolor{comment}{ the Free Software Foundation, either version 3 of the License, or}}
+\DoxyCodeLine{10 \textcolor{comment}{ (at your option) any later version.}}
+\DoxyCodeLine{11 \textcolor{comment}{}}
+\DoxyCodeLine{12 \textcolor{comment}{ SOMA is distributed in the hope that it will be useful,}}
+\DoxyCodeLine{13 \textcolor{comment}{ but WITHOUT ANY WARRANTY; without even the implied warranty of}}
+\DoxyCodeLine{14 \textcolor{comment}{ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the}}
+\DoxyCodeLine{15 \textcolor{comment}{ GNU Lesser General Public License for more details.}}
+\DoxyCodeLine{16 \textcolor{comment}{}}
+\DoxyCodeLine{17 \textcolor{comment}{ You should have received a copy of the GNU Lesser General Public License}}
+\DoxyCodeLine{18 \textcolor{comment}{ along with SOMA.  If not, see <http://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{19 \textcolor{comment}{*/}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#ifndef SOMA\_IO\_H}}
+\DoxyCodeLine{21 \textcolor{preprocessor}{\#define SOMA\_IO\_H}}
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{soma__config_8h}{soma\_config.h}}"{}}}
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#include <hdf5.h>}}
+\DoxyCodeLine{41 \textcolor{keyword}{struct }\mbox{\hyperlink{structPhase}{Phase}};}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{52 \textcolor{keywordtype}{int} \mbox{\hyperlink{io_8h_afa91a609a7ebd80826ccd690f2ef167c}{write\_config}}(\textcolor{keyword}{const} \textcolor{keyword}{struct} \mbox{\hyperlink{structPhase}{Phase}} *\textcolor{keyword}{const} p, \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\textcolor{keyword}{const} filename);}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{60 \textcolor{keywordtype}{int} \mbox{\hyperlink{io_8h_aafbbc887fd4e58fbadae4d409f872cd8}{write\_config\_hdf5}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structPhase}{Phase}} *\textcolor{keyword}{const} p, \textcolor{keyword}{const} \textcolor{keywordtype}{char} *filename);}
+\DoxyCodeLine{66 \textcolor{keywordtype}{int} \mbox{\hyperlink{io_8h_acca9e3b51f612a1a1759ca904e65fe9d}{read\_config\_hdf5}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structPhase}{Phase}} *\textcolor{keyword}{const} p, \textcolor{keyword}{const} \textcolor{keywordtype}{char} *filename);}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{73 \textcolor{keywordtype}{int} \mbox{\hyperlink{io_8h_ab31b678ba1ecae00e9cc5a2e9557190a}{screen\_output}}(\textcolor{keyword}{struct} \mbox{\hyperlink{structPhase}{Phase}} *\textcolor{keyword}{const} p, \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} Nsteps);}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{88 \textcolor{keywordtype}{int} \mbox{\hyperlink{io_8c_a5440a39a61fd417973025c2d467bd0b3}{write\_hdf5}}(\textcolor{keyword}{const} hsize\_t ndims, \textcolor{keyword}{const} hsize\_t * \textcolor{keyword}{const} dims, \textcolor{keyword}{const} hid\_t file\_id,}
+\DoxyCodeLine{89                \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\textcolor{keyword}{const} name, \textcolor{keyword}{const} hid\_t file\_type, \textcolor{keyword}{const} hid\_t mem\_type,}
+\DoxyCodeLine{90                \textcolor{keyword}{const} hid\_t plist\_id, \textcolor{keyword}{const} \textcolor{keywordtype}{void} *\textcolor{keyword}{const} data);}
+\DoxyCodeLine{91 }
+\DoxyCodeLine{102 \textcolor{keywordtype}{int} \mbox{\hyperlink{io_8c_a098a6f4cb633e1334a6c83161ba83834}{read\_hdf5}}(\textcolor{keyword}{const} hid\_t file\_id, \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\textcolor{keyword}{const} name, \textcolor{keyword}{const} hid\_t mem\_type, \textcolor{keyword}{const} hid\_t plist\_id,}
+\DoxyCodeLine{103               \textcolor{keywordtype}{void} *\textcolor{keyword}{const} data);}
+\DoxyCodeLine{104 }
+\DoxyCodeLine{105 \textcolor{preprocessor}{\#endif                          }\textcolor{comment}{//SOMA\_IO\_H}}
+
+\end{DoxyCode}

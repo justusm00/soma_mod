@@ -1,0 +1,52 @@
+\hypertarget{ana__info_8c}{}\doxysection{ana\+\_\+info.\+c File Reference}
+\label{ana__info_8c}\index{ana\_info.c@{ana\_info.c}}
+
+
+Implementation of \mbox{\hyperlink{ana__info_8h}{ana\+\_\+info.\+h}}.  
+
+
+{\ttfamily \#include \char`\"{}ana\+\_\+info.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$assert.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}soma\+\_\+config.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}phase.\+h\char`\"{}}\newline
+Include dependency graph for ana\+\_\+info.\+c\+:
+% FIG 0
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{ana__info_8c_a8369aea97e186f619ee3eb92f6a4bea9}\label{ana__info_8c_a8369aea97e186f619ee3eb92f6a4bea9}} 
+\#define {\bfseries SOMA\+\_\+\+NUM\+\_\+\+OBS}~15
+\begin{DoxyCompactList}\small\item\em Number of known observables to SOMA. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{ana__info_8c_a3bdfdc6de4b4197a21632449f3700c61}{close\+\_\+ana}} (struct \mbox{\hyperlink{structAna__Info}{Ana\+\_\+\+Info}} $\ast$const a)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementation of \mbox{\hyperlink{ana__info_8h}{ana\+\_\+info.\+h}}. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{ana__info_8c_a3bdfdc6de4b4197a21632449f3700c61}\label{ana__info_8c_a3bdfdc6de4b4197a21632449f3700c61}} 
+\index{ana\_info.c@{ana\_info.c}!close\_ana@{close\_ana}}
+\index{close\_ana@{close\_ana}!ana\_info.c@{ana\_info.c}}
+\doxysubsubsection{\texorpdfstring{close\_ana()}{close\_ana()}}
+{\footnotesize\ttfamily int close\+\_\+ana (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structAna__Info}{Ana\+\_\+\+Info}} $\ast$const}]{a }\end{DoxyParamCaption})}
+
+Release resources connected to the \mbox{\hyperlink{structAna__Info}{Ana\+\_\+\+Info}} struct after init\+\_\+ana.
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & Pointer to \mbox{\hyperlink{structAna__Info}{Ana\+\_\+\+Info}} to release \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+errorcode 
+\end{DoxyReturn}

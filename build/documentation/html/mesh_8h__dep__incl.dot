@@ -1,0 +1,30 @@
+digraph "mesh.h"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  Node1 [label="mesh.h",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="Functions related to the mesh of the density fields."];
+  Node1 -> Node2 [dir="back",color="steelblue1",style="solid"];
+  Node2 [label="ana.c",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$ana_8c.html",tooltip="Implementation of ana.h."];
+  Node1 -> Node3 [dir="back",color="steelblue1",style="solid"];
+  Node3 [label="generate_positions.c",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$generate__positions_8c.html",tooltip="Implementation of generate_positions.h."];
+  Node1 -> Node4 [dir="back",color="steelblue1",style="solid"];
+  Node4 [label="io.c",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$io_8c.html",tooltip="Implementation of io.h."];
+  Node1 -> Node5 [dir="back",color="steelblue1",style="solid"];
+  Node5 [label="mesh.c",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$mesh_8c.html",tooltip="Implementation of mesh.h."];
+  Node1 -> Node6 [dir="back",color="steelblue1",style="solid"];
+  Node6 [label="mobility.c",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$mobility_8c.html",tooltip="Implementation of mobility.h."];
+  Node1 -> Node7 [dir="back",color="steelblue1",style="solid"];
+  Node7 [label="monotype_conversion.c",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$monotype__conversion_8c.html",tooltip="Implementation of monotype_conversion.h."];
+  Node1 -> Node8 [dir="back",color="steelblue1",style="solid"];
+  Node8 [label="mpiroutines.c",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$mpiroutines_8c.html",tooltip="Implementation of mpiroutines.h."];
+  Node1 -> Node9 [dir="back",color="steelblue1",style="solid"];
+  Node9 [label="phase.c",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$phase_8c.html",tooltip="Implementation of phase.h."];
+  Node1 -> Node10 [dir="back",color="steelblue1",style="solid"];
+  Node10 [label="polytype_conversion.c",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$polytype__conversion_8c.html",tooltip="Implementation of polytype_conversion.h."];
+  Node1 -> Node11 [dir="back",color="steelblue1",style="solid"];
+  Node11 [label="soma.c",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$soma_8c.html",tooltip="Implementation of the main executable SOMA."];
+  Node1 -> Node12 [dir="back",color="steelblue1",style="solid"];
+  Node12 [label="test.c",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$test_8c.html",tooltip="Implementation of test.h."];
+}

@@ -1,0 +1,274 @@
+\hypertarget{polymer_8h}{}\doxysection{polymer.\+h File Reference}
+\label{polymer_8h}\index{polymer.h@{polymer.h}}
+
+
+Code related to the \mbox{\hyperlink{structPolymer}{Polymer}} structures.  
+
+
+{\ttfamily \#include \char`\"{}soma\+\_\+config.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}rng.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}monomer.\+h\char`\"{}}\newline
+Include dependency graph for polymer.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structPolymer}{Polymer}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{structPolymer}{Polymer}} information. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \mbox{\hyperlink{structPolymer}{Polymer}} \mbox{\hyperlink{polymer_8h_a4dabf2738639bccdaf9a8b8f2394ddf3}{Polymer}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{structPolymer}{Polymer}} information. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{polymer_8h_a82fd650c67fcc719a73f93ca2bd918c8}{reallocate\+\_\+polymer\+\_\+mem}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const p, uint64\+\_\+t new\+\_\+storage)
+\item 
+int \mbox{\hyperlink{polymer_8h_aff5fa000cf4b8dfde9fb8d979ac55ae7}{push\+\_\+polymer}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const p, const \mbox{\hyperlink{structPolymer}{Polymer}} $\ast$const poly)
+\item 
+int \mbox{\hyperlink{polymer_8h_a45a5e1f0f580322fb3d9296cbb0f4588}{pop\+\_\+polymer}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const p, const uint64\+\_\+t poly\+\_\+id, \mbox{\hyperlink{structPolymer}{Polymer}} $\ast$const poly)
+\item 
+int \mbox{\hyperlink{polymer_8h_a0f726c89f5af95ddc205e267f30fa55e}{exchange\+\_\+polymer}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const p, const uint64\+\_\+t poly\+\_\+i, const uint64\+\_\+t poly\+\_\+j)
+\item 
+unsigned int \mbox{\hyperlink{polymer_8h_acf6cbf0802aafadd87b6730e9db9a6dd}{poly\+\_\+serial\+\_\+length}} (const struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const p, const \mbox{\hyperlink{structPolymer}{Polymer}} $\ast$const poly)
+\item 
+int \mbox{\hyperlink{polymer_8h_a0f36ef492c0f57143795887ecc5a121f}{serialize\+\_\+polymer}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const p, const \mbox{\hyperlink{structPolymer}{Polymer}} $\ast$const poly, unsigned char $\ast$const buffer)
+\item 
+int \mbox{\hyperlink{polymer_8h_a2e07e0d25516f643fb2d80c3ebeb9fee}{deserialize\+\_\+polymer}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const p, \mbox{\hyperlink{structPolymer}{Polymer}} $\ast$const poly, const unsigned char $\ast$const buffer)
+\item 
+int \mbox{\hyperlink{polymer_8h_ac8cf98e73f14c3f9bb1fad07ce60b806}{update\+\_\+polymer\+\_\+rcm}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const p)
+\item 
+unsigned int \mbox{\hyperlink{polymer_8h_a15bd16b78df6a0c71f6f068ff4280871}{get\+\_\+domain\+\_\+id}} (const struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const p, const \mbox{\hyperlink{structMonomer}{Monomer}} $\ast$const rcm)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Code related to the \mbox{\hyperlink{structPolymer}{Polymer}} structures. 
+
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{polymer_8h_a4dabf2738639bccdaf9a8b8f2394ddf3}\label{polymer_8h_a4dabf2738639bccdaf9a8b8f2394ddf3}} 
+\index{polymer.h@{polymer.h}!Polymer@{Polymer}}
+\index{Polymer@{Polymer}!polymer.h@{polymer.h}}
+\doxysubsubsection{\texorpdfstring{Polymer}{Polymer}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structPolymer}{Polymer}} \mbox{\hyperlink{structPolymer}{Polymer}}}
+
+
+
+\mbox{\hyperlink{structPolymer}{Polymer}} information. 
+
+Instead of pointers this struct contains offset counters, that have to be applied to global arrays instead. To invalidate pointers (such as using NULL) the offsets are sets are set to UINT64\+\_\+\+MAX To access for example the beads of this polymer use\+: p-\/\texorpdfstring{$>$}{>}ph.\+beads\mbox{[} this-\/\texorpdfstring{$>$}{>}bead\+\_\+offset + i\mbox{]} 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{polymer_8h_a2e07e0d25516f643fb2d80c3ebeb9fee}\label{polymer_8h_a2e07e0d25516f643fb2d80c3ebeb9fee}} 
+\index{polymer.h@{polymer.h}!deserialize\_polymer@{deserialize\_polymer}}
+\index{deserialize\_polymer@{deserialize\_polymer}!polymer.h@{polymer.h}}
+\doxysubsubsection{\texorpdfstring{deserialize\_polymer()}{deserialize\_polymer()}}
+{\footnotesize\ttfamily int deserialize\+\_\+polymer (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const}]{p,  }\item[{\mbox{\hyperlink{structPolymer}{Polymer}} $\ast$const}]{poly,  }\item[{const unsigned char $\ast$const}]{buffer }\end{DoxyParamCaption})}
+
+Deserialize an \mbox{\hyperlink{structPolymer}{Polymer}} from a raw memory buffer.
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & System. \\
+\hline
+{\em poly} & \mbox{\hyperlink{structPolymer}{Polymer}} to initialize by memory buffer. \\
+\hline
+{\em buffer} & Initialized memory buffer to read. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyPrecond}{Precondition}
+You are owner of {\itshape polymer}. And there is no deep copy data allocated. Otherwise, you create memory leaks , because deep copy data is allocated. 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+You are owner of the \mbox{\hyperlink{structPolymer}{Polymer}} including deep copy data. 
+\end{DoxyPostcond}
+\begin{DoxyReturn}{Returns}
+Number of written bytes. If \texorpdfstring{$<$}{<} 0 Errorcode. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{polymer_8h_a0f726c89f5af95ddc205e267f30fa55e}\label{polymer_8h_a0f726c89f5af95ddc205e267f30fa55e}} 
+\index{polymer.h@{polymer.h}!exchange\_polymer@{exchange\_polymer}}
+\index{exchange\_polymer@{exchange\_polymer}!polymer.h@{polymer.h}}
+\doxysubsubsection{\texorpdfstring{exchange\_polymer()}{exchange\_polymer()}}
+{\footnotesize\ttfamily int exchange\+\_\+polymer (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const}]{p,  }\item[{const uint64\+\_\+t}]{poly\+\_\+i,  }\item[{const uint64\+\_\+t}]{poly\+\_\+j }\end{DoxyParamCaption})}
+
+Exchange the index of two polymers in p.
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & Fully initialized system. \\
+\hline
+{\em poly\+\_\+i} & the polymer to be exchanged with poly\+\_\+j \\
+\hline
+{\em poly\+\_\+j} & the polymer to be exchanged with poly\+\_\+i \\
+\hline
+\end{DoxyParams}
+\begin{DoxyWarning}{Warning}
+If you change properties of the global system, you need to call collective\+\_\+global\+\_\+update(). 
+\end{DoxyWarning}
+\begin{DoxyReturn}{Returns}
+Errorcode. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{polymer_8h_a15bd16b78df6a0c71f6f068ff4280871}\label{polymer_8h_a15bd16b78df6a0c71f6f068ff4280871}} 
+\index{polymer.h@{polymer.h}!get\_domain\_id@{get\_domain\_id}}
+\index{get\_domain\_id@{get\_domain\_id}!polymer.h@{polymer.h}}
+\doxysubsubsection{\texorpdfstring{get\_domain\_id()}{get\_domain\_id()}}
+{\footnotesize\ttfamily unsigned int get\+\_\+domain\+\_\+id (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const}]{p,  }\item[{const \mbox{\hyperlink{structMonomer}{Monomer}} $\ast$const}]{rcm }\end{DoxyParamCaption})}
+
+Get the domain id to which of the given position
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & reference system \\
+\hline
+{\em rcm} & pointer to rcm \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+domain id 
+\end{DoxyReturn}
+\mbox{\Hypertarget{polymer_8h_acf6cbf0802aafadd87b6730e9db9a6dd}\label{polymer_8h_acf6cbf0802aafadd87b6730e9db9a6dd}} 
+\index{polymer.h@{polymer.h}!poly\_serial\_length@{poly\_serial\_length}}
+\index{poly\_serial\_length@{poly\_serial\_length}!polymer.h@{polymer.h}}
+\doxysubsubsection{\texorpdfstring{poly\_serial\_length()}{poly\_serial\_length()}}
+{\footnotesize\ttfamily unsigned int poly\+\_\+serial\+\_\+length (\begin{DoxyParamCaption}\item[{const struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const}]{p,  }\item[{const \mbox{\hyperlink{structPolymer}{Polymer}} $\ast$const}]{poly }\end{DoxyParamCaption})}
+
+Obtain the number of bytes, which are necessary to serialize a polymer.
+
+Use this function to allocate memory for polymer serialization. 
+\begin{DoxyParams}{Parameters}
+{\em p} & System configuration. \\
+\hline
+{\em poly} & \mbox{\hyperlink{structPolymer}{Polymer}} to serialize. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Number of bytes. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{polymer_8h_a45a5e1f0f580322fb3d9296cbb0f4588}\label{polymer_8h_a45a5e1f0f580322fb3d9296cbb0f4588}} 
+\index{polymer.h@{polymer.h}!pop\_polymer@{pop\_polymer}}
+\index{pop\_polymer@{pop\_polymer}!polymer.h@{polymer.h}}
+\doxysubsubsection{\texorpdfstring{pop\_polymer()}{pop\_polymer()}}
+{\footnotesize\ttfamily int pop\+\_\+polymer (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const}]{p,  }\item[{const uint64\+\_\+t}]{poly\+\_\+id,  }\item[{\mbox{\hyperlink{structPolymer}{Polymer}} $\ast$const}]{poly }\end{DoxyParamCaption})}
+
+Extract a polymer from a position.
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & Fully initialized system. \\
+\hline
+{\em poly\+\_\+id} & index of the polymer to extract from the system. \\
+\hline
+{\em poly} & Pointer to empty space to store the popep polymer in. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyPrecond}{Precondition}
+memory space for the polymer is required. 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+{\itshape poly} is now the owner of the polymer. 
+
+{\itshape poly} is fully deacllocated from device memory. 
+\end{DoxyPostcond}
+\begin{DoxyWarning}{Warning}
+If you change properties of the global system, you need to call collective\+\_\+global\+\_\+update(). 
+\end{DoxyWarning}
+\begin{DoxyReturn}{Returns}
+Errorcode. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{polymer_8h_aff5fa000cf4b8dfde9fb8d979ac55ae7}\label{polymer_8h_aff5fa000cf4b8dfde9fb8d979ac55ae7}} 
+\index{polymer.h@{polymer.h}!push\_polymer@{push\_polymer}}
+\index{push\_polymer@{push\_polymer}!polymer.h@{polymer.h}}
+\doxysubsubsection{\texorpdfstring{push\_polymer()}{push\_polymer()}}
+{\footnotesize\ttfamily int push\+\_\+polymer (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const}]{p,  }\item[{const \mbox{\hyperlink{structPolymer}{Polymer}} $\ast$const}]{poly }\end{DoxyParamCaption})}
+
+Push a polymer to the end of the p-\/\texorpdfstring{$>$}{>}polymers array.
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & Fully initialized system. \\
+\hline
+{\em poly} & Pointer to \mbox{\hyperlink{structPolymer}{Polymer}} to insert. If no storage for that polymer is available, a \mbox{\hyperlink{polymer_8h_a82fd650c67fcc719a73f93ca2bd918c8}{reallocate\+\_\+polymer\+\_\+mem()}} is triggered. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyPrecond}{Precondition}
+The polymer is has to be fully allocated on host memory. But not on GPU memory. 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+The polymer is part of the system. The system {\itshape p} is now owner of the polymer. 
+
+Device memory for the deep copy of polymer is initialized. 
+\end{DoxyPostcond}
+\begin{DoxyWarning}{Warning}
+If you change properties of the global system, you need to call collective\+\_\+global\+\_\+update(). 
+\end{DoxyWarning}
+\begin{DoxyReturn}{Returns}
+Errorcode. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{polymer_8h_a82fd650c67fcc719a73f93ca2bd918c8}\label{polymer_8h_a82fd650c67fcc719a73f93ca2bd918c8}} 
+\index{polymer.h@{polymer.h}!reallocate\_polymer\_mem@{reallocate\_polymer\_mem}}
+\index{reallocate\_polymer\_mem@{reallocate\_polymer\_mem}!polymer.h@{polymer.h}}
+\doxysubsubsection{\texorpdfstring{reallocate\_polymer\_mem()}{reallocate\_polymer\_mem()}}
+{\footnotesize\ttfamily int reallocate\+\_\+polymer\+\_\+mem (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const}]{p,  }\item[{uint64\+\_\+t}]{new\+\_\+storage }\end{DoxyParamCaption})}
+
+If more memory space for polymers is requested than available, this functionallocates more space.
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & System to reallocate memory. \\
+\hline
+{\em new\+\_\+storage} & Suggestion for new storage allocation. If smaller than heuristics, the heuristics is chosen. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Errorcode 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+This function is expensive to call. 
+\end{DoxyNote}
+\mbox{\Hypertarget{polymer_8h_a0f36ef492c0f57143795887ecc5a121f}\label{polymer_8h_a0f36ef492c0f57143795887ecc5a121f}} 
+\index{polymer.h@{polymer.h}!serialize\_polymer@{serialize\_polymer}}
+\index{serialize\_polymer@{serialize\_polymer}!polymer.h@{polymer.h}}
+\doxysubsubsection{\texorpdfstring{serialize\_polymer()}{serialize\_polymer()}}
+{\footnotesize\ttfamily int serialize\+\_\+polymer (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const}]{p,  }\item[{const \mbox{\hyperlink{structPolymer}{Polymer}} $\ast$const}]{poly,  }\item[{unsigned char $\ast$const}]{buffer }\end{DoxyParamCaption})}
+
+Serialize an \mbox{\hyperlink{structPolymer}{Polymer}} to a raw memory buffer.
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & System \\
+\hline
+{\em poly} & \mbox{\hyperlink{structPolymer}{Polymer}} to serialize. \\
+\hline
+{\em buffer} & Preallocated buffer to store the outcome. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyPrecond}{Precondition}
+Allocation of buffer with return value of poly\+\_\+state\+\_\+serial\+\_\+length() minimum. 
+\end{DoxyPrecond}
+\begin{DoxyNote}{Note}
+Ownership and allocation status is unchanged. 
+\end{DoxyNote}
+\begin{DoxyReturn}{Returns}
+Number of written bytes. If \texorpdfstring{$<$}{<} 0 Errorcode. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{polymer_8h_ac8cf98e73f14c3f9bb1fad07ce60b806}\label{polymer_8h_ac8cf98e73f14c3f9bb1fad07ce60b806}} 
+\index{polymer.h@{polymer.h}!update\_polymer\_rcm@{update\_polymer\_rcm}}
+\index{update\_polymer\_rcm@{update\_polymer\_rcm}!polymer.h@{polymer.h}}
+\doxysubsubsection{\texorpdfstring{update\_polymer\_rcm()}{update\_polymer\_rcm()}}
+{\footnotesize\ttfamily int update\+\_\+polymer\+\_\+rcm (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const}]{p }\end{DoxyParamCaption})}
+
+Update the center of mass of the polymer from its monomer positions.
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & System \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Errorcode 
+\end{DoxyReturn}

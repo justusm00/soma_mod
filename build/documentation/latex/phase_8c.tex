@@ -1,0 +1,158 @@
+\hypertarget{phase_8c}{}\doxysection{phase.\+c File Reference}
+\label{phase_8c}\index{phase.c@{phase.c}}
+
+
+Implementation of \mbox{\hyperlink{phase_8h}{phase.\+h}}.  
+
+
+{\ttfamily \#include \char`\"{}phase.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include $<$time.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$assert.\+h$>$}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$sys/time.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}init.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}independent\+\_\+sets.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}mesh.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}polytype\+\_\+conversion.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}monotype\+\_\+conversion.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}mobility.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}self\+\_\+documentation.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}poly\+\_\+heavy.\+h\char`\"{}}\newline
+Include dependency graph for phase.\+c\+:
+% FIG 0
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{phase_8c_ad2c1e5c4e4c70d3c965f36895bd91761}{init\+\_\+phase}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const p)
+\begin{DoxyCompactList}\small\item\em Initializes the values additional after the input init by the read$\ast$() functions. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{phase_8c_a6f7b9254800104adb23f55af339f6f88}{copyin\+\_\+phase}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const p)
+\item 
+int \mbox{\hyperlink{phase_8c_a2198497a3ebaafa68a8fc65133ff8943}{copyout\+\_\+phase}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const p)
+\item 
+int \mbox{\hyperlink{phase_8c_a4f9fac7804397bf8e34213da3a7b49c6}{free\+\_\+phase}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const p)
+\begin{DoxyCompactList}\small\item\em Deallocate the memory used by p. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{phase_8c_a45c50fb48cd47490bf755d4c77251164}{update\+\_\+self\+\_\+phase}} (\mbox{\hyperlink{structPhase}{Phase}} $\ast$const p, int rng\+\_\+update\+\_\+flag)
+\begin{DoxyCompactList}\small\item\em Copys the data from the device back to the host. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{phase_8c_af4fa6d32b3a3af90934e7dcaf98e937e}{mc\+\_\+set\+\_\+init}} (\mbox{\hyperlink{structPhase}{Phase}} $\ast$const p)
+\begin{DoxyCompactList}\small\item\em Order the polymers in p according to their length, private function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementation of \mbox{\hyperlink{phase_8h}{phase.\+h}}. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{phase_8c_a6f7b9254800104adb23f55af339f6f88}\label{phase_8c_a6f7b9254800104adb23f55af339f6f88}} 
+\index{phase.c@{phase.c}!copyin\_phase@{copyin\_phase}}
+\index{copyin\_phase@{copyin\_phase}!phase.c@{phase.c}}
+\doxysubsubsection{\texorpdfstring{copyin\_phase()}{copyin\_phase()}}
+{\footnotesize\ttfamily int copyin\+\_\+phase (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const}]{p }\end{DoxyParamCaption})}
+
+Initialize and copy in all data to DEVICE 
+\begin{DoxyParams}{Parameters}
+{\em p} & Pointer to phase to copy in \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Errorcode 
+\end{DoxyReturn}
+\mbox{\Hypertarget{phase_8c_a2198497a3ebaafa68a8fc65133ff8943}\label{phase_8c_a2198497a3ebaafa68a8fc65133ff8943}} 
+\index{phase.c@{phase.c}!copyout\_phase@{copyout\_phase}}
+\index{copyout\_phase@{copyout\_phase}!phase.c@{phase.c}}
+\doxysubsubsection{\texorpdfstring{copyout\_phase()}{copyout\_phase()}}
+{\footnotesize\ttfamily int copyout\+\_\+phase (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const}]{p }\end{DoxyParamCaption})}
+
+Copy all data out from the DEVICE 
+\begin{DoxyParams}{Parameters}
+{\em p} & Pointer to phase to copy out \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Errorcode 
+\end{DoxyReturn}
+\mbox{\Hypertarget{phase_8c_a4f9fac7804397bf8e34213da3a7b49c6}\label{phase_8c_a4f9fac7804397bf8e34213da3a7b49c6}} 
+\index{phase.c@{phase.c}!free\_phase@{free\_phase}}
+\index{free\_phase@{free\_phase}!phase.c@{phase.c}}
+\doxysubsubsection{\texorpdfstring{free\_phase()}{free\_phase()}}
+{\footnotesize\ttfamily int free\+\_\+phase (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const}]{p }\end{DoxyParamCaption})}
+
+
+
+Deallocate the memory used by p. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & Initialized configuration. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Errorcode. 
+\end{DoxyReturn}
+\begin{DoxyPostcond}{Postcondition}
+p points to an invalid configuration. Do not use it for any other call afterwards. 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{phase_8c_ad2c1e5c4e4c70d3c965f36895bd91761}\label{phase_8c_ad2c1e5c4e4c70d3c965f36895bd91761}} 
+\index{phase.c@{phase.c}!init\_phase@{init\_phase}}
+\index{init\_phase@{init\_phase}!phase.c@{phase.c}}
+\doxysubsubsection{\texorpdfstring{init\_phase()}{init\_phase()}}
+{\footnotesize\ttfamily int init\+\_\+phase (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const}]{p }\end{DoxyParamCaption})}
+
+
+
+Initializes the values additional after the input init by the read$\ast$() functions. 
+
+\begin{DoxyNote}{Note}
+This function should be called before any type of simulaton, because several parameters from the input are used to fully initialize the \mbox{\hyperlink{structPhase}{Phase}}. 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em p} & \mbox{\hyperlink{structPhase}{Phase}} to initialize. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+error code. 
+\end{DoxyReturn}
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000004}{Todo}}]k\+BT required. \end{DoxyRefDesc}
+\mbox{\Hypertarget{phase_8c_af4fa6d32b3a3af90934e7dcaf98e937e}\label{phase_8c_af4fa6d32b3a3af90934e7dcaf98e937e}} 
+\index{phase.c@{phase.c}!mc\_set\_init@{mc\_set\_init}}
+\index{mc\_set\_init@{mc\_set\_init}!phase.c@{phase.c}}
+\doxysubsubsection{\texorpdfstring{mc\_set\_init()}{mc\_set\_init()}}
+{\footnotesize\ttfamily int mc\+\_\+set\+\_\+init (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const}]{p }\end{DoxyParamCaption})}
+
+
+
+Order the polymers in p according to their length, private function. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & Initialized configuration. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the number of chains that have more than 1/50 of the monomers in the total system. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{phase_8c_a45c50fb48cd47490bf755d4c77251164}\label{phase_8c_a45c50fb48cd47490bf755d4c77251164}} 
+\index{phase.c@{phase.c}!update\_self\_phase@{update\_self\_phase}}
+\index{update\_self\_phase@{update\_self\_phase}!phase.c@{phase.c}}
+\doxysubsubsection{\texorpdfstring{update\_self\_phase()}{update\_self\_phase()}}
+{\footnotesize\ttfamily int update\+\_\+self\+\_\+phase (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structPhase}{Phase}} $\ast$const}]{p,  }\item[{int}]{rng\+\_\+update\+\_\+flag }\end{DoxyParamCaption})}
+
+
+
+Copys the data from the device back to the host. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & System in which the host data is updated from the device \\
+\hline
+{\em rng\+\_\+update\+\_\+flag} & The flag deciding whether rng\+\_\+state will be updated \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Errorcode 
+\end{DoxyReturn}

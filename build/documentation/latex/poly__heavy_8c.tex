@@ -1,0 +1,150 @@
+\hypertarget{poly__heavy_8c}{}\doxysection{poly\+\_\+heavy.\+c File Reference}
+\label{poly__heavy_8c}\index{poly\_heavy.c@{poly\_heavy.c}}
+
+
+implementation of \mbox{\hyperlink{poly__heavy_8h_source}{poly\+\_\+heavy.\+h}}  
+
+
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}poly\+\_\+heavy.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}soma\+\_\+memory.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}phase.\+h\char`\"{}}\newline
+Include dependency graph for poly\+\_\+heavy.\+c\+:
+% FIG 0
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{poly__heavy_8c_a7b887e3f78b4a01b54ace3395142e1cd}{free\+\_\+polymer\+\_\+heavy}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const p)
+\begin{DoxyCompactList}\small\item\em Frees all resources of the \mbox{\hyperlink{structPolymerHeavy}{Polymer\+Heavy}} struct. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{poly__heavy_8c_a64440150ad9f715e9db08f599f6bd8ba}{copyin\+\_\+polymer\+\_\+heavy}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const p)
+\begin{DoxyCompactList}\small\item\em Initalizes and copies all data of the \mbox{\hyperlink{structPolymerHeavy}{Polymer\+Heavy}} struct to device memory. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{poly__heavy_8c_a181911e2767e3e411b99d124200583f2}{copyout\+\_\+polymer\+\_\+heavy}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const p)
+\begin{DoxyCompactList}\small\item\em Copies all device data to self and frees devices resources. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{poly__heavy_8c_afa492657999f4857f2f960cb6c724844}{update\+\_\+device\+\_\+polymer\+\_\+heavy}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const p, const bool rng\+\_\+flag)
+\begin{DoxyCompactList}\small\item\em Update the device memory with the current self memory of the polymer heavy struct. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{poly__heavy_8c_ab5f465e16afd025d9e8587a186908d4b}{update\+\_\+self\+\_\+polymer\+\_\+heavy}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const p, const bool rng\+\_\+flag)
+\begin{DoxyCompactList}\small\item\em Updates the self memory with the current device memory of the polymer heavcy strcut. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{poly__heavy_8c_a3ac0dbc95499e51a3beb983dec05ca4c}{consider\+\_\+compact\+\_\+polymer\+\_\+heavy}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$p, const bool collective)
+\begin{DoxyCompactList}\small\item\em If the allocated memory twice as large as necessary, create a new fresh polymer heavy struct. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+implementation of \mbox{\hyperlink{poly__heavy_8h_source}{poly\+\_\+heavy.\+h}} 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{poly__heavy_8c_a3ac0dbc95499e51a3beb983dec05ca4c}\label{poly__heavy_8c_a3ac0dbc95499e51a3beb983dec05ca4c}} 
+\index{poly\_heavy.c@{poly\_heavy.c}!consider\_compact\_polymer\_heavy@{consider\_compact\_polymer\_heavy}}
+\index{consider\_compact\_polymer\_heavy@{consider\_compact\_polymer\_heavy}!poly\_heavy.c@{poly\_heavy.c}}
+\doxysubsubsection{\texorpdfstring{consider\_compact\_polymer\_heavy()}{consider\_compact\_polymer\_heavy()}}
+{\footnotesize\ttfamily int consider\+\_\+compact\+\_\+polymer\+\_\+heavy (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$}]{p,  }\item[{const bool}]{collective }\end{DoxyParamCaption})}
+
+
+
+If the allocated memory twice as large as necessary, create a new fresh polymer heavy struct. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & \mbox{\hyperlink{structPhase}{Phase}} that contains a \mbox{\hyperlink{structPolymerHeavy}{Polymer\+Heavy}} to update \\
+\hline
+{\em collective} & Is this function collectively called for the simulation SOMA\+\_\+comm\+\_\+sim. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+error code. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{poly__heavy_8c_a64440150ad9f715e9db08f599f6bd8ba}\label{poly__heavy_8c_a64440150ad9f715e9db08f599f6bd8ba}} 
+\index{poly\_heavy.c@{poly\_heavy.c}!copyin\_polymer\_heavy@{copyin\_polymer\_heavy}}
+\index{copyin\_polymer\_heavy@{copyin\_polymer\_heavy}!poly\_heavy.c@{poly\_heavy.c}}
+\doxysubsubsection{\texorpdfstring{copyin\_polymer\_heavy()}{copyin\_polymer\_heavy()}}
+{\footnotesize\ttfamily int copyin\+\_\+polymer\+\_\+heavy (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const}]{p }\end{DoxyParamCaption})}
+
+
+
+Initalizes and copies all data of the \mbox{\hyperlink{structPolymerHeavy}{Polymer\+Heavy}} struct to device memory. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & \mbox{\hyperlink{structPhase}{Phase}} that contains a \mbox{\hyperlink{structPolymerHeavy}{Polymer\+Heavy}} to initialize \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+error code. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{poly__heavy_8c_a181911e2767e3e411b99d124200583f2}\label{poly__heavy_8c_a181911e2767e3e411b99d124200583f2}} 
+\index{poly\_heavy.c@{poly\_heavy.c}!copyout\_polymer\_heavy@{copyout\_polymer\_heavy}}
+\index{copyout\_polymer\_heavy@{copyout\_polymer\_heavy}!poly\_heavy.c@{poly\_heavy.c}}
+\doxysubsubsection{\texorpdfstring{copyout\_polymer\_heavy()}{copyout\_polymer\_heavy()}}
+{\footnotesize\ttfamily int copyout\+\_\+polymer\+\_\+heavy (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const}]{p }\end{DoxyParamCaption})}
+
+
+
+Copies all device data to self and frees devices resources. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & \mbox{\hyperlink{structPhase}{Phase}} that contains a \mbox{\hyperlink{structPolymerHeavy}{Polymer\+Heavy}} to free \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+error code. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{poly__heavy_8c_a7b887e3f78b4a01b54ace3395142e1cd}\label{poly__heavy_8c_a7b887e3f78b4a01b54ace3395142e1cd}} 
+\index{poly\_heavy.c@{poly\_heavy.c}!free\_polymer\_heavy@{free\_polymer\_heavy}}
+\index{free\_polymer\_heavy@{free\_polymer\_heavy}!poly\_heavy.c@{poly\_heavy.c}}
+\doxysubsubsection{\texorpdfstring{free\_polymer\_heavy()}{free\_polymer\_heavy()}}
+{\footnotesize\ttfamily int free\+\_\+polymer\+\_\+heavy (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const}]{p }\end{DoxyParamCaption})}
+
+
+
+Frees all resources of the \mbox{\hyperlink{structPolymerHeavy}{Polymer\+Heavy}} struct. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & \mbox{\hyperlink{structPhase}{Phase}} that contains a \mbox{\hyperlink{structPolymerHeavy}{Polymer\+Heavy}} to free \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+error code. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{poly__heavy_8c_afa492657999f4857f2f960cb6c724844}\label{poly__heavy_8c_afa492657999f4857f2f960cb6c724844}} 
+\index{poly\_heavy.c@{poly\_heavy.c}!update\_device\_polymer\_heavy@{update\_device\_polymer\_heavy}}
+\index{update\_device\_polymer\_heavy@{update\_device\_polymer\_heavy}!poly\_heavy.c@{poly\_heavy.c}}
+\doxysubsubsection{\texorpdfstring{update\_device\_polymer\_heavy()}{update\_device\_polymer\_heavy()}}
+{\footnotesize\ttfamily int update\+\_\+device\+\_\+polymer\+\_\+heavy (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const}]{p,  }\item[{const bool}]{rng\+\_\+flag }\end{DoxyParamCaption})}
+
+
+
+Update the device memory with the current self memory of the polymer heavy struct. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & \mbox{\hyperlink{structPhase}{Phase}} that contains a \mbox{\hyperlink{structPolymerHeavy}{Polymer\+Heavy}} to update \\
+\hline
+{\em rng\+\_\+flag} & Update of RNG info required? \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+error code. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{poly__heavy_8c_ab5f465e16afd025d9e8587a186908d4b}\label{poly__heavy_8c_ab5f465e16afd025d9e8587a186908d4b}} 
+\index{poly\_heavy.c@{poly\_heavy.c}!update\_self\_polymer\_heavy@{update\_self\_polymer\_heavy}}
+\index{update\_self\_polymer\_heavy@{update\_self\_polymer\_heavy}!poly\_heavy.c@{poly\_heavy.c}}
+\doxysubsubsection{\texorpdfstring{update\_self\_polymer\_heavy()}{update\_self\_polymer\_heavy()}}
+{\footnotesize\ttfamily int update\+\_\+self\+\_\+polymer\+\_\+heavy (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const}]{p,  }\item[{const bool}]{rng\+\_\+flag }\end{DoxyParamCaption})}
+
+
+
+Updates the self memory with the current device memory of the polymer heavcy strcut. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & \mbox{\hyperlink{structPhase}{Phase}} that contains a \mbox{\hyperlink{structPolymerHeavy}{Polymer\+Heavy}} to update \\
+\hline
+{\em rng\+\_\+flag} & Update of RNG info required? \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+error code. 
+\end{DoxyReturn}

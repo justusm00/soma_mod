@@ -1,0 +1,61 @@
+\hypertarget{monomer_8h}{}\doxysection{monomer.\+h File Reference}
+\label{monomer_8h}\index{monomer.h@{monomer.h}}
+
+
+Collection of code for \mbox{\hyperlink{structMonomer}{Monomer}} struct.  
+
+
+{\ttfamily \#include \char`\"{}soma\+\_\+config.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$hdf5.\+h$>$}\newline
+Include dependency graph for monomer.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structMonomer}{Monomer}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{structMonomer}{Monomer}} struct contains spatial position and type. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+hid\+\_\+t \mbox{\hyperlink{monomer_8h_a09b1ae949b10f80a6da44ebcbfdbf993}{get\+\_\+monomer\+\_\+memtype}} (void)
+\item 
+hid\+\_\+t \mbox{\hyperlink{monomer_8h_a4b1834ff2e1c5eacb9026b5a7ff9d4dd}{get\+\_\+monomer\+\_\+filetype}} (void)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Collection of code for \mbox{\hyperlink{structMonomer}{Monomer}} struct. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{monomer_8h_a4b1834ff2e1c5eacb9026b5a7ff9d4dd}\label{monomer_8h_a4b1834ff2e1c5eacb9026b5a7ff9d4dd}} 
+\index{monomer.h@{monomer.h}!get\_monomer\_filetype@{get\_monomer\_filetype}}
+\index{get\_monomer\_filetype@{get\_monomer\_filetype}!monomer.h@{monomer.h}}
+\doxysubsubsection{\texorpdfstring{get\_monomer\_filetype()}{get\_monomer\_filetype()}}
+{\footnotesize\ttfamily hid\+\_\+t get\+\_\+monomer\+\_\+filetype (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+function to get the hdf5 identifier for the monomer\+\_\+filetype.
+
+\begin{DoxyWarning}{Warning}
+You as a user have to close the id after you used it! 
+\end{DoxyWarning}
+\begin{DoxyReturn}{Returns}
+Type hdf5 identifier. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{monomer_8h_a09b1ae949b10f80a6da44ebcbfdbf993}\label{monomer_8h_a09b1ae949b10f80a6da44ebcbfdbf993}} 
+\index{monomer.h@{monomer.h}!get\_monomer\_memtype@{get\_monomer\_memtype}}
+\index{get\_monomer\_memtype@{get\_monomer\_memtype}!monomer.h@{monomer.h}}
+\doxysubsubsection{\texorpdfstring{get\_monomer\_memtype()}{get\_monomer\_memtype()}}
+{\footnotesize\ttfamily hid\+\_\+t get\+\_\+monomer\+\_\+memtype (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+function to get the hdf5 identifier for the monomer\+\_\+memtype.
+
+\begin{DoxyWarning}{Warning}
+You as a user have to close the id after you used it! 
+\end{DoxyWarning}
+\begin{DoxyReturn}{Returns}
+Type hdf5 identifier. 
+\end{DoxyReturn}

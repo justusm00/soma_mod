@@ -1,0 +1,52 @@
+\hypertarget{init_8c}{}\doxysection{init.\+c File Reference}
+\label{init_8c}\index{init.c@{init.c}}
+
+
+Implementation of \mbox{\hyperlink{init_8h}{init.\+h}}.  
+
+
+{\ttfamily \#include \char`\"{}init.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+{\ttfamily \#include $<$time.\+h$>$}\newline
+{\ttfamily \#include $<$assert.\+h$>$}\newline
+{\ttfamily \#include $<$memory.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$limits.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$hdf5.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}soma\+\_\+config.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}phase.\+h\char`\"{}}\newline
+Include dependency graph for init.\+c\+:
+% FIG 0
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{init_8c_aec6e7010d9e2e7533436c9bd2ef08cca}{set\+\_\+openacc\+\_\+devices}} (struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const p)
+\begin{DoxyCompactList}\small\item\em setup the Open\+ACC devices according to the commandline arguments. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementation of \mbox{\hyperlink{init_8h}{init.\+h}}. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{init_8c_aec6e7010d9e2e7533436c9bd2ef08cca}\label{init_8c_aec6e7010d9e2e7533436c9bd2ef08cca}} 
+\index{init.c@{init.c}!set\_openacc\_devices@{set\_openacc\_devices}}
+\index{set\_openacc\_devices@{set\_openacc\_devices}!init.c@{init.c}}
+\doxysubsubsection{\texorpdfstring{set\_openacc\_devices()}{set\_openacc\_devices()}}
+{\footnotesize\ttfamily int set\+\_\+openacc\+\_\+devices (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structPhase}{Phase}} $\ast$const}]{p }\end{DoxyParamCaption})}
+
+
+
+setup the Open\+ACC devices according to the commandline arguments. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & System for which the devices are set. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Errorcode 
+\end{DoxyReturn}

@@ -1,0 +1,34 @@
+\hypertarget{structSomaMemory}{}\doxysection{Soma\+Memory Struct Reference}
+\label{structSomaMemory}\index{SomaMemory@{SomaMemory}}
+
+
+{\ttfamily \#include $<$soma\+\_\+memory.\+h$>$}
+
+\doxysubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structSomaMemory_a57d5e0757a21d56d3190e68c3fae068f}\label{structSomaMemory_a57d5e0757a21d56d3190e68c3fae068f}} 
+void $\ast$ {\bfseries ptr}
+\begin{DoxyCompactList}\small\item\em Pointer to the memory. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structSomaMemory_a54d69ab1ddcf30307742a4530532dc55}\label{structSomaMemory_a54d69ab1ddcf30307742a4530532dc55}} 
+uint64\+\_\+t {\bfseries length}
+\begin{DoxyCompactList}\small\item\em Maximum allocated length of the memory. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structSomaMemory_a6e11e99b10f5661a72bc00a53b42b92f}\label{structSomaMemory_a6e11e99b10f5661a72bc00a53b42b92f}} 
+uint64\+\_\+t {\bfseries used}
+\begin{DoxyCompactList}\small\item\em Used memory (\texorpdfstring{$<$}{<} length) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structSomaMemory_a4551a4b5616834d748ed9248995fa0ca}\label{structSomaMemory_a4551a4b5616834d748ed9248995fa0ca}} 
+bool {\bfseries device\+\_\+present}
+\begin{DoxyCompactList}\small\item\em Has the memory been allocated on the device ? \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structSomaMemory_ae46d5510f4c71f543ef5c2b618c29e9d}\label{structSomaMemory_ae46d5510f4c71f543ef5c2b618c29e9d}} 
+size\+\_\+t {\bfseries typelength}
+\begin{DoxyCompactList}\small\item\em Length of each element i.\+e. sizeof(\+Monomer) for beads. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Helper structure to manage larger amounts of memory for multiple arrays or states
+
+This struct is intended to store the heavy data of beads, RNG\+\_\+\+STATES, permutation arrays etc. The memory can be dynammically appended. It is internal an householder with precached memory. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+soma\+\_\+memory.\+h\end{DoxyCompactItemize}
