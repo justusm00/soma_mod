@@ -910,7 +910,7 @@ int simulated_annealing(struct Phase *p)
     printf("MSE after annealing: %f \n",total_cost/(soma_scalar_t)num_target_cells);  
 
     //do some more flips at T=0
-    //total_cost = flip_polytypes(p,total_cost, num_poly_flippable, &total_flip_attempts, &total_flips_accepted, poly_cell_indices, poly_cell_num, poly_flippable_indices,  delta_fields_unified,delta_fields_unified_best, poly_types, poly_types_best);
+    total_cost = flip_polytypes(p,total_cost, num_poly_flippable, &total_flip_attempts, &total_flips_accepted, poly_cell_indices, poly_cell_num, poly_flippable_indices,  delta_fields_unified,delta_fields_unified_best, poly_types, poly_types_best);
 
     printf("MSE after flips at T=0: %f \n",total_cost/(soma_scalar_t)num_target_cells);
 
