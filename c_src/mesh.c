@@ -231,11 +231,11 @@ int copy_density_32_to_16(const struct Phase *const p)
 
 int update_density_fields(const struct Phase *const p)
 {
-    static unsigned int last_time_call = 0;
+/*     static unsigned int last_time_call = 0;
     if (last_time_call == 0 || p->time > last_time_call)
         last_time_call = p->time;
     else // Quick exit, because the property has already been calculated for the time step.
-        return 0;
+        return 0; */
 
     int error_flags[1] = {0}; // error_flag[0] indicates domain errors
 #pragma acc enter data copyin(error_flags [0:1])

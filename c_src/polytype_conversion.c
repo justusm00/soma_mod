@@ -922,7 +922,19 @@ int simulated_annealing(struct Phase *p)
 
     //update polymer types
     for(int64_t poly = 0; poly < num_poly_flippable; poly++) p->polymers[poly_flippable_indices[poly]].type=poly_types_best[poly];
+    //do stuff again
 
+    for (uint64_t cell = 0; cell < p->n_cells_local; cell++)
+        {
+            for(uint64_t type = 0; type < p->n_types; type++)
+                {
+                    delta_fields_unified[type*p->n_cells_local + cell] = 0;
+
+                }
+        }
+    update_density_fields(p);
+    total_cost=get_composition_cost(p, delta_fields_unified);
+    printf("Total cost check :  %f \n",total_cost/(soma_scalar_t)num_target_cells);
 
     
     free(poly_isflippable);
