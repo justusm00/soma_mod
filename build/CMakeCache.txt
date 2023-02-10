@@ -42,7 +42,7 @@ CMAKE_C_COMPILER_AR:FILEPATH=/opt/homebrew/Cellar/llvm/15.0.3/bin/llvm-ar
 //Generate index for LLVM archive
 CMAKE_C_COMPILER_RANLIB:FILEPATH=/opt/homebrew/Cellar/llvm/15.0.3/bin/llvm-ranlib
 
-CMAKE_C_FLAGS:STRING='                             '
+CMAKE_C_FLAGS:STRING='     '
 
 //Flags used by the C compiler during DEBUG builds.
 CMAKE_C_FLAGS_DEBUG:STRING=-g
