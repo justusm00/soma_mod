@@ -841,6 +841,15 @@ int simulated_annealing(struct Phase *p)
     //rng for polymer flip selection
 
 
+    //initialize poly_isflippable
+    for (uint64_t poly = 0; poly < p->n_polymers; poly++) poly_isflippable[poly]=0;
+
+    //initialize poly_cell_indices with -1's
+    for (uint64_t i = 0; i < p->n_polymers * p->reference_Nbeads; i++) poly_cell_indices[i] = -1;
+
+    //initialize poly_cell_num
+    for (uint64_t i = 0; i < p->n_polymers * p->reference_Nbeads * p->n_poly_type* p->n_types; i++) poly_cell_num[i] = 0;
+
     //get flippable polymers
     get_flip_candidates(p, poly_isflippable, poly_cell_indices, poly_cell_num);
 
@@ -1010,13 +1019,6 @@ void get_flip_candidates(struct Phase * p, int64_t * poly_isflippable, int64_t *
                         }
                     poly_cell_indices[poly * N + k]=mono_cells[N-1];
                     k++;
-
-                    //set end of arrays 
-                    if(k<=N-1) 
-                        {
-                            poly_cell_indices[poly * N + k]=-1;
-                            poly_cell_num[poly * N + k]=-1;
-                        } 
                 }
             else poly_isflippable[poly]=0; //0 means that polymer has no monomers in target density area
         }
