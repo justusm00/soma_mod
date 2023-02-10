@@ -1037,6 +1037,7 @@ void get_flip_candidates(struct Phase * p, int64_t * poly_isflippable, int64_t *
 }
 
 
+
 void update_delta_fields(struct Phase * p, uint64_t poly, unsigned int initial_type, unsigned int final_type, int64_t * poly_cell_indices, int64_t * poly_cell_num,int64_t * delta_fields_unified)
 {
     
