@@ -9,7 +9,7 @@
             "request": "launch",
             "name": "SOMA",
             "program": "${workspaceFolder}/install/bin/SOMA",
-            "args": ["-c", "coord.h5" , "-a", "coord_ana.h5", "-t", "1"],
+            "args": ["-c", "coord.h5" , "-a", "coord_ana.h5", "-t", "1", "-r", "0"],
             "cwd": "/Users/justusmulthaup/BA/conversion_algorithm/testing/quick_tests"
         }
     ]
