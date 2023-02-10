@@ -933,7 +933,6 @@ int simulated_annealing(struct Phase *p)
     free(delta_fields_unified);
     free(delta_fields_unified_best);
     free(poly_flippable_indices);
-    free(arr);
     return 0;
 }
 
