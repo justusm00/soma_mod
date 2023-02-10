@@ -1,5 +1,2 @@
-CMake*
-./build
-./install
-build*
-install*
+build/
+install/
