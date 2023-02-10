@@ -933,6 +933,7 @@ int simulated_annealing(struct Phase *p)
     free(delta_fields_unified);
     free(delta_fields_unified_best);
     free(poly_flippable_indices);
+    free(arr);
     return 0;
 }
 
@@ -1008,7 +1009,6 @@ void get_flip_candidates(struct Phase * p, int64_t * poly_isflippable, int64_t *
                                     k++;
                                 }
                         }
-   
                     //final monomer
                     if (mono_counter == 0) poly_cell_num[poly * N + k]=1;
                

@@ -75,6 +75,8 @@ add_library(soma_lib ${soma_source})
 add_executable(SOMA soma.c)
 add_executable(CONVERT convert.c)
 
+target_compile_options(SOMA PUBLIC -fsanitize=address)
+
 option(BUILD_STATIC "Try to build static if possible. No guarantee your EXE is completely static" OFF)
 
 foreach(EXE SOMA CONVERT)
