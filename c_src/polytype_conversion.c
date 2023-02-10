@@ -901,7 +901,7 @@ int simulated_annealing(struct Phase *p)
     //initialize cost
     total_cost=get_composition_cost(p, delta_fields_unified);
 
-    printf("Start configuration optimization at t=%d\n",p->time);
+    printf("Start configuration optimization at t=%d on testing branch\n",p->time);
     printf("MSE before annealing: %f \n",total_cost/(soma_scalar_t)num_target_cells);   
 
     //get new cost value from simulated annealing
