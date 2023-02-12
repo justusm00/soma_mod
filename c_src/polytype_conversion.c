@@ -850,6 +850,10 @@ int simulated_annealing(struct Phase *p)
     //get flippable polymers
     get_flip_candidates(p, poly_isflippable, poly_cell_indices, poly_cell_num);
 
+
+
+
+
     //get number of target cells * polymer types (not actually needed for optimization, just for normalization of the mean squared error)
     for (uint64_t cell = 0; cell < p->n_cells_local; cell++)
         {
@@ -870,6 +874,21 @@ int simulated_annealing(struct Phase *p)
 
                 }
         }
+
+
+    //print cell information of some polymer
+    uint64_t some_poly = poly_flippable_indices[0];
+    unsigned int N = p->reference_Nbeads;
+    unsigned int polytype = p->polymers[some_poly].type;
+    for(unsigned int mono= 0; mono < p->reference_Nbeads; mono++)
+        {
+            unsigned int bla = 0;
+            if(poly_cell_indices[some_poly * N + mono] < 0) break;
+            printf("%llu\n",poly_cell_indices[some_poly * N + mono]);
+            for(unsigned int monotype = 0 ; monotype < p->n_types; monotype++) bla += poly_cell_num[some_poly * p->n_poly_type * p->n_types * N + polytype * p->n_types * N +monotype * N + mono];
+            printf("%u\n",bla);
+        }
+    
     //check if there are more flippable polymers than the buffer allows
     if(num_poly_flippable>flip_buffer_size)
         {
