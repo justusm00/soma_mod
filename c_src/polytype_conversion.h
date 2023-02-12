@@ -144,7 +144,7 @@ int comp (const void * elem1, const void * elem2);
   \param p Phase struct describing the simulation
   \param p Polymer in question
 */
-unsigned int flip(struct Phase * p, uint64_t poly);
+unsigned int flip(struct Phase * p, uint64_t poly,unsigned int initial_type);
 
 /*! Get all information about flip candidates and where they have how many monomers.
   \param p Phase struct describing the simulation

@@ -674,13 +674,7 @@ int partially_convert_polytypes(struct Phase *p)
 
 int simulated_annealing(struct Phase *p)
 {
-    if (p->n_types != 2)
-        {
-            printf("ERROR: convert_target requires exactly two polymer types.\n");
-            return -1;
-        }
  
-
     // adjustable parameters
     uint64_t flip_buffer_size = p->n_polymers; //maximum number of flippable polymers, need to find optimal value
 
@@ -970,7 +964,7 @@ soma_scalar_t anneal_polytypes(struct Phase * p,soma_scalar_t total_cost, uint64
                     uint64_t poly = poly_flippable_indices[random_index];
                     Polymer *mypoly = p->polymers + poly;
                     unsigned int initial_type = poly_types[random_index];
-                    unsigned int final_type = flip(p,poly);
+                    unsigned int final_type = flip(p,poly,initial_type);
                     *total_flip_attempts=*total_flip_attempts+1;
                     
                     //calculate cost 
@@ -1075,7 +1069,7 @@ soma_scalar_t flip_polytypes(struct Phase * p,soma_scalar_t total_cost, uint64_t
             uint64_t poly = poly_flippable_indices[random_index];
             Polymer *mypoly = p->polymers + poly;
             unsigned int initial_type = poly_types_best[random_index];
-            unsigned int final_type = flip(p,poly);
+            unsigned int final_type = flip(p,poly,initial_type);
             *total_flip_attempts=*total_flip_attempts+1;
             //calculate cost 
             total_cost += get_composition_flip_cost(p, poly, initial_type, final_type, poly_cell_indices, poly_cell_num, delta_fields_unified);
@@ -1176,26 +1170,27 @@ int comp (const void * elem1, const void * elem2)
     return 0;
 }
 
-unsigned int flip(struct Phase * p, uint64_t poly)
+unsigned int flip(struct Phase * p, uint64_t poly, unsigned int initial_type)
 {
-    unsigned int initial_poly_type = p->polymers[poly].type;
     unsigned int * target_types=(unsigned int *)malloc( (p->n_poly_type - 1) *  sizeof(unsigned int));
     unsigned int k=0;
     Polymer *mypoly = p->polymers + poly; //needed only for rng
     //get array with every type except current one
     for(unsigned int polytype=0; polytype < p->n_poly_type;polytype++)
         {
-            if(polytype != initial_poly_type)
+            if(polytype != initial_type)
                 {
                     target_types[k]=polytype;
                     k++;
                 }
         }
-    unsigned int random_idx = (unsigned int)soma_rng_soma_scalar(&(mypoly->poly_state), p)* (soma_scalar_t)(k - 1);
+    //draw random index in range length(target_types)
+    unsigned int random_idx = (unsigned int)soma_rng_soma_scalar(&(mypoly->poly_state), p)* (soma_scalar_t)(k-1);
     unsigned int final_type=target_types[random_idx];
+    printf("Initial type : %u\n",initial_type);
+    printf("Fianl type : %u\n",final_type);
     free(target_types);
-/*     printf("Initial type : %u\n",initial_poly_type);
-    printf("Final type : %u\n",final_type); */
     return final_type;
+
 }
 
