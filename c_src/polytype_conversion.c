@@ -1290,7 +1290,7 @@ soma_scalar_t get_composition_flip_cost(struct Phase * p, uint64_t poly, unsigne
             if(poly_cell_indices[poly * N + i] < 0) break;
             unsigned int cell = poly_cell_indices[poly * N + i];
             unsigned int num_mono = poly_cell_num[poly * N + i];
-            uint16_t beads_in_cell = 0; //total number of beads in the cell
+            uint64_t beads_in_cell = 0; //total number of beads in the cell
             //get beads in cell
             for(uint64_t type = 0; type < p->n_types; type++) beads_in_cell += p->fields_unified[type*p->n_cells_local + cell];
             for(unsigned int type = 0; type < p->n_types; type++)
