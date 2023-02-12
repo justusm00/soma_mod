@@ -1180,7 +1180,7 @@ soma_scalar_t anneal_polytypes(struct Phase * p,soma_scalar_t total_cost, uint64
             num_poly_flipped=0;
             printf("T: %f\n",T);
             printf("acceptance_rate: %f\n",(soma_scalar_t)(flips_acc)/(soma_scalar_t)(flip_counter));
-            printf("MSE: %f\n",total_cost_best/(soma_scalar_t)num_target_cells);
+            printf("MSE: %f\n",(soma_scalar_t)total_cost_best/num_target_cells);
             flip_counter=0;
             flips_acc=0;
 
@@ -1261,7 +1261,7 @@ soma_scalar_t get_density_cost(struct Phase *p, int64_t * delta_fields_unified)
                 {
                     if(p->umbrella_field[type*p->n_cells_local + cell] > 0)
                         {
-                            total_cost+=pow(p->umbrella_field[type*p->n_cells_local + cell]-( ( p->fields_unified[type*p->n_cells_local + cell] + delta_fields_unified[type*p->n_cells_local + cell])* p->field_scaling_type[type]),2);
+                            total_cost+=pow((soma_scalar_t)p->umbrella_field[type*p->n_cells_local + cell]-(soma_scalar_t)(( p->fields_unified[type*p->n_cells_local + cell] + delta_fields_unified[type*p->n_cells_local + cell])* p->field_scaling_type[type]),2);
                         }
                 }
         }
@@ -1283,7 +1283,7 @@ soma_scalar_t get_composition_cost(struct Phase *p, int64_t * delta_fields_unifi
                             //get number of beads in cell
                             uint16_t beads_in_cell = 0; 
                             for(uint64_t type = 0; type < p->n_types; type++) beads_in_cell += p->fields_unified[type*p->n_cells_local + cell];
-                            total_cost+=pow(p->umbrella_field[type*p->n_cells_local + cell]-( ( p->fields_unified[type*p->n_cells_local + cell] + delta_fields_unified[type*p->n_cells_local + cell]) / (soma_scalar_t)beads_in_cell),2);
+                            total_cost+=powl((soma_scalar_t)p->umbrella_field[type*p->n_cells_local + cell]-(soma_scalar_t)( p->fields_unified[type*p->n_cells_local + cell] + delta_fields_unified[type*p->n_cells_local + cell]) /beads_in_cell,2.0);
                         }
                 }
         }
@@ -1302,10 +1302,10 @@ soma_scalar_t get_density_flip_cost(struct Phase * p, uint64_t poly, unsigned in
             unsigned int num_mono = poly_cell_num[poly * N + i];
             for(unsigned int type = 0; type < p->n_types; type++)
                 {
-                    delta_cost-=pow(p->umbrella_field[type*p->n_cells_local + cell]-( ( p->fields_unified[type*p->n_cells_local + cell] + delta_fields_unified[type*p->n_cells_local + cell])* p->field_scaling_type[type]),2);
+                    delta_cost-=powl((soma_scalar_t)p->umbrella_field[type*p->n_cells_local + cell]-( ( p->fields_unified[type*p->n_cells_local + cell] + delta_fields_unified[type*p->n_cells_local + cell])* p->field_scaling_type[type]),2.0);
                 }
-            delta_cost+=pow(p->umbrella_field[initial_type*p->n_cells_local + cell]-( ( p->fields_unified[initial_type*p->n_cells_local + cell] + delta_fields_unified[initial_type*p->n_cells_local + cell] - num_mono)* p->field_scaling_type[initial_type]),2);
-            delta_cost+=pow(p->umbrella_field[final_type*p->n_cells_local + cell]-( ( p->fields_unified[final_type*p->n_cells_local + cell] + delta_fields_unified[final_type*p->n_cells_local + cell] + num_mono)* p->field_scaling_type[final_type]),2);
+            delta_cost+=powl((soma_scalar_t)p->umbrella_field[initial_type*p->n_cells_local + cell]-(soma_scalar_t)(( p->fields_unified[initial_type*p->n_cells_local + cell] + delta_fields_unified[initial_type*p->n_cells_local + cell] - num_mono)* p->field_scaling_type[initial_type]),2.0);
+            delta_cost+=powl((soma_scalar_t)p->umbrella_field[final_type*p->n_cells_local + cell]-(soma_scalar_t)(( p->fields_unified[final_type*p->n_cells_local + cell] + delta_fields_unified[final_type*p->n_cells_local + cell] + num_mono)* p->field_scaling_type[final_type]),2.0);
         }
     return delta_cost;
 }
@@ -1334,9 +1334,9 @@ soma_scalar_t get_composition_flip_cost(struct Phase * p, uint64_t poly, unsigne
                     //difference of the two
                     int64_t delta_num_mono = num_mono_final - num_mono_initial;
                     //subtract old value
-                    delta_cost-=pow(p->umbrella_field[monotype*p->n_cells_local + cell]-( ( p->fields_unified[monotype*p->n_cells_local + cell] + delta_fields_unified[monotype*p->n_cells_local + cell]) / (soma_scalar_t)beads_in_cell),2);
+                    delta_cost-=powl((soma_scalar_t)p->umbrella_field[monotype*p->n_cells_local + cell]-(soma_scalar_t)(p->fields_unified[monotype*p->n_cells_local + cell] + delta_fields_unified[monotype*p->n_cells_local + cell]) / beads_in_cell,2.0);
                     //add new value
-                    delta_cost+=pow(p->umbrella_field[monotype*p->n_cells_local + cell]-( ( p->fields_unified[monotype*p->n_cells_local + cell] + delta_fields_unified[monotype*p->n_cells_local + cell] + delta_num_mono)/(soma_scalar_t)beads_in_cell),2);
+                    delta_cost+=powl((soma_scalar_t)p->umbrella_field[monotype*p->n_cells_local + cell]-(soma_scalar_t)(p->fields_unified[monotype*p->n_cells_local + cell] + delta_fields_unified[monotype*p->n_cells_local + cell] + delta_num_mono)/beads_in_cell,2.0);
                 }
         }
         
