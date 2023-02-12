@@ -966,17 +966,15 @@ int flip(int initial_type)
 
 void get_flip_candidates(struct Phase * p, int64_t * poly_isflippable, int64_t * poly_cell_indices, int64_t * poly_cell_num)
 {
-    int64_t * mono_cells=(int64_t *)malloc( p->reference_Nbeads* sizeof(int64_t)); //Array of length p->reference_Nbeads that contains monomer cell indices of a polymer. Values are -1 if no target density available in that cell.
-    const unsigned int N = p->reference_Nbeads; //maximum polymer length
+    const unsigned int N = p->reference_Nbeads; //polymer length (only if all polymers have the same length)
     //loop over polymers to identify the ones that may be flipped
     for (uint64_t poly = 0; poly < p->n_polymers; poly++)
         {
+            int64_t * mono_cells=(int64_t *)malloc( N *  sizeof(int64_t)); //Array of length p->reference_Nbeads that contains monomer cell indices of a polymer. Values are -1 if no target density available in that cell.
             unsigned int initial_poly_type = p->polymers[poly].type;
-            const Polymer *polymer = p->polymers + poly;
-            const unsigned int n_poly_beads = p->poly_arch[p->poly_type_offset[polymer->type]]; //number of beads of current polymer
             unsigned int target_count = 0; //counts number of available target densities for polymer accounting for all possible types after potential flips
             //loop over monomers to get cell information while disregarding the monomer type for now
-            for (unsigned int mono = 0; mono < n_poly_beads; mono ++)
+            for (unsigned int mono = 0; mono < N; mono ++)
                 {
                     const Monomer pos = ((Monomer *) p->ph.beads.ptr)[p->polymers[poly].bead_offset + mono];       //Read Monomer position
                     const uint64_t mono_cell = coord_to_index(p, pos.x, pos.y, pos.z);    //Read Monomer cell
@@ -989,6 +987,7 @@ void get_flip_candidates(struct Phase * p, int64_t * poly_isflippable, int64_t *
                                     target_count++;
                                     break;
                                 }
+
                         }
                 }
 
@@ -998,11 +997,10 @@ void get_flip_candidates(struct Phase * p, int64_t * poly_isflippable, int64_t *
                 {
                     poly_isflippable[poly]=1; //1 means that polymer has monomers in target density area
                     //sort mono_cells array
-                    qsort(mono_cells,n_poly_beads,sizeof(int64_t),comp); //sort cells to get unique ones
-                    //get unique cells 
+                    qsort(mono_cells,N,sizeof(int64_t),comp); //sort cells to get unique ones
                     unsigned int k=0;
                     //loop over monomers to get unique cells
-                    for(unsigned int mono = 0; mono < n_poly_beads - 1 ; mono++)
+                    for(unsigned int mono = 0; mono < N - 1 ; mono++)
                         {
                             //update array only for new cells
                             if(mono_cells[mono]!= mono_cells[mono+1])
@@ -1012,7 +1010,7 @@ void get_flip_candidates(struct Phase * p, int64_t * poly_isflippable, int64_t *
                                 }
                         }
 
-                    poly_cell_indices[poly * N + k]=mono_cells[n_poly_beads-1];
+                    poly_cell_indices[poly * N + k]=mono_cells[N-1];
 
 
                     //loop over polymer types to fill poly_cell_num array
@@ -1021,7 +1019,7 @@ void get_flip_candidates(struct Phase * p, int64_t * poly_isflippable, int64_t *
                             //temporarily change polytype
                             p->polymers[poly].type = polytype;
                             //loop over monomers
-                            for(unsigned int mono = 0; mono < n_poly_beads ; mono++)
+                            for(unsigned int mono = 0; mono < N ; mono++)
                                 {
                                     const Monomer pos = ((Monomer *) p->ph.beads.ptr)[p->polymers[poly].bead_offset + mono];       //Read Monomer position
                                     const uint64_t mono_cell = coord_to_index(p, pos.x, pos.y, pos.z);    //Read Monomer cell
@@ -1045,8 +1043,9 @@ void get_flip_candidates(struct Phase * p, int64_t * poly_isflippable, int64_t *
                     p->polymers[poly].type = initial_poly_type;
 
                 }
+            free(mono_cells);
         }
-    free(mono_cells);
+    
     return;
 }
 
