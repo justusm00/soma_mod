@@ -728,6 +728,7 @@ int simulated_annealing(struct Phase *p)
     //save flippable polymer indices sequentially to new array for quicker access
     for (uint64_t poly = 0; poly < p->n_polymers; poly++)
         {
+            
             if(poly_isflippable[poly]==1)
                 {
                     poly_flippable_indices[num_poly_flippable]=poly;
@@ -1184,11 +1185,11 @@ unsigned int flip(struct Phase * p, uint64_t poly, unsigned int initial_type)
                     k++;
                 }
         }
+    
     //draw random index in range length(target_types)
-    unsigned int random_idx = (unsigned int)soma_rng_soma_scalar(&(mypoly->poly_state), p)* (soma_scalar_t)(k-1);
+    unsigned int random_idx = (unsigned int)(soma_rng_soma_scalar(&(mypoly->poly_state), p)* (soma_scalar_t)k);
+    
     unsigned int final_type=target_types[random_idx];
-    printf("Initial type : %u\n",initial_type);
-    printf("Fianl type : %u\n",final_type);
     free(target_types);
     return final_type;
 
