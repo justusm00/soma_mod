@@ -873,6 +873,20 @@ int simulated_annealing(struct Phase *p)
 
                 }
         }
+
+
+
+    //print cell information of some polymer
+    uint64_t some_poly = poly_flippable_indices[0];
+    unsigned int polytype = p->polymers[some_poly].type;
+    for(unsigned int mono= 0; mono < p->reference_Nbeads; mono++)
+        {
+            unsigned int bla = 0;
+            if(poly_cell_indices[some_poly * N + mono] < 0) break;
+            printf("%llu\n%lld\n",poly_cell_indices[some_poly * N + mono],poly_cell_num[some_poly * N + mono]);
+        }
+
+
     //check if there are more flippable polymers than the buffer allows
     if(num_poly_flippable>flip_buffer_size)
         {
