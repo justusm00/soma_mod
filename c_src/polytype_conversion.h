@@ -125,22 +125,6 @@ int simulated_annealing(struct Phase *p);
 */
 int convert_target(struct Phase *p);
 
-/*! Helper function to export density field and polymer position info for use outside of soma (remove this before release!)
-  \param p Phase struct describing the simulation
-  \return Errorcode
-*/
-
-
-int print_info(struct Phase *p);
-
-
-/*! Compute cost function based on density.
-  \param p Phase struct describing the simulation
-  \param delta_fields_unified Array containing changes in density fields.
-  \return Errorcode
-*/
-soma_scalar_t get_density_cost(struct Phase *p, int64_t * delta_fields_unified);
-
 
 /*! Compute cost function based on composition. Close to an area51 it makes more sense to use composition instead of density.
   \param p Phase struct describing the simulation
@@ -168,17 +152,6 @@ int flip(int initial_type);
   \param poly_cell_num Number of monomers corresponding to the cells in poly_cell_indices
 */
 void get_flip_candidates(struct Phase * p, int64_t * poly_isflippable, int64_t * poly_cell_indices, int64_t * poly_cell_num);
-
-/*! Calculate cost difference based on density if a polymer is flipped.
-  \param p Phase struct describing the simulation
-  \param poly Polymer index
-  \param initial_type Type before flip
-  \param final_type Type after flip
-  \param poly_cell_indices For flippable polymers, contains indices in which cells the polymer has monomers
-  \param poly_cell_num Number of monomers corresponding to the cells in poly_cell_indices
-  \param delta_fields_unified Changes in density fields caused by flips
-*/
-soma_scalar_t get_density_flip_cost(struct Phase * p, uint64_t poly, unsigned int initial_type, unsigned int final_type, int64_t * poly_cell_indices, int64_t * poly_cell_num,int64_t * delta_fields_unified);
 
 
 /*! Calculate cost difference based on composition if a polymer is flipped.
