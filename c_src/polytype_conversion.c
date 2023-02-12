@@ -1034,7 +1034,7 @@ void get_flip_candidates(struct Phase * p, int64_t * poly_isflippable, int64_t *
                                                     break;
                                                 }
                                         }
-                                    poly_cell_num[poly * p->n_poly_type * p->n_types * N + polytype * p->n_types * N + monotype * N + mono_cell_offset ]++; //increment according entry in poly_cells_num (tedious but I don't say another way)
+                                    poly_cell_num[poly * p->n_poly_type * p->n_types * N + polytype * p->n_types * N +monotype * N + mono_cell_offset]++; //increment according entry in poly_cells_num (tedious but I don't say another way)
                                 }
 
                         }
