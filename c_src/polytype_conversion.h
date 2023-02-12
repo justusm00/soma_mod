@@ -141,9 +141,10 @@ soma_scalar_t get_composition_cost(struct Phase *p, int64_t * delta_fields_unifi
 int comp (const void * elem1, const void * elem2);
 
 /*! Helper function to flip polymer type.
-  \param initial_type Initial type.
+  \param p Phase struct describing the simulation
+  \param p Polymer in question
 */
-int flip(int initial_type);
+unsigned int flip(struct Phase * p, uint64_t poly);
 
 /*! Get all information about flip candidates and where they have how many monomers.
   \param p Phase struct describing the simulation
