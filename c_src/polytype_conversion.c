@@ -832,10 +832,10 @@ int simulated_annealing(struct Phase *p)
     int64_t * poly_cell_indices = (int64_t *)malloc(p->n_polymers * p->reference_Nbeads * sizeof(int64_t)); //Array of length p->n_polymers * p->reference_Nbeads that stores cell indices in which a polymer has monomers.
     int64_t * poly_cell_num = (int64_t *)malloc(p->n_polymers  * p->n_poly_type* p->n_types * p->reference_Nbeads * sizeof(int64_t)); //Array of length p->n_polymers * p->reference_Nbeads * p->n_types * p->n_poly_type that stores number of monomers in cells corresponding to poly_cell_indices for each possible polymer type. 
     int64_t * poly_flippable_indices = (int64_t *)malloc( flip_buffer_size * sizeof(int64_t)); //array that contains indices of flippable polymers
-    uint64_t * delta_fields_unified = (uint64_t *)malloc(p->n_types * p->n_cells_local * sizeof(uint64_t)); //array that stores changes in density
-    uint64_t * delta_fields_unified_best = (uint64_t *)malloc(p->n_types * p->n_cells_local * sizeof(uint64_t)); 
-    unsigned int * poly_types=(uint64_t *)malloc(flip_buffer_size * sizeof(uint64_t)); //array that stores polymer types
-    unsigned int * poly_types_best=(uint64_t *)malloc(flip_buffer_size * sizeof(uint64_t)); //array that stores best polymer types
+    int64_t * delta_fields_unified = (int64_t *)malloc(p->n_types * p->n_cells_local * sizeof(int64_t)); //array that stores changes in density
+    int64_t * delta_fields_unified_best = (int64_t *)malloc(p->n_types * p->n_cells_local * sizeof(int64_t)); 
+    unsigned int * poly_types=(unsigned int *)malloc(flip_buffer_size * sizeof(unsigned int)); //array that stores polymer types
+    unsigned int * poly_types_best=(unsigned int *)malloc(flip_buffer_size * sizeof(unsigned int)); //array that stores best polymer types
 
 
     //initialize poly_isflippable
@@ -914,8 +914,8 @@ int simulated_annealing(struct Phase *p)
 
     printf("MSE after flips at T=0: %f \n",total_cost/(soma_scalar_t)num_target_cells);
 
-    printf("Polymers flipped: %d\n",total_flip_attempts);
-    printf("Accepted flips: %d\n",total_flips_accepted);
+    printf("Polymers flipped: %llu\n",total_flip_attempts);
+    printf("Accepted flips: %llu\n",total_flips_accepted);
 
 
     //update polymer types
@@ -987,6 +987,7 @@ void get_flip_candidates(struct Phase * p, int64_t * poly_isflippable, int64_t *
                             if(p->umbrella_field[monotype*p->n_cells_local + mono_cell] > 0)
                                 {
                                     target_count++;
+                                    break;
                                 }
                         }
                 }
