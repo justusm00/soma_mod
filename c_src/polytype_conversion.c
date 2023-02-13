@@ -817,11 +817,13 @@ int simulated_annealing(struct Phase *p)
 
 void get_flip_candidates(struct Phase * p, int64_t * poly_isflippable, int64_t * poly_cell_indices, int64_t * poly_cell_num)
 {
-    const unsigned int N = p->reference_Nbeads; //polymer length (only if all polymers have the same length)
-    int64_t * mono_cells=(int64_t *)malloc( N *  sizeof(int64_t)); //Array of length p->reference_Nbeads that contains monomer cell indices of a polymer. Values are -1 if no target density available in that cell.
     //loop over polymers to identify the ones that may be flipped
+#pragma acc parallel loop present(p[0:1])
+#pragma omp parallel for
     for (uint64_t poly = 0; poly < p->n_polymers; poly++)
         {
+            const unsigned int N = p->reference_Nbeads; //polymer length (only if all polymers have the same length)
+            int64_t * mono_cells=(int64_t *)malloc( N *  sizeof(int64_t)); //Array of length p->reference_Nbeads that contains monomer cell indices of a polymer. Values are -1 if no target density available in that cell.
             unsigned int initial_poly_type = p->polymers[poly].type;
             unsigned int target_count = 0; //counts number of available target densities for polymer accounting for all possible types after potential flips
             //loop over monomers to get cell information while disregarding the monomer type for now
@@ -894,9 +896,9 @@ void get_flip_candidates(struct Phase * p, int64_t * poly_isflippable, int64_t *
                     p->polymers[poly].type = initial_poly_type;
 
                 }
-            
+            free(mono_cells);
         }
-    free(mono_cells);
+    
     return;
 }
 
