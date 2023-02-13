@@ -850,7 +850,7 @@ void get_flip_candidates(struct Phase * p, int64_t * poly_isflippable, int64_t *
                 {
                     poly_isflippable[poly]=1; //1 means that polymer has monomers in target density area
                     //sort mono_cells array
-                    qsort(mono_cells,N,sizeof(int64_t),comp); //sort cells to get unique ones
+                    quicksort(mono_cells,0,N-1);
                     unsigned int k=0;
                     //loop over monomers to get unique cells
                     for(unsigned int mono = 0; mono < N - 1 ; mono++)
@@ -1196,4 +1196,36 @@ unsigned int flip(struct Phase * p, uint64_t poly, unsigned int initial_type)
     return final_type;
 
 }
+
+void quicksort(int64_t * array ,int first, int last){
+   int i, j;
+   int64_t pivot, temp;
+
+   if(first<last){
+      pivot=first;
+      i=first;
+      j=last;
+
+      while(i<j){
+         while(array[i]<=array[pivot]&&i<last)
+            i++;
+         while(array[j]>array[pivot])
+            j--;
+         if(i<j){
+            temp=array[i];
+            array[i]=array[j];
+            array[j]=temp;
+         }
+      }
+
+      temp=array[pivot];
+      array[pivot]=array[j];
+      array[j]=temp;
+      quicksort(array,first,j-1);
+      quicksort(array,j+1,last);
+
+   }
+}
+
+
 
