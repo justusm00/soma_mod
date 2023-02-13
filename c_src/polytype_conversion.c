@@ -478,6 +478,7 @@ int copyin_poly_conversion(struct Phase *p)
 #pragma acc enter data copyin(p->pc.output_type[0:p->pc.len_reactions])
 #pragma acc enter data copyin(p->pc.reaction_end[0:p->pc.len_reactions])
 #pragma acc enter data copyin(p->pc.num_conversions[0:p->n_poly_type*p->n_poly_type])
+#pragma acc enter data copyin(p->umbrella_field[0:p->n_cells_local*p->n_types])
             if (p->pc.rate != NULL)
                 {
 #pragma acc enter data copyin(p->pc.rate[0:p->pc.len_reactions])
@@ -500,6 +501,7 @@ int copyout_poly_conversion(struct Phase *p)
 #pragma acc exit data copyout(p->pc.output_type[0:p->pc.len_reactions])
 #pragma acc exit data copyout(p->pc.reaction_end[0:p->pc.len_reactions])
 #pragma acc exit data copyout(p->pc.num_conversions[0:p->n_poly_type*p->n_poly_type])
+#pragma acc exit data copyout(p->umbrella_field[0:p->n_cells_local*p->n_types])
             if (p->pc.rate != NULL)
                 {
 #pragma acc exit data copyout(p->pc.rate[0:p->pc.len_reactions])
@@ -522,6 +524,7 @@ int update_self_poly_conversion(const struct Phase *const p)
 #pragma acc update self(p->pc.output_type[0:p->pc.len_reactions])
 #pragma acc update self(p->pc.reaction_end[0:p->pc.len_reactions])
 #pragma acc update self(p->pc.num_conversions[0:p->n_poly_type*p->n_poly_type])
+#pragma acc update self(p->umbrella_field[0:p->n_cells_local*p->n_types])
             if (p->pc.rate != NULL)
                 {
 #pragma acc update self(p->pc.rate[0:p->pc.len_reactions])
@@ -737,20 +740,6 @@ int simulated_annealing(struct Phase *p)
                 }
         }
 
-
-/*     //print cell information of some polymer
-    uint64_t some_poly = poly_flippable_indices[0];
-    unsigned int N = p->reference_Nbeads;
-    unsigned int polytype = p->polymers[some_poly].type;
-    unsigned int monotype = polytype;
-    for(unsigned int mono= 0; mono < p->reference_Nbeads; mono++)
-        {
-            unsigned int bla = 0;
-            if(poly_cell_indices[some_poly * N + mono] < 0) break;
-            printf("%llu\n",poly_cell_indices[some_poly * N + mono]);
-            bla = poly_cell_num[some_poly * p->n_poly_type * p->n_types * N + polytype * p->n_types * N +monotype * N + mono];
-            printf("%u\n",bla);
-        } */
     
     //check if there are more flippable polymers than the buffer allows
     if(num_poly_flippable>flip_buffer_size)
@@ -818,6 +807,12 @@ int simulated_annealing(struct Phase *p)
 void get_flip_candidates(struct Phase * p, int64_t * poly_isflippable, int64_t * poly_cell_indices, int64_t * poly_cell_num)
 {
     //loop over polymers to identify the ones that may be flipped
+#ifdef _OPENACC
+#pragma acc enter data copyin(poly_isflippable[0:p->n_polymers])
+#pragma acc enter data copyin(poly_cell_indices[0:p->n_polymers * p->reference_Nbeads])
+#pragma acc enter data copyin(poly_cell_num[0:p->n_polymers * p->reference_Nbeads * p->n_types * p->n_poly_type])
+#endif
+
 #pragma acc parallel loop present(p[0:1])
 #pragma omp parallel for
     for (uint64_t poly = 0; poly < p->n_polymers; poly++)
@@ -898,7 +893,12 @@ void get_flip_candidates(struct Phase * p, int64_t * poly_isflippable, int64_t *
                 }
             free(mono_cells);
         }
-    
+
+#ifdef _OPENACC
+#pragma acc exit data copyout(poly_isflippable[0:p->n_polymers])
+#pragma acc exit data copyout(poly_cell_indices[0:p->n_polymers * p->reference_Nbeads])
+#pragma acc exit data copyout(poly_cell_num[0:p->n_polymers * p->reference_Nbeads * p->n_types * p->n_poly_type])
+#endif
     return;
 }
 
