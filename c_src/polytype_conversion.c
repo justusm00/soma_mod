@@ -478,6 +478,7 @@ int copyin_poly_conversion(struct Phase *p)
 #pragma acc enter data copyin(p->pc.output_type[0:p->pc.len_reactions])
 #pragma acc enter data copyin(p->pc.reaction_end[0:p->pc.len_reactions])
 #pragma acc enter data copyin(p->pc.num_conversions[0:p->n_poly_type*p->n_poly_type])
+#pragma acc enter data copyin(p->umbrella_field[0:p->n_cells_local*p->n_types])
             if (p->pc.rate != NULL)
                 {
 #pragma acc enter data copyin(p->pc.rate[0:p->pc.len_reactions])
@@ -500,6 +501,7 @@ int copyout_poly_conversion(struct Phase *p)
 #pragma acc exit data copyout(p->pc.output_type[0:p->pc.len_reactions])
 #pragma acc exit data copyout(p->pc.reaction_end[0:p->pc.len_reactions])
 #pragma acc exit data copyout(p->pc.num_conversions[0:p->n_poly_type*p->n_poly_type])
+#pragma acc exit data copyout(p->umbrella_field[0:p->n_cells_local*p->n_types])
             if (p->pc.rate != NULL)
                 {
 #pragma acc exit data copyout(p->pc.rate[0:p->pc.len_reactions])
@@ -522,6 +524,7 @@ int update_self_poly_conversion(const struct Phase *const p)
 #pragma acc update self(p->pc.output_type[0:p->pc.len_reactions])
 #pragma acc update self(p->pc.reaction_end[0:p->pc.len_reactions])
 #pragma acc update self(p->pc.num_conversions[0:p->n_poly_type*p->n_poly_type])
+#pragma acc update self(p->umbrella_field[0:p->n_cells_local*p->n_types])
             if (p->pc.rate != NULL)
                 {
 #pragma acc update self(p->pc.rate[0:p->pc.len_reactions])
@@ -737,7 +740,6 @@ int optimize_boundaries(struct Phase *p, unsigned int run_sa)
                 }
         }
 
-
     
     //check if there are more flippable polymers than the buffer allows
     if(num_poly_flippable>flip_buffer_size)
@@ -894,7 +896,7 @@ void get_flip_candidates(struct Phase * p, int64_t * poly_isflippable, int64_t *
                 }
             free(mono_cells);
         }
-    
+
     return;
 }
 
