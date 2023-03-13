@@ -803,6 +803,8 @@ int optimize_boundaries(struct Phase *p, unsigned int run_sa)
 
     for(uint64_t poly = 0; poly < num_poly_flippable; poly++) p->polymers[poly_flippable_indices[poly]].type=poly_types_best[poly];
     
+#pragma acc exit data delete(poly_flippable_indices[0:flip_buffer_size])
+#pragma acc exit data delete(poly_types_best[0:flip_buffer_size])
 
     free(poly_isflippable);
     free(poly_cell_indices);
@@ -816,8 +818,7 @@ int optimize_boundaries(struct Phase *p, unsigned int run_sa)
     clock_t end = clock();
     double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
     printf("Time spent : %lf\n", time_spent);
-#pragma acc enter exit data delete(poly_flippable_indices[0:flip_buffer_size])
-#pragma acc enter exit data delete(poly_types_best[0:flip_buffer_size])
+
     return 0;
 }
 
