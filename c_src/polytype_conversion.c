@@ -568,7 +568,7 @@ int convert_polytypes(struct Phase *p)
             if (p->info_MPI.sim_rank == 0) 
                 {
                     
-                    return optimize_boundaries(p,1);
+                    return optimize_boundaries(p,0);
 
                 }
             
@@ -678,7 +678,8 @@ int partially_convert_polytypes(struct Phase *p)
 
 int optimize_boundaries(struct Phase *p, unsigned int run_sa)
 {
-    
+#pragma acc update self(p->fields_unified[0:p->n_cells_local*p->n_types])
+
     // adjustable parameters
     uint64_t flip_buffer_size = p->n_polymers; //maximum number of flippable polymers, need to find optimal value
 
@@ -792,9 +793,14 @@ int optimize_boundaries(struct Phase *p, unsigned int run_sa)
     printf("MSE after flips at T=0: %f \n",total_cost/(soma_scalar_t)num_target_cells);
     printf("Polymers flipped: %llu\n",total_flip_attempts);
     printf("Accepted flips: %llu\n",total_flips_accepted);
+    printf("Flippable polymers: %llu\n",num_poly_flippable);
 
 
     //update polymer types
+#pragma acc enter data copyin(poly_flippable_indices[0:flip_buffer_size])
+#pragma acc enter data copyin(poly_types_best[0:flip_buffer_size])
+#pragma acc parallel loop present(p[0:1])
+
     for(uint64_t poly = 0; poly < num_poly_flippable; poly++) p->polymers[poly_flippable_indices[poly]].type=poly_types_best[poly];
     
 
@@ -810,7 +816,8 @@ int optimize_boundaries(struct Phase *p, unsigned int run_sa)
     clock_t end = clock();
     double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
     printf("Time spent : %lf\n", time_spent);
-
+#pragma acc enter exit data delete(poly_flippable_indices[0:flip_buffer_size])
+#pragma acc enter exit data delete(poly_types_best[0:flip_buffer_size])
     return 0;
 }
 
