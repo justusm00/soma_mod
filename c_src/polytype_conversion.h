@@ -128,6 +128,22 @@ int optimize_boundaries(struct Phase *p, unsigned int run_sa);
 */
 void get_flip_candidates(struct Phase * p, int64_t * poly_isflippable, int64_t * poly_cell_indices, int64_t * poly_cell_num);
 
+/*! Get all flip candidate indices.
+  \param p Phase struct describing the simulation
+  \param poly_isflippable Arrays are 0 if polymer is not flippable, 1 if it is
+*/
+uint64_t get_flip_candidates_2(struct Phase * p, int64_t * poly_isflippable);
+
+
+/*! Get all information about monomer positions of flip candidates (unique cells). Includes every possible type of the polymer.
+  \param p Phase struct describing the simulation
+  \param num_poly_flippable Number of polymers with monomers in conversion zone
+  \param poly_flippable_indices Array of size num_poly_flippable that contains real indices of flippable polymers
+  \param poly_cell_indices Contains unique cell indices of flippable polymers
+  \param poly_cell_num Number of monomers corresponding to the cells in poly_cell_indices
+*/
+void get_cell_info(struct Phase * p, uint64_t num_poly_flippable, int64_t * poly_flippable_indices, int64_t * poly_cell_indices, int64_t * poly_cell_num);
+
 
 /*! Run simulated annealing to optimize boundary densities.
   \param p Phase struct describing the simulation

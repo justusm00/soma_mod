@@ -680,9 +680,6 @@ int optimize_boundaries(struct Phase *p, unsigned int run_sa)
 {
 #pragma acc update self(p->fields_unified[0:p->n_cells_local*p->n_types])
 
-    // adjustable parameters
-    uint64_t flip_buffer_size = p->n_polymers; //maximum number of flippable polymers, need to find optimal value
-
 
     // initialize other parameters
     uint64_t num_target_cells =0; // Total number of cells for which target density is available * polytypes
@@ -695,29 +692,45 @@ int optimize_boundaries(struct Phase *p, unsigned int run_sa)
 
     // arrays and constants
     int64_t * poly_isflippable = (int64_t *)malloc( p->n_polymers* sizeof(int64_t)); //Boolean array that stores whether or not polymer has monomers in target density area.
-    int64_t * poly_cell_indices = (int64_t *)malloc(p->n_polymers * p->reference_Nbeads * sizeof(int64_t)); //Array of length p->n_polymers * p->reference_Nbeads that stores cell indices in which a polymer has monomers.
-    int64_t * poly_cell_num = (int64_t *)malloc(p->n_polymers  * p->n_poly_type* p->n_types * p->reference_Nbeads * sizeof(int64_t)); //Array of length p->n_polymers * p->reference_Nbeads * p->n_types * p->n_poly_type that stores number of monomers in cells corresponding to poly_cell_indices for each possible polymer type. 
-    int64_t * poly_flippable_indices = (int64_t *)malloc( flip_buffer_size * sizeof(int64_t)); //array that contains indices of flippable polymers
     int64_t * delta_fields_unified = (int64_t *)malloc(p->n_types * p->n_cells_local * sizeof(int64_t)); //array that stores changes in density
     int64_t * delta_fields_unified_best = (int64_t *)malloc(p->n_types * p->n_cells_local * sizeof(int64_t)); 
-    unsigned int * poly_types=(unsigned int *)malloc(flip_buffer_size * sizeof(unsigned int)); //array that stores polymer types
-    unsigned int * poly_types_best=(unsigned int *)malloc(flip_buffer_size * sizeof(unsigned int)); //array that stores best polymer types
 
     //for runtime analysis
     clock_t begin = clock();
 
-    //initialize poly_isflippable
+    //initialize poly_isflippable with zeros
     for (uint64_t poly = 0; poly < p->n_polymers; poly++) poly_isflippable[poly]=0;
 
+    //get flippable polymers
+    num_poly_flippable = get_flip_candidates_2(p, poly_isflippable);
+
+    //allocate several arrays needed for flipping
+    int64_t * poly_flippable_indices = (int64_t *)malloc(num_poly_flippable * sizeof(int64_t)); //array that contains indices of flippable polymers
+    int64_t * poly_cell_indices = (int64_t *)malloc(num_poly_flippable * p->reference_Nbeads * sizeof(int64_t)); //Array of length num_poly_flippable * p->reference_Nbeads that stores cell indices in which a polymer has monomers.
+    int64_t * poly_cell_num = (int64_t *)malloc(num_poly_flippable  * p->n_poly_type* p->n_types * p->reference_Nbeads * sizeof(int64_t)); //Array of length num_poly_flippable * p->reference_Nbeads * p->n_types * p->n_poly_type that stores number of monomers in cells corresponding to poly_cell_indices for each possible polymer type. 
+    unsigned int * poly_types=(unsigned int *)malloc(num_poly_flippable * sizeof(unsigned int)); //array that stores polymer types
+    unsigned int * poly_types_best=(unsigned int *)malloc(num_poly_flippable * sizeof(unsigned int)); //array that stores best polymer types
+
+    //save indices of polymers with monomers in conversion zone sequentially to poly_flippable_indices
+    uint64_t k = 0; 
+    for (uint64_t poly = 0; poly < p->n_polymers; poly++)
+        {
+            
+            if(poly_isflippable[poly]==1)
+                {
+                    poly_flippable_indices[k]=poly;
+                    k++;
+                }
+        }
+
     //initialize poly_cell_indices with -1's
-    for (uint64_t i = 0; i < p->n_polymers * p->reference_Nbeads; i++) poly_cell_indices[i] = -1;
+    for (uint64_t i = 0; i < num_poly_flippable * p->reference_Nbeads; i++) poly_cell_indices[i] = -1;
 
     //initialize poly_cell_num
-    for (uint64_t i = 0; i < p->n_polymers * p->reference_Nbeads * p->n_poly_type* p->n_types; i++) poly_cell_num[i] = 0;
+    for (uint64_t i = 0; i < num_poly_flippable * p->reference_Nbeads * p->n_poly_type* p->n_types; i++) poly_cell_num[i] = 0;
 
-    //get flippable polymers
-    get_flip_candidates(p, poly_isflippable, poly_cell_indices, poly_cell_num);
-
+    //get cell information
+    get_cell_info(p,num_poly_flippable,poly_flippable_indices,poly_cell_indices,poly_cell_num);
 
     //get number of target cells * polymer types (not actually needed for optimization, just for normalization of the mean squared error)
     for (uint64_t cell = 0; cell < p->n_cells_local; cell++)
@@ -726,27 +739,6 @@ int optimize_boundaries(struct Phase *p, unsigned int run_sa)
                 {
                     if(p->umbrella_field[type*p->n_cells_local + cell] > 0) num_target_cells++;
                 }
-        }
-
-
-    //save flippable polymer indices sequentially to new array for quicker access
-    for (uint64_t poly = 0; poly < p->n_polymers; poly++)
-        {
-            
-            if(poly_isflippable[poly]==1)
-                {
-                    poly_flippable_indices[num_poly_flippable]=poly;
-                    num_poly_flippable++;
-
-                }
-        }
-
-    
-    //check if there are more flippable polymers than the buffer allows
-    if(num_poly_flippable>flip_buffer_size)
-        {
-            printf("ERROR: FLIP BUFFER SIZE IS TOO SMALL\n");
-            return -1;
         }
 
 
@@ -763,7 +755,6 @@ int optimize_boundaries(struct Phase *p, unsigned int run_sa)
 
 
     // inititalize poly_types
-    
     for (uint64_t poly = 0; poly < num_poly_flippable; poly++)
         {
             poly_types[poly]=p->polymers[poly_flippable_indices[poly]].type;
@@ -801,7 +792,7 @@ int optimize_boundaries(struct Phase *p, unsigned int run_sa)
 #pragma acc enter data copyin(poly_types_best[0:flip_buffer_size])
 #pragma acc parallel loop present(p[0:1])
 
-    for(uint64_t poly = 0; poly < num_poly_flippable; poly++) p->polymers[poly_flippable_indices[poly]].type=poly_types_best[poly];
+    for(uint64_t polyy = 0; polyy < num_poly_flippable; polyy++) p->polymers[poly_flippable_indices[polyy]].type=poly_types_best[polyy];
     
 #pragma acc exit data delete(poly_flippable_indices[0:flip_buffer_size])
 #pragma acc exit data delete(poly_types_best[0:flip_buffer_size])
@@ -908,18 +899,117 @@ void get_flip_candidates(struct Phase * p, int64_t * poly_isflippable, int64_t *
     return;
 }
 
+uint64_t get_flip_candidates_2(struct Phase * p, int64_t * poly_isflippable)
+{
+    uint64_t num_poly_flippable=0; //number of polymers that have monomers in conversion zone
+    //loop over polymers to identify the ones that may be flipped
+    for (uint64_t poly = 0; poly < p->n_polymers; poly++)
+        {
+            const unsigned int N = p->reference_Nbeads; //polymer length (only if all polymers have the same length)
+            //loop over monomers to get cell information while disregarding the monomer type for now
+            for (unsigned int mono = 0; mono < N; mono ++)
+                {
+                    const Monomer pos = ((Monomer *) p->ph.beads.ptr)[p->polymers[poly].bead_offset + mono];       //Read Monomer position
+                    const uint64_t mono_cell = coord_to_index(p, pos.x, pos.y, pos.z);    //Read Monomer cell
+                    //check if umbrella field is available for some (or more) types
+                    for (unsigned int monotype = 0; monotype < p->n_types; monotype ++)
+                        {
+                            if(p->umbrella_field[monotype*p->n_cells_local + mono_cell] > 0)
+                                {
+                                    poly_isflippable[poly]=1;
+                                    
+                                    break;
+                                }
+
+                        }
+                    if (poly_isflippable[poly]==1)
+                        {
+                            num_poly_flippable++;
+                            break;
+                        }
+                }
+        }
+    return num_poly_flippable;
+}
+
+void get_cell_info(struct Phase * p, uint64_t num_poly_flippable, int64_t * poly_flippable_indices, int64_t * poly_cell_indices, int64_t * poly_cell_num)
+{
+    const unsigned int N = p->reference_Nbeads; //polymer length (only if all polymers have the same length)
+    int64_t * mono_cells=(int64_t *)malloc( N *  sizeof(int64_t)); //Array of length p->reference_Nbeads that contains monomer cell indices of a polymer. Values are -1 if no target density available in that cell.
+    //loop over flippable polymers and get all cell information for each possible type
+    //use polyy instead of poly to distinguish from polymer index in actual polymer array
+    for (uint64_t polyy = 0; polyy< num_poly_flippable; polyy++)
+        {
+            uint64_t poly=poly_flippable_indices[polyy]; //actual polymer index
+            unsigned int initial_poly_type = p->polymers[poly].type;
+            unsigned int target_count = 0; //counts number of available target densities for polymer accounting for all possible types after potential flips
+            //loop over monomers to get cell information (all cells)
+            for (unsigned int mono = 0; mono < N; mono ++)
+                {
+                    const Monomer pos = ((Monomer *) p->ph.beads.ptr)[p->polymers[poly].bead_offset + mono];       //Read Monomer position
+                    const uint64_t mono_cell = coord_to_index(p, pos.x, pos.y, pos.z);    //Read Monomer cell
+                    mono_cells[mono]=mono_cell; //write to mono_cells array
+                }
+            //sort mono_cells array
+            quicksort(mono_cells,0,N-1);
+            unsigned int k=0;
+            //loop over monomers to get unique cells
+            for(unsigned int mono = 0; mono < N - 1 ; mono++)
+                {
+                    //update array only for new cells
+                    if(mono_cells[mono]!= mono_cells[mono+1])
+                        {
+                            poly_cell_indices[polyy * N + k]=mono_cells[mono]; //unique monomer cell indices
+                            k++;
+                        }
+                }
+
+            poly_cell_indices[polyy * N + k]=mono_cells[N-1];
 
 
-void update_delta_fields(struct Phase * p, uint64_t poly, unsigned int initial_type, unsigned int final_type, int64_t * poly_cell_indices, int64_t * poly_cell_num,int64_t * delta_fields_unified)
+            //loop over polymer types to fill poly_cell_num array
+            for(unsigned int polytype = 0; polytype < p->n_poly_type ; polytype++)
+                {
+                    //temporarily change polytype
+                    p->polymers[poly].type = polytype;
+                    //loop over monomers
+                    for(unsigned int mono = 0; mono < N ; mono++)
+                        {
+                            const Monomer pos = ((Monomer *) p->ph.beads.ptr)[p->polymers[poly].bead_offset + mono];       //Read Monomer position
+                            const uint64_t mono_cell = coord_to_index(p, pos.x, pos.y, pos.z);    //Read Monomer cell
+                            unsigned int monotype = get_particle_type(p, poly, mono); //Read Monomer type
+                            unsigned int mono_cell_offset=0; //offset of monomer cell in poly_cell_indices
+                            //Get cell offset for poly_cell_indices
+                            for(unsigned int cell_offset = 0; cell_offset < N; cell_offset++)
+                                {
+                                    if(poly_cell_indices[polyy * N + cell_offset] == mono_cell)
+                                        {
+                                            mono_cell_offset = cell_offset;
+                                            break;
+                                        }
+                                }
+                            poly_cell_num[polyy * p->n_poly_type * p->n_types * N + polytype * p->n_types * N +monotype * N + mono_cell_offset]++; //increment according entry in poly_cells_num (tedious but I don't say another way)
+                        }
+
+                }
+
+            //reset polymer type to original one
+            p->polymers[poly].type = initial_poly_type;
+        }
+    free(mono_cells);
+    return;
+
+
+}
+
+void update_delta_fields(struct Phase * p, uint64_t polyy, unsigned int initial_type, unsigned int final_type, int64_t * poly_cell_indices, int64_t * poly_cell_num,int64_t * delta_fields_unified)
 { 
-    const Polymer *polymer = p->polymers + poly;
     const unsigned int N = p->reference_Nbeads;
-
     // loop over cell indices
     for(unsigned int mono_cell_offset = 0; mono_cell_offset < N; mono_cell_offset++)
         {
-            if(poly_cell_indices[poly  * N + mono_cell_offset] < 0) break; //check if end has been reached
-            int64_t cell = poly_cell_indices[poly * N + mono_cell_offset];
+            if(poly_cell_indices[polyy  * N + mono_cell_offset] < 0) break; //check if end has been reached
+            int64_t cell = poly_cell_indices[polyy * N + mono_cell_offset];
             uint64_t beads_in_cell = 0; //total number of beads in the cell
             //loop over monotypes to update delta_fields
             for(unsigned int monotype = 0; monotype < p->n_types; monotype++)
@@ -927,8 +1017,8 @@ void update_delta_fields(struct Phase * p, uint64_t poly, unsigned int initial_t
                     if(p->umbrella_field[monotype*p->n_cells_local + cell] > 0)
                         {
                             //number of monomers of current type in current cell before and after flip
-                            int64_t num_mono_initial = poly_cell_num[poly * p->n_poly_type * p->n_types * N + initial_type * p->n_types * N + monotype * N + mono_cell_offset ];
-                            int64_t num_mono_final = poly_cell_num[poly * p->n_poly_type * p->n_types * N + final_type * p->n_types * N + monotype * N + mono_cell_offset ];
+                            int64_t num_mono_initial = poly_cell_num[polyy * p->n_poly_type * p->n_types * N + initial_type * p->n_types * N + monotype * N + mono_cell_offset ];
+                            int64_t num_mono_final = poly_cell_num[polyy * p->n_poly_type * p->n_types * N + final_type * p->n_types * N + monotype * N + mono_cell_offset ];
                             //difference of the two
                             int64_t delta_num_mono = num_mono_final - num_mono_initial;
                             delta_fields_unified[monotype*p->n_cells_local + cell] += delta_num_mono;
@@ -950,7 +1040,7 @@ soma_scalar_t simulated_annealing(struct Phase * p,soma_scalar_t total_cost, uin
     uint64_t flip_counter = 0; //counts flips per temperature for acceptance rate calculation
     uint64_t flips_acc = 0; //counts accepted flips per temperature for acceptance rate calculation
     uint64_t num_poly_flipped=0; //number of accepted flips before improvement in cost function
-    int64_t * poly_flipped_indices = (int64_t *)malloc( num_poly_flippable * sizeof(int64_t)); //array that contains indices of flipped polymers. the same polymer can be flipped multiple times
+    int64_t * poly_flipped_indices = (int64_t *)malloc( num_poly_flippable * sizeof(int64_t)); //array that contains indices of flipped polymers. The same polymer can be flipped multiple times. Indices are not the real polymer indices.
 
 
     uint64_t temperature_count=0; //used for temperature calculation
@@ -968,16 +1058,16 @@ soma_scalar_t simulated_annealing(struct Phase * p,soma_scalar_t total_cost, uin
                 {
                     flip_counter++;
                     //choose random polymer to flip
-                    uint64_t random_index = (uint64_t)(soma_rng_soma_scalar(&((p->polymers)->poly_state), p) * (soma_scalar_t)(num_poly_flippable - 1));
-                    uint64_t poly = poly_flippable_indices[random_index];
+                    uint64_t polyy = (uint64_t)(soma_rng_soma_scalar(&((p->polymers)->poly_state), p) * (soma_scalar_t)(num_poly_flippable - 1));
+                    uint64_t poly = poly_flippable_indices[polyy];
                     Polymer *mypoly = p->polymers + poly;
-                    unsigned int initial_type = poly_types[random_index];
+                    unsigned int initial_type = poly_types[polyy];
                     unsigned int final_type = flip(p,poly,initial_type);
                     *total_flip_attempts=*total_flip_attempts+1;
                     
                     //calculate cost 
 
-                    total_cost += get_composition_flip_cost(p, poly, initial_type, final_type, poly_cell_indices, poly_cell_num, delta_fields_unified);
+                    total_cost += get_composition_flip_cost(p, polyy, initial_type, final_type, poly_cell_indices, poly_cell_num, delta_fields_unified);
 
                     soma_scalar_t random_number = soma_rng_soma_scalar(&(mypoly->poly_state), p);
                     //check acceptance criterion
@@ -985,13 +1075,13 @@ soma_scalar_t simulated_annealing(struct Phase * p,soma_scalar_t total_cost, uin
                         {
                             //accept flip
                             flips_acc++;
-                            poly_flipped_indices[num_poly_flipped]=random_index;
+                            poly_flipped_indices[num_poly_flipped]=polyy;
                             num_poly_flipped++;
                             *total_flips_accepted=*total_flips_accepted+1;
-                            poly_types[random_index]=final_type;
+                            poly_types[polyy]=final_type;
                             total_cost_old=total_cost;
                             //update delta fields unified
-                            update_delta_fields(p, poly, initial_type, final_type, poly_cell_indices, poly_cell_num, delta_fields_unified);
+                            update_delta_fields(p, polyy, initial_type, final_type, poly_cell_indices, poly_cell_num, delta_fields_unified);
 
                         }
                     else
@@ -1028,11 +1118,11 @@ soma_scalar_t simulated_annealing(struct Phase * p,soma_scalar_t total_cost, uin
             for(uint64_t j = 0; j < num_poly_flipped; j++)
                 {
                     poly_types[poly_flipped_indices[j]]=poly_types_best[poly_flipped_indices[j]];
-                    uint64_t poly=poly_flippable_indices[poly_flipped_indices[j]];
+                    uint64_t polyy=poly_flipped_indices[j];
                     for(unsigned int i = 0; i < N; i++)
                         {
-                            if(poly_cell_indices[poly * N + i] < 0) break;
-                            unsigned int cell = poly_cell_indices[poly * N + i];
+                            if(poly_cell_indices[polyy * N + i] < 0) break;
+                            unsigned int cell = poly_cell_indices[polyy * N + i];
                             for(unsigned int type = 0; type < p->n_types; type++) delta_fields_unified[type*p->n_cells_local + cell] = delta_fields_unified_best[type*p->n_cells_local + cell];
                         }
                 }
@@ -1072,26 +1162,26 @@ soma_scalar_t flip_polytypes(struct Phase * p,soma_scalar_t total_cost, uint64_t
             total_cost=total_cost_old;
             //choose random polymer to flip
             flip_counter++;
-            uint64_t random_index = rand() % (num_poly_flippable - 1);
-            uint64_t poly = poly_flippable_indices[random_index];
+            uint64_t polyy = rand() % (num_poly_flippable - 1);
+            uint64_t poly = poly_flippable_indices[polyy]; //real polymer index
             Polymer *mypoly = p->polymers + poly;
-            unsigned int initial_type = poly_types_best[random_index];
+            unsigned int initial_type = poly_types_best[polyy];
             unsigned int final_type = flip(p,poly,initial_type);
             *total_flip_attempts=*total_flip_attempts+1;
             //calculate cost 
-            total_cost += get_composition_flip_cost(p, poly, initial_type, final_type, poly_cell_indices, poly_cell_num, delta_fields_unified);
+            total_cost += get_composition_flip_cost(p, polyy, initial_type, final_type, poly_cell_indices, poly_cell_num, delta_fields_unified);
             //check acceptance criterion
             if((total_cost < total_cost_old))
                 {
                     flip_counter_acc++;
                     *total_flips_accepted=*total_flips_accepted+1;
                     //accept flip
-                    poly_types[random_index]=final_type;
-                    poly_types_best[random_index]=final_type;
+                    poly_types[polyy]=final_type;
+                    poly_types_best[polyy]=final_type;
                     total_cost_old=total_cost;
                     //update delta fields unified
-                    update_delta_fields(p, poly, initial_type, final_type, poly_cell_indices, poly_cell_num, delta_fields_unified);
-                    update_delta_fields(p, poly, initial_type, final_type, poly_cell_indices, poly_cell_num, delta_fields_unified_best);
+                    update_delta_fields(p, polyy, initial_type, final_type, poly_cell_indices, poly_cell_num, delta_fields_unified);
+                    update_delta_fields(p, polyy, initial_type, final_type, poly_cell_indices, poly_cell_num, delta_fields_unified_best);
 
                 }
             else
@@ -1131,7 +1221,7 @@ soma_scalar_t get_composition_cost(struct Phase *p, int64_t * delta_fields_unifi
 }
 
 
-soma_scalar_t get_composition_flip_cost(struct Phase * p, uint64_t poly, unsigned int initial_type, unsigned int final_type, int64_t * poly_cell_indices, int64_t * poly_cell_num,int64_t * delta_fields_unified)
+soma_scalar_t get_composition_flip_cost(struct Phase * p, uint64_t polyy, unsigned int initial_type, unsigned int final_type, int64_t * poly_cell_indices, int64_t * poly_cell_num,int64_t * delta_fields_unified)
 {
     
     soma_scalar_t delta_cost = 0.0; //change in cost function
@@ -1140,8 +1230,8 @@ soma_scalar_t get_composition_flip_cost(struct Phase * p, uint64_t poly, unsigne
     // loop over cell indices
     for(unsigned int mono_cell_offset = 0; mono_cell_offset < N; mono_cell_offset++)
         {
-            if(poly_cell_indices[poly  * N + mono_cell_offset] < 0) break; //check if end has been reached
-            int64_t cell = poly_cell_indices[poly * N + mono_cell_offset];
+            if(poly_cell_indices[polyy  * N + mono_cell_offset] < 0) break; //check if end has been reached
+            int64_t cell = poly_cell_indices[polyy * N + mono_cell_offset];
             uint64_t beads_in_cell = 0; //total number of beads in the cell
             //get beads in cell
             for(unsigned int monotype = 0; monotype < p->n_types; monotype++) beads_in_cell += p->fields_unified[monotype*p->n_cells_local + cell];
@@ -1151,8 +1241,8 @@ soma_scalar_t get_composition_flip_cost(struct Phase * p, uint64_t poly, unsigne
                     if(p->umbrella_field[monotype*p->n_cells_local + cell] > 0)
                         {
                             //number of monomers of current type in current cell before and after flip
-                            int64_t num_mono_initial = poly_cell_num[poly * p->n_poly_type * p->n_types * N + initial_type * p->n_types * N + monotype * N + mono_cell_offset];
-                            int64_t num_mono_final = poly_cell_num[poly * p->n_poly_type * p->n_types * N + final_type * p->n_types * N + monotype * N + mono_cell_offset];
+                            int64_t num_mono_initial = poly_cell_num[polyy * p->n_poly_type * p->n_types * N + initial_type * p->n_types * N + monotype * N + mono_cell_offset];
+                            int64_t num_mono_final = poly_cell_num[polyy * p->n_poly_type * p->n_types * N + final_type * p->n_types * N + monotype * N + mono_cell_offset];
                             //difference of the two
                             int64_t delta_num_mono = num_mono_final - num_mono_initial;
                             //subtract old value
@@ -1170,14 +1260,6 @@ soma_scalar_t get_composition_flip_cost(struct Phase * p, uint64_t poly, unsigne
     return delta_cost;
 }
 
-int comp (const void * elem1, const void * elem2) 
-{
-    int f = *((uint64_t*)elem1);
-    int s = *((uint64_t*)elem2);
-    if (f > s) return  1;
-    if (f < s) return -1;
-    return 0;
-}
 
 unsigned int flip(struct Phase * p, uint64_t poly, unsigned int initial_type)
 {
