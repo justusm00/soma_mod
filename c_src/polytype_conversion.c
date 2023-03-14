@@ -785,6 +785,8 @@ int optimize_boundaries(struct Phase *p, unsigned int run_sa)
 
 
     printf("MSE after flips at T=0: %f \n",total_cost/(soma_scalar_t)num_target_cells);
+    
+
     printf("Polymers flipped: %llu\n",total_flip_attempts);
     printf("Accepted flips: %llu\n",total_flips_accepted);
     printf("Flippable polymers: %llu\n",num_poly_flippable);
@@ -1077,7 +1079,7 @@ soma_scalar_t flip_polytypes(struct Phase * p,soma_scalar_t total_cost, uint64_t
     uint64_t flip_counter_acc =0; //counts number of accepted flips 
 
 
-    while(acc_rate > 0.01)
+    while(acc_rate > 0.9)
         {
             total_cost=total_cost_old;
             //choose random polymer to flip
@@ -1087,6 +1089,9 @@ soma_scalar_t flip_polytypes(struct Phase * p,soma_scalar_t total_cost, uint64_t
             Polymer *mypoly = p->polymers + poly;
             unsigned int initial_type = poly_types_best[polyy];
             unsigned int final_type = flip(p,poly,initial_type);
+            printf("Polymer to be flipped : %d \n",poly);
+            printf("Initial type : %d\n",initial_type);
+            printf("Final type : %d\n",final_type);
             *total_flip_attempts=*total_flip_attempts+1;
             //calculate cost 
             total_cost += get_composition_flip_cost(p, polyy, initial_type, final_type, poly_cell_indices, poly_cell_num, delta_fields_unified);
