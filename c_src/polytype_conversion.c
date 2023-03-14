@@ -791,14 +791,14 @@ int optimize_boundaries(struct Phase *p, unsigned int run_sa)
 
 
     //update polymer types
-#pragma acc enter data copyin(poly_flippable_indices[0:flip_buffer_size])
-#pragma acc enter data copyin(poly_types_best[0:flip_buffer_size])
+#pragma acc enter data copyin(poly_flippable_indices[0:num_poly_flippable])
+#pragma acc enter data copyin(poly_types_best[0:num_poly_flippable])
 #pragma acc parallel loop present(p[0:1])
 
     for(uint64_t polyy = 0; polyy < num_poly_flippable; polyy++) p->polymers[poly_flippable_indices[polyy]].type=poly_types_best[polyy];
     
-#pragma acc exit data delete(poly_flippable_indices[0:flip_buffer_size])
-#pragma acc exit data delete(poly_types_best[0:flip_buffer_size])
+#pragma acc exit data delete(poly_flippable_indices[0:num_poly_flippable])
+#pragma acc exit data delete(poly_types_best[0:num_poly_flippable])
 
     free(poly_isflippable);
     free(poly_cell_indices);
@@ -810,7 +810,7 @@ int optimize_boundaries(struct Phase *p, unsigned int run_sa)
     free(poly_flippable_indices);
 
     clock_t end = clock();
-    double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+    double time_spent = (double)(end - begin);
     printf("Optimization time : %lf\n", time_spent);
 
     return 0;
