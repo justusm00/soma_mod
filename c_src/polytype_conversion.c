@@ -1128,7 +1128,6 @@ soma_scalar_t get_composition_cost(struct Phase *p)
 {   
     soma_scalar_t total_cost=0.0;
     //loop over cells
-#pragma acc parallel loop present(p[0:1])
     for (uint64_t cell = 0; cell < p->n_cells_local; cell++)
         {
             //update cost
@@ -1139,7 +1138,6 @@ soma_scalar_t get_composition_cost(struct Phase *p)
                             //get number of beads in cell
                             uint16_t beads_in_cell = 0; 
                             for(uint64_t type = 0; type < p->n_types; type++) beads_in_cell += p->fields_unified[type*p->n_cells_local + cell];
-#pragma acc atomic update
                             total_cost+=powl((soma_scalar_t)p->umbrella_field[type*p->n_cells_local + cell]-(soma_scalar_t)( p->fields_unified[type*p->n_cells_local + cell]) /beads_in_cell,2.0);
                         }
                 }
