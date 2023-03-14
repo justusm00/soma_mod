@@ -181,7 +181,7 @@ soma_scalar_t flip_polytypes(struct Phase * p,soma_scalar_t total_cost, uint64_t
   \param delta_fields_unified Array containing changes in density fields.
   \return Errorcode
 */
-soma_scalar_t get_composition_cost(struct Phase *p, int64_t * delta_fields_unified);
+soma_scalar_t get_composition_cost(struct Phase *p);
 
 
 /*! Calculate cost difference based on composition if a polymer is flipped.

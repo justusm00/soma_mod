@@ -695,11 +695,12 @@ int optimize_boundaries(struct Phase *p, unsigned int run_sa)
     int64_t * delta_fields_unified = (int64_t *)malloc(p->n_types * p->n_cells_local * sizeof(int64_t)); //array that stores changes in density
     int64_t * delta_fields_unified_best = (int64_t *)malloc(p->n_types * p->n_cells_local * sizeof(int64_t)); 
 
-    //for runtime analysis
-    clock_t begin = clock();
+
 
     //initialize poly_isflippable with zeros
     for (uint64_t poly = 0; poly < p->n_polymers; poly++) poly_isflippable[poly]=0;
+
+
 
     //get flippable polymers
     num_poly_flippable = get_flip_candidates(p, poly_isflippable);
@@ -762,8 +763,10 @@ int optimize_boundaries(struct Phase *p, unsigned int run_sa)
         }
     
     //initialize cost
-    total_cost=get_composition_cost(p, delta_fields_unified);
+    total_cost=get_composition_cost(p);
 
+    //for runtime analysis
+    clock_t begin = clock();
     printf("Start configuration optimization at t=%d on testing branch\n",p->time);
     printf("MSE before optimization %f \n",total_cost/(soma_scalar_t)num_target_cells);   
 
@@ -808,7 +811,7 @@ int optimize_boundaries(struct Phase *p, unsigned int run_sa)
 
     clock_t end = clock();
     double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-    printf("Time spent : %lf\n", time_spent);
+    printf("Optimization time : %lf\n", time_spent);
 
     return 0;
 }
@@ -1074,7 +1077,7 @@ soma_scalar_t flip_polytypes(struct Phase * p,soma_scalar_t total_cost, uint64_t
     uint64_t flip_counter_acc =0; //counts number of accepted flips 
 
 
-    while(acc_rate > 0.1)
+    while(acc_rate > 0.01)
         {
             total_cost=total_cost_old;
             //choose random polymer to flip
@@ -1107,7 +1110,7 @@ soma_scalar_t flip_polytypes(struct Phase * p,soma_scalar_t total_cost, uint64_t
                     total_cost = total_cost_old;
                 }
             if(flip_counter % 10 == 0) acc_rate = (soma_scalar_t)(flip_counter_acc)/(soma_scalar_t)(flip_counter);
-            printf("MSE: %f \n",total_cost/(soma_scalar_t)num_target_cells);
+            //printf("MSE: %f \n",total_cost/(soma_scalar_t)num_target_cells);
 
 
         }
@@ -1116,10 +1119,11 @@ soma_scalar_t flip_polytypes(struct Phase * p,soma_scalar_t total_cost, uint64_t
 }
 
 
-soma_scalar_t get_composition_cost(struct Phase *p, int64_t * delta_fields_unified)
+soma_scalar_t get_composition_cost(struct Phase *p)
 {   
     soma_scalar_t total_cost=0.0;
     //loop over cells
+#pragma acc parallel loop present(p[0:1])
     for (uint64_t cell = 0; cell < p->n_cells_local; cell++)
         {
             //update cost
@@ -1130,7 +1134,8 @@ soma_scalar_t get_composition_cost(struct Phase *p, int64_t * delta_fields_unifi
                             //get number of beads in cell
                             uint16_t beads_in_cell = 0; 
                             for(uint64_t type = 0; type < p->n_types; type++) beads_in_cell += p->fields_unified[type*p->n_cells_local + cell];
-                            total_cost+=powl((soma_scalar_t)p->umbrella_field[type*p->n_cells_local + cell]-(soma_scalar_t)( p->fields_unified[type*p->n_cells_local + cell] + delta_fields_unified[type*p->n_cells_local + cell]) /beads_in_cell,2.0);
+#pragma acc atomic update
+                            total_cost+=powl((soma_scalar_t)p->umbrella_field[type*p->n_cells_local + cell]-(soma_scalar_t)( p->fields_unified[type*p->n_cells_local + cell]) /beads_in_cell,2.0);
                         }
                 }
         }
