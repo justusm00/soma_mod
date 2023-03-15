@@ -767,8 +767,8 @@ update_self_polymer_heavy(p, 0);
 
     //for runtime analysis
     clock_t begin = clock();
-    //printf("Start configuration optimization at t=%d on testing branch\n",p->time);
-    //printf("MSE before optimization %f \n",total_cost/(soma_scalar_t)num_target_cells);   
+    printf("Start configuration optimization at t=%d on testing branch\n",p->time);
+    printf("MSE before optimization %f \n",total_cost/(soma_scalar_t)num_target_cells);   
 
     if ( run_sa != 0)
         {
@@ -1146,8 +1146,10 @@ soma_scalar_t get_composition_cost(struct Phase *p)
                         {
                             //get number of beads in cell
                             uint16_t beads_in_cell = 0; 
-                            for(uint64_t i = 0; i < p->n_types; i++) beads_in_cell += p->fields_unified[i*p->n_cells_local + cell];
-                            total_cost+=( (soma_scalar_t)p->umbrella_field[type*p->n_cells_local + cell]-(soma_scalar_t)( p->fields_unified[type*p->n_cells_local + cell]) /beads_in_cell ) * ( (soma_scalar_t)p->umbrella_field[type*p->n_cells_local + cell]-(soma_scalar_t)( p->fields_unified[type*p->n_cells_local + cell]) /beads_in_cell ) ;
+                            for(unsigned int i = 0; i < p->n_types; i++) beads_in_cell += p->fields_unified[i*p->n_cells_local + cell];
+                            //check if there are no beads in the cell, in that case loss is simply square of umbrella field
+                            if (beads_in_cell==0) total_cost+= p->umbrella_field[type*p->n_cells_local + cell] * p->umbrella_field[type*p->n_cells_local + cell];
+                            else total_cost+=( (soma_scalar_t)p->umbrella_field[type*p->n_cells_local + cell]-(soma_scalar_t)( p->fields_unified[type*p->n_cells_local + cell]) /beads_in_cell ) * ( (soma_scalar_t)p->umbrella_field[type*p->n_cells_local + cell]-(soma_scalar_t)( p->fields_unified[type*p->n_cells_local + cell]) /beads_in_cell ) ;
                         }
                         
                 }
