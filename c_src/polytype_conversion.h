@@ -27,6 +27,7 @@
 
 #include "soma_config.h"
 #include "soma_util.h"
+#include <time.h>
 
 //! Top level struct for polymer type conversions.
 //! controls the execution frequency. All other fields are only valid, if deltaMC != 0
@@ -119,6 +120,13 @@ int partially_convert_polytypes(struct Phase *p);
 */
 int optimize_boundaries(struct Phase *p, unsigned int run_sa);
 
+
+/*! Same as optimize_boundaries, but for time analysis
+  \param p Phase struct describing the simulation
+  \param run_sa If set to zero, then simualted annealing will not be performed. 
+  \return Errorcode
+*/
+int optimize_boundaries_time(struct Phase *p, unsigned int run_sa);
 
 
 /*! Get all flip candidate indices.
