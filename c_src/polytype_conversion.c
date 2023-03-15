@@ -542,7 +542,6 @@ int free_poly_conversion(struct Phase *p)
     free(p->pc.array);
     free(p->pc.input_type);
     free(p->pc.output_type);
-    free(p->pc.reaction_end);
     free(p->pc.rate);
     free(p->pc.dependency_ntype);
     free(p->pc.dependency_type_offset);
@@ -679,7 +678,8 @@ int partially_convert_polytypes(struct Phase *p)
 int optimize_boundaries(struct Phase *p, unsigned int run_sa)
 {
 #pragma acc update self(p->fields_unified[0:p->n_cells_local*p->n_types])
-
+#pragma acc update self(p->polymers[0:p->n_polymers])
+update_self_polymer_heavy(p, 0);
 
     // initialize other parameters
     uint64_t num_target_cells =0; // Total number of cells for which target density is available * polytypes
@@ -767,8 +767,8 @@ int optimize_boundaries(struct Phase *p, unsigned int run_sa)
 
     //for runtime analysis
     clock_t begin = clock();
-    printf("Start configuration optimization at t=%d on testing branch\n",p->time);
-    printf("MSE before optimization %f \n",total_cost/(soma_scalar_t)num_target_cells);   
+    //printf("Start configuration optimization at t=%d on testing branch\n",p->time);
+    //printf("MSE before optimization %f \n",total_cost/(soma_scalar_t)num_target_cells);   
 
     if ( run_sa != 0)
         {
@@ -787,9 +787,9 @@ int optimize_boundaries(struct Phase *p, unsigned int run_sa)
     printf("MSE after flips at T=0: %f \n",total_cost/(soma_scalar_t)num_target_cells);
     
 
-    printf("Polymers flipped: %llu\n",total_flip_attempts);
-    printf("Accepted flips: %llu\n",total_flips_accepted);
-    printf("Flippable polymers: %llu\n",num_poly_flippable);
+    //printf("Polymers flipped: %llu\n",total_flip_attempts);
+    //printf("Accepted flips: %llu\n",total_flips_accepted);
+    //printf("Flippable polymers: %llu\n",num_poly_flippable);
 
 
     //update polymer types
@@ -813,7 +813,7 @@ int optimize_boundaries(struct Phase *p, unsigned int run_sa)
 
     clock_t end = clock();
     double time_spent = (double)(end - begin);
-    printf("Optimization time : %lf\n", time_spent);
+    //printf("Optimization time : %lf\n", time_spent);
 
     return 0;
 }
@@ -823,10 +823,13 @@ uint64_t get_flip_candidates(struct Phase * p, int64_t * poly_isflippable)
 {
     uint64_t num_poly_flippable=0; //number of polymers that have monomers in conversion zone
     //loop over polymers to identify the ones that may be flipped
+#pragma acc enter data copyin(poly_isflippable[0:p->n_polymers],num_poly_flippable)
+#pragma acc parallel loop present(p[0:1],poly_isflippable[0:p->n_polymers]) reduction(+:num_poly_flippable)
     for (uint64_t poly = 0; poly < p->n_polymers; poly++)
         {
             const unsigned int N = p->reference_Nbeads; //polymer length (only if all polymers have the same length)
             //loop over monomers to get cell information while disregarding the monomer type for now
+            int k=0;
             for (unsigned int mono = 0; mono < N; mono ++)
                 {
                     const Monomer pos = ((Monomer *) p->ph.beads.ptr)[p->polymers[poly].bead_offset + mono];       //Read Monomer position
@@ -837,30 +840,34 @@ uint64_t get_flip_candidates(struct Phase * p, int64_t * poly_isflippable)
                             if(p->umbrella_field[monotype*p->n_cells_local + mono_cell] > 0)
                                 {
                                     poly_isflippable[poly]=1;
-                                    
+                                    k=1;
                                     break;
                                 }
 
                         }
-                    if (poly_isflippable[poly]==1)
+                    if (k==1)
                         {
                             num_poly_flippable++;
                             break;
                         }
                 }
         }
+#pragma acc update self(poly_isflippable[0:p->n_polymers],num_poly_flippable)
+#pragma acc exit data delete(poly_isflippable[0:p->n_polymers],num_poly_flippable)
     return num_poly_flippable;
 }
 
 
 void get_cell_info(struct Phase * p, uint64_t num_poly_flippable, int64_t * poly_flippable_indices, int64_t * poly_cell_indices, int64_t * poly_cell_num)
 {
-    const unsigned int N = p->reference_Nbeads; //polymer length (only if all polymers have the same length)
-    int64_t * mono_cells=(int64_t *)malloc( N *  sizeof(int64_t)); //Array of length p->reference_Nbeads that contains monomer cell indices of a polymer. Values are -1 if no target density available in that cell.
     //loop over flippable polymers and get all cell information for each possible type
     //use polyy instead of poly to distinguish from polymer index in actual polymer array
+#pragma acc enter data copyin(num_poly_flippable,poly_flippable_indices[0:num_poly_flippable], poly_cell_indices[0:num_poly_flippable * p->reference_Nbeads], poly_cell_num[0:num_poly_flippable  * p->n_poly_type* p->n_types * p->reference_Nbeads])
+#pragma acc parallel loop present(p[0:1],num_poly_flippable,poly_flippable_indices[0:num_poly_flippable], poly_cell_indices[0:num_poly_flippable * p->reference_Nbeads], poly_cell_num[0:num_poly_flippable  * p->n_poly_type* p->n_types * p->reference_Nbeads])
     for (uint64_t polyy = 0; polyy< num_poly_flippable; polyy++)
         {
+            const unsigned int N = p->reference_Nbeads; //polymer length (only if all polymers have the same length)
+            int64_t * mono_cells=(int64_t *)malloc( N *  sizeof(int64_t)); //Array of length p->reference_Nbeads that contains monomer cell indices of a polymer. Values are -1 if no target density available in that cell.
             uint64_t poly=poly_flippable_indices[polyy]; //actual polymer index
             unsigned int initial_poly_type = p->polymers[poly].type;
             unsigned int target_count = 0; //counts number of available target densities for polymer accounting for all possible types after potential flips
@@ -916,8 +923,9 @@ void get_cell_info(struct Phase * p, uint64_t num_poly_flippable, int64_t * poly
 
             //reset polymer type to original one
             p->polymers[poly].type = initial_poly_type;
+            free(mono_cells);
         }
-    free(mono_cells);
+#pragma acc exit data copyout(num_poly_flippable,poly_flippable_indices[0:num_poly_flippable], poly_cell_indices[0:num_poly_flippable * p->reference_Nbeads], poly_cell_num[0:num_poly_flippable  * p->n_poly_type* p->n_types * p->reference_Nbeads])
     return;
 
 
@@ -1076,10 +1084,9 @@ soma_scalar_t flip_polytypes(struct Phase * p,soma_scalar_t total_cost, uint64_t
     soma_scalar_t total_cost_old = total_cost;
     soma_scalar_t acc_rate = 1.0;
     uint64_t flip_counter =0; //counts number of flips 
-    uint64_t flip_counter_acc =0; //counts number of accepted flips 
+    uint64_t flip_counter_acc =0; //counts number of accepted flips  
 
-
-    while(acc_rate > 0.9)
+    while(acc_rate > 0.1)
         {
             total_cost=total_cost_old;
             //choose random polymer to flip
@@ -1089,9 +1096,9 @@ soma_scalar_t flip_polytypes(struct Phase * p,soma_scalar_t total_cost, uint64_t
             Polymer *mypoly = p->polymers + poly;
             unsigned int initial_type = poly_types_best[polyy];
             unsigned int final_type = flip(p,poly,initial_type);
-            printf("Polymer to be flipped : %d \n",poly);
-            printf("Initial type : %d\n",initial_type);
-            printf("Final type : %d\n",final_type);
+            //printf("Polymer to be flipped : %d \n",poly);
+            //printf("Initial type : %d\n",initial_type);
+            //printf("Final type : %d\n",final_type);
             *total_flip_attempts=*total_flip_attempts+1;
             //calculate cost 
             total_cost += get_composition_flip_cost(p, polyy, initial_type, final_type, poly_cell_indices, poly_cell_num, delta_fields_unified);
@@ -1125,21 +1132,24 @@ soma_scalar_t flip_polytypes(struct Phase * p,soma_scalar_t total_cost, uint64_t
 
 
 soma_scalar_t get_composition_cost(struct Phase *p)
-{   
+{  
     soma_scalar_t total_cost=0.0;
-    //loop over cells
-    for (uint64_t cell = 0; cell < p->n_cells_local; cell++)
+    //loop over monomer types
+#pragma acc parallel loop present(p[0:1])
+    for(unsigned int type = 0; type < p->n_types; type++)
         {
-            //update cost
-            for(unsigned int type = 0; type < p->n_types; type++)
+            //loop over cells
+            for (uint64_t cell = 0; cell < p->n_cells_local; cell++)
                 {
+                    //update cost
                     if(p->umbrella_field[type*p->n_cells_local + cell] > 0)
                         {
                             //get number of beads in cell
                             uint16_t beads_in_cell = 0; 
-                            for(uint64_t type = 0; type < p->n_types; type++) beads_in_cell += p->fields_unified[type*p->n_cells_local + cell];
-                            total_cost+=powl((soma_scalar_t)p->umbrella_field[type*p->n_cells_local + cell]-(soma_scalar_t)( p->fields_unified[type*p->n_cells_local + cell]) /beads_in_cell,2.0);
+                            for(uint64_t i = 0; i < p->n_types; i++) beads_in_cell += p->fields_unified[i*p->n_cells_local + cell];
+                            total_cost+=( (soma_scalar_t)p->umbrella_field[type*p->n_cells_local + cell]-(soma_scalar_t)( p->fields_unified[type*p->n_cells_local + cell]) /beads_in_cell ) * ( (soma_scalar_t)p->umbrella_field[type*p->n_cells_local + cell]-(soma_scalar_t)( p->fields_unified[type*p->n_cells_local + cell]) /beads_in_cell ) ;
                         }
+                        
                 }
         }
     return total_cost;
