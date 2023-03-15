@@ -562,7 +562,7 @@ int convert_polytypes(struct Phase *p)
     last_time = p->time;
     update_polymer_rcm(p);
 
-    if (p->umbrella_field != NULL)
+/*     if (p->umbrella_field != NULL)
         {
             //do polymer conversion only with root rank
             if (p->info_MPI.sim_rank == 0) 
@@ -577,16 +577,16 @@ int convert_polytypes(struct Phase *p)
         {
             printf("ERROR: No umbrella field available \n");
             return -1;
-        }
+        } */
 
-/*     if (p->pc.rate == NULL)
+    if (p->pc.rate == NULL)
         {
             return fully_convert_polytypes(p);
         }
     else
         {
             return partially_convert_polytypes(p);
-        } */
+        }
 }
 
 int fully_convert_polytypes(struct Phase *p)
@@ -638,35 +638,22 @@ int partially_convert_polytypes(struct Phase *p)
 
             if (p->pc.array[cell] != 0)
                 {
-                    soma_scalar_t probability = 0.;
                     int i = p->pc.array[cell] - 2;
                     do
                         {
                             i++;
                             if (mypoly->type == p->pc.input_type[i])
                                 {
-                                    soma_scalar_t norm = 1 - probability;
-                                    probability = p->pc.rate[i];
-                                    for (unsigned int j = 0; j < p->pc.dependency_ntype[i]; j++)
-                                        {
-                                            unsigned int type_offset = p->pc.dependency_type_offset[i];
-                                            unsigned int dependency_type = p->pc.dependency_type[type_offset + j];
-                                            probability *=
-                                                p->fields_unified[dependency_type * p->n_cells_local +
-                                                                  cell] * p->field_scaling_type[dependency_type];
-                                        }
-                                    probability /= norm;
+                                    soma_scalar_t probability = p->pc.rate[i] * p->fields_unified[mypoly->type * p->n_cells_local +cell] * p->field_scaling_type[mypoly->type];;
+                                    printf("Probability : %f\n",probability);
                                     soma_scalar_t random_number = soma_rng_soma_scalar(&(mypoly->poly_state), p);
                                     if (random_number < probability)
                                         {
 #pragma acc atomic update
+                                            printf("Conversion took place \n");
                                             p->pc.num_conversions[p->polymers[poly].type * p->n_poly_type + p->pc.output_type[i]]++;                                             
                                             p->polymers[poly].type = p->pc.output_type[i];      //got modifiable lvalue compile error when using mypoly->type = ... and was not able to fix this otherwise.
                                             break;      //to continue with next polymer if conversion has taken place.
-                                        }
-                                    else
-                                        {
-                                            probability += (1 - norm);
                                         }
                                 }
                     } while (!p->pc.reaction_end[i]);
