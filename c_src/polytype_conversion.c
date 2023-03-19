@@ -645,12 +645,10 @@ int partially_convert_polytypes(struct Phase *p)
                             if (mypoly->type == p->pc.input_type[i])
                                 {
                                     soma_scalar_t probability = p->pc.rate[i] * p->fields_unified[mypoly->type * p->n_cells_local +cell] * p->field_scaling_type[mypoly->type];;
-                                    printf("Probability : %f\n",probability);
                                     soma_scalar_t random_number = soma_rng_soma_scalar(&(mypoly->poly_state), p);
                                     if (random_number < probability)
                                         {
 #pragma acc atomic update
-                                            printf("Conversion took place \n");
                                             p->pc.num_conversions[p->polymers[poly].type * p->n_poly_type + p->pc.output_type[i]]++;                                             
                                             p->polymers[poly].type = p->pc.output_type[i];      //got modifiable lvalue compile error when using mypoly->type = ... and was not able to fix this otherwise.
                                             break;      //to continue with next polymer if conversion has taken place.
