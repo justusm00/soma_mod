@@ -561,14 +561,12 @@ int convert_polytypes(struct Phase *p)
         return 0;
     last_time = p->time;
     update_polymer_rcm(p);
-
-/*     if (p->umbrella_field != NULL)
+    if (p->umbrella_field != NULL)
         {
             //do polymer conversion only with root rank
             if (p->info_MPI.sim_rank == 0) 
                 {
-                    
-                    return optimize_boundaries(p,0);
+                    return optimize_boundaries(p,1);
 
                 }
             
@@ -577,16 +575,16 @@ int convert_polytypes(struct Phase *p)
         {
             printf("ERROR: No umbrella field available \n");
             return -1;
-        } */
+        }
 
-    if (p->pc.rate == NULL)
+/*     if (p->pc.rate == NULL)
         {
             return fully_convert_polytypes(p);
         }
     else
         {
             return partially_convert_polytypes(p);
-        }
+        } */
 }
 
 int fully_convert_polytypes(struct Phase *p)
@@ -673,7 +671,7 @@ int optimize_boundaries(struct Phase *p, unsigned int run_sa)
     uint64_t num_poly_flippable = 0; // number of flippable polymers
     uint64_t num_target_cells =0;// Total number of cells for which target density is available * polytypes
     uint64_t total_flip_attempts = 0; //total number of flip attempts
-    uint64_t total_flips_accepted = 0; //total number of flip attempts
+    uint64_t total_flips_accepted = 0; //total number of accepted flip attempts
     soma_scalar_t total_cost = 0.0; 
 
 
@@ -755,7 +753,9 @@ int optimize_boundaries(struct Phase *p, unsigned int run_sa)
 
 
     //printf("Start configuration optimization at t=%d on testing branch\n",p->time);
-    //printf("MSE before optimization %f \n",total_cost/(soma_scalar_t)num_target_cells);   
+    printf("MSE before optimization %f \n",total_cost/(soma_scalar_t)num_target_cells);   
+
+
 
     if ( run_sa != 0)
         {
@@ -772,7 +772,7 @@ int optimize_boundaries(struct Phase *p, unsigned int run_sa)
 
 
     printf("MSE after flips at T=0: %f \n",total_cost/(soma_scalar_t)num_target_cells);
-    
+    printf("Flip attempts: %d\n",total_flip_attempts);
 
     //printf("Polymers flipped: %llu\n",total_flip_attempts);
     //printf("Accepted flips: %llu\n",total_flips_accepted);
@@ -1108,18 +1108,14 @@ soma_scalar_t simulated_annealing(struct Phase * p,soma_scalar_t total_cost, uin
     int64_t * poly_flipped_indices = (int64_t *)malloc( num_poly_flippable * sizeof(int64_t)); //array that contains indices of flipped polymers. The same polymer can be flipped multiple times. Indices are not the real polymer indices.
 
 
-    uint64_t temperature_count=0; //used for temperature calculation
-    uint64_t n_cycles = 50; //number of temperatures considered
-
     const unsigned int N = p->reference_Nbeads; //maximum polymer length
     
     while(T > p->Tmin)
         {
-            temperature_count++;
             total_cost=total_cost_best;
             total_cost_old=total_cost;
             //do num_poly_flippable random flips at current temperature
-            for(uint64_t i = 0; i< num_poly_flippable; i++)
+            for(uint64_t i = 0; i<  num_poly_flippable; i++)
                 {
                     flip_counter++;
                     //choose random polymer to flip
@@ -1166,7 +1162,7 @@ soma_scalar_t simulated_annealing(struct Phase * p,soma_scalar_t total_cost, uin
                             for(uint64_t j = 0; j < num_poly_flipped; j++)
                                 {
                                     poly_types_best[poly_flipped_indices[j]]=poly_types[poly_flipped_indices[j]];
-                                    poly=poly_flippable_indices[poly_flipped_indices[j]];
+                                    poly=poly_flipped_indices[j];
                                     for(unsigned int i = 0; i < N; i++)
                                         {
                                             if(poly_cell_indices[poly * N + i] < 0) break;
@@ -1182,8 +1178,9 @@ soma_scalar_t simulated_annealing(struct Phase * p,soma_scalar_t total_cost, uin
             //Revert to best solution if bad flips remain
             for(uint64_t j = 0; j < num_poly_flipped; j++)
                 {
-                    poly_types[poly_flipped_indices[j]]=poly_types_best[poly_flipped_indices[j]];
                     uint64_t polyy=poly_flipped_indices[j];
+                    poly_types[polyy]=poly_types_best[polyy];
+                    
                     for(unsigned int i = 0; i < N; i++)
                         {
                             if(poly_cell_indices[polyy * N + i] < 0) break;
@@ -1193,19 +1190,13 @@ soma_scalar_t simulated_annealing(struct Phase * p,soma_scalar_t total_cost, uin
                 }
                 
             num_poly_flipped=0;
-            printf("T: %f\n",T);
-            printf("acceptance_rate: %f\n",(soma_scalar_t)(flips_acc)/(soma_scalar_t)(flip_counter));
-            printf("MSE: %f\n",(soma_scalar_t)total_cost_best/num_target_cells);
+
             flip_counter=0;
             flips_acc=0;
 
             //update temperature
             T *= p->alpha; //exponential cooling
-            //T=p->Tmax/(1+p->alpha*log(1.0+(soma_scalar_t)temperature_count)); //logarithmic cooling
-            //T=p->Tmax/(1.0+p->alpha*(soma_scalar_t)temperature_count); //linear multiplicative cooling
-            //T=p->Tmax/(1.0+p->alpha*(soma_scalar_t)temperature_count*(soma_scalar_t)temperature_count); //quadratic multiplicative cooling
-            //T=p->Tmin+(p->Tmax-p->Tmin)*pow((soma_scalar_t)(n_cycles-temperature_count)/(soma_scalar_t)n_cycles,2); //quadratic additive cooling
-            //T-=0.0001; //linear cooling
+
         }
 
     free(poly_flipped_indices);
@@ -1221,7 +1212,7 @@ soma_scalar_t flip_polytypes(struct Phase * p,soma_scalar_t total_cost, uint64_t
     uint64_t flip_counter =0; //counts number of flips 
     uint64_t flip_counter_acc =0; //counts number of accepted flips  
 
-    while(acc_rate > 0.1)
+    while(acc_rate > 0.01)
         {
             total_cost=total_cost_old;
             //choose random polymer to flip
@@ -1256,7 +1247,7 @@ soma_scalar_t flip_polytypes(struct Phase * p,soma_scalar_t total_cost, uint64_t
                     //reject
                     total_cost = total_cost_old;
                 }
-            if(flip_counter % 10 == 0) acc_rate = (soma_scalar_t)(flip_counter_acc)/(soma_scalar_t)(flip_counter);
+            if(flip_counter % 1000 == 0) acc_rate = (soma_scalar_t)(flip_counter_acc)/(soma_scalar_t)(flip_counter);
             //printf("MSE: %f \n",total_cost/(soma_scalar_t)num_target_cells);
 
 
