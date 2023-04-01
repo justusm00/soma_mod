@@ -27,7 +27,6 @@
 
 #include "soma_config.h"
 #include "soma_util.h"
-#include <time.h>
 
 //! Top level struct for polymer type conversions.
 //! controls the execution frequency. All other fields are only valid, if deltaMC != 0
@@ -39,7 +38,6 @@ typedef struct PolyConversion {
     unsigned int *output_type;  //!< Array that contains the output poly type for each reaction (product)
     unsigned int *reaction_end; //!< Array indicating if this is the last reaction in the list. (boolean)
     soma_scalar_t *rate;        //!< control execution probability of the conversion
-    soma_scalar_t period;       //!< Period of rate modulation.
     unsigned int *dependency_ntype;     //!<Array that contains the number of  dependency indices
     unsigned int *dependency_type_offset;       //!<Array that contains the start/offset of dependency indices
     unsigned int *dependency_type;      //!<Array that contains the dependency types
@@ -113,14 +111,6 @@ int fully_convert_polytypes(struct Phase *p);
 */
 int partially_convert_polytypes(struct Phase *p);
 
-/*! ONLY USE FOR EXACTLY TWO REACTIONS. Partially Convert polymer types according to the reaction description of the PolyConversion struct with time dependency.
- This converts the polymer only with a probability given by the rate which may depend (linearly) on the normalized density of some type (for reactions involving multiple types).
- The rate is modulated by a simple cosine, if it becomes negative the reaction rules are switched. This is useful for simulating a time dependent current. The frequency remains hard-coded for now. Time has to be passed since p->time is zero if called within the function for some reason.
-  \param p Phase struct describing the simulation
-  \param time MC steps into simulation
-  \return Errorcode
-*/
-int partially_convert_polytypes_timedependent(struct Phase *p,unsigned int time);
 
 /*! Convert polymer types using a mixture of simulated annealing and random flipping to minimize loss function.
   \param p Phase struct describing the simulation
@@ -129,13 +119,6 @@ int partially_convert_polytypes_timedependent(struct Phase *p,unsigned int time)
 */
 int optimize_boundaries(struct Phase *p, unsigned int run_sa);
 
-
-/*! Same as optimize_boundaries, but for time analysis
-  \param p Phase struct describing the simulation
-  \param run_sa If set to zero, then simualted annealing will not be performed. 
-  \return Errorcode
-*/
-int optimize_boundaries_time(struct Phase *p, unsigned int run_sa);
 
 
 /*! Get all flip candidate indices.

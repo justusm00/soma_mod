@@ -1,4 +1,4 @@
-@SOMA_PYTHON_SHEBANG@
+#!/opt/rh/rh-python36/root/usr/bin/python3.6
 
 #   Copyright (C) 2016-2021 Ludwig Schneider
 #   Copyright (C) 2016-2017 Marcel Langenberg
@@ -22,7 +22,7 @@
 
 ## \file ConfGen.py Script to convert SOMA xml input files to hdf5 input files.
 import sys
-sys.path.append( @SOMA_PYTHON_INSTALL_DIR@ )
+sys.path.append( "../install2/python-script" )
 import numpy
 import copy
 import ctypes
@@ -1301,7 +1301,6 @@ class Configuration(SomaXML):
                 f.create_dataset("/polyconversion/input_type",data=self.poly_conversion.pc_list[:,0])
                 f.create_dataset("/polyconversion/output_type",data=self.poly_conversion.pc_list[:,1])
                 f.create_dataset("/polyconversion/end",data=self.poly_conversion.pc_list[:,2])
-                f.create_dataset("polyconversion/period",data=self.poly_conversion.period)
                 if self.poly_conversion.rate_list != []:
                     f.create_dataset("polyconversion/rate",data=self.poly_conversion.rate_list)
                     f.create_dataset("/polyconversion/n_density_dependencies",data=self.poly_conversion.ndd_list)
@@ -1705,7 +1704,7 @@ class Configuration(SomaXML):
             dd_list = []
             raw_dd_list = []
             
-            knownTags = ["point_cloud","box","cylinder","sphere","conversion_list","DeltaMC","conversion_rate","density_dependency","period"]
+            knownTags = ["point_cloud","box","cylinder","sphere","conversion_list","DeltaMC","conversion_rate","density_dependency"]
             for element in root.iter("polyconversion"):
                 for child in element:
                     if not child.tag in knownTags:
@@ -1728,12 +1727,6 @@ class Configuration(SomaXML):
                         deltaMC = int(delta.text)
                     except ValueError:
                         raise RuntimeError("DeltaMC for poly conversion must be integer convertible but got: "+str(delta.text))
-
-                for per in element.findall("period"):
-                    try:
-                        period = float(per.text)
-                    except ValueError:
-                        raise RuntimeError("Period for poly conversion must be float convertible but got: "+str(delta.text))
 
                 for pc in element.findall("conversion_list"):
                     for line in pc.text.split("\n"):
@@ -1828,7 +1821,6 @@ class Configuration(SomaXML):
                 self.rate_list = numpy.asarray(rate_list,dtype=soma_type.get_soma_scalar_type())
                 self.ndd_list = ndd_list
                 self.dd_list = dd_list
-                self.period = period
     ## Class that parses the XML and stores the information for poly conversion zones
     class MonoConversion:
         ## Constructor of the PolyConversion class. Initialized with the root of the XML parser

@@ -37,6 +37,7 @@ int read_poly_conversion_hdf5(struct Phase *const p, const hid_t file_id, const 
     p->pc.len_dependencies = 0;
     p->pc.num_conversions = NULL;
     p->pc.rate = NULL;
+    p->pc.period = -1;
     p->pc.input_type = NULL;
     p->pc.output_type = NULL;
     p->pc.reaction_end = NULL;
@@ -314,7 +315,7 @@ int read_poly_conversion_hdf5(struct Phase *const p, const hid_t file_id, const 
 
     p->pc.len_dependencies = dim_dependency;
 
-    //Read rate and dependencies:
+    //Read rate, dependencies and modulation period:
     status = H5Dread(dset_rate, H5T_SOMA_NATIVE_SCALAR, H5S_ALL, H5S_ALL, plist_id, p->pc.rate);
     HDF5_ERROR_CHECK(status);
     status = H5Sclose(dspace_rate);
@@ -340,6 +341,8 @@ int read_poly_conversion_hdf5(struct Phase *const p, const hid_t file_id, const 
     status = H5Sclose(dspace_dependency);
     HDF5_ERROR_CHECK(status);
     status = H5Dclose(dset_dependency);
+    HDF5_ERROR_CHECK(status);
+    status = read_hdf5(file_id, "polyconversion/period", H5T_IEEE_F64LE, plist_id, &p->pc.period);
     HDF5_ERROR_CHECK(status);
 
     //Enable the updat only if everything worked fine so far
@@ -386,6 +389,13 @@ int write_poly_conversion_hdf5(const struct Phase *const p, const hid_t file_id,
                            H5T_NATIVE_UINT, plist_id, p->pc.dependency_ntype);
             HDF5_ERROR_CHECK(status);
             const hsize_t dep_list_len = p->pc.len_dependencies;
+
+            if (p->pc.period > 0)
+                {
+                    status = write_hdf5(1, &one, file_id, "/polyconversion/period", H5T_IEEE_F64LE, H5T_IEEE_F64LE, plist_id, &(p->pc.period));
+    HDF5_ERROR_CHECK(status);
+                }
+
             if (dep_list_len > 0)
                 {
                     status =
@@ -561,7 +571,7 @@ int convert_polytypes(struct Phase *p)
         return 0;
     last_time = p->time;
     update_polymer_rcm(p);
-    if (p->umbrella_field != NULL)
+/*     if (p->umbrella_field != NULL)
         {
             //do polymer conversion only with root rank
             if (p->info_MPI.sim_rank == 0) 
@@ -575,16 +585,24 @@ int convert_polytypes(struct Phase *p)
         {
             printf("ERROR: No umbrella field available \n");
             return -1;
-        }
+        } */
 
-/*     if (p->pc.rate == NULL)
+    if (p->pc.rate == NULL)
         {
             return fully_convert_polytypes(p);
         }
     else
         {
-            return partially_convert_polytypes(p);
-        } */
+            if(p->pc.period < 0)
+                {
+                   return partially_convert_polytypes(p);
+                }
+            else
+                {
+                    return partially_convert_polytypes_timedependent(p,p->time);
+                }
+            
+        }
 }
 
 int fully_convert_polytypes(struct Phase *p)
@@ -642,7 +660,7 @@ int partially_convert_polytypes(struct Phase *p)
                             i++;
                             if (mypoly->type == p->pc.input_type[i])
                                 {
-                                    soma_scalar_t probability = p->pc.rate[i] * p->fields_unified[mypoly->type * p->n_cells_local +cell] * p->field_scaling_type[mypoly->type];;
+                                    soma_scalar_t probability = p->pc.rate[i];
                                     soma_scalar_t random_number = soma_rng_soma_scalar(&(mypoly->poly_state), p);
                                     if (random_number < probability)
                                         {
@@ -654,6 +672,82 @@ int partially_convert_polytypes(struct Phase *p)
                                 }
                     } while (!p->pc.reaction_end[i]);
                 }
+        }
+
+    return 0;
+}
+
+
+
+
+int partially_convert_polytypes_timedependent(struct Phase *p, unsigned int time)
+{
+    //Iterate all polymers and apply the reaction rules
+#pragma acc parallel loop present(p[0:1])
+#pragma omp parallel for
+    for (uint64_t poly = 0; poly < p->n_polymers; poly++)
+        {
+            //calculate modulation frequency
+            soma_scalar_t omega = 2 * M_PI / p->pc.period;
+            Polymer *mypoly = p->polymers + poly;
+            const Monomer rcm = mypoly->rcm;
+            const uint64_t cell = coord_to_index(p, rcm.x, rcm.y, rcm.z);
+            if(cos(omega * time) > 0)
+                {
+                    if (p->pc.array[cell] != 0)
+                        {
+                            int i = p->pc.array[cell] - 2;
+                            do
+                                {
+                                    i++;
+                                    if (mypoly->type == p->pc.input_type[i])
+                                        {
+                                            //modulate conversion rate
+                                            soma_scalar_t probability = p->pc.rate[i] *cos(omega * time);
+                                            soma_scalar_t random_number = soma_rng_soma_scalar(&(mypoly->poly_state), p);
+                                            if (random_number < probability)
+                                                {
+#pragma acc atomic update
+                                                    p->pc.num_conversions[p->polymers[poly].type * p->n_poly_type + p->pc.output_type[i]]++;                                             
+                                                    p->polymers[poly].type = p->pc.output_type[i];      //got modifiable lvalue compile error when using mypoly->type = ... and was not able to fix this otherwise.
+                                                    break;      //to continue with next polymer if conversion has taken place.
+                                                }
+                                        }
+                            } while (!p->pc.reaction_end[i]);
+                        }
+
+
+                }
+
+
+            else
+                {
+                    //basically the same but every "output" and "input" are switched and cosine is multiplied by -1
+                    if (p->pc.array[cell] != 0)
+                        {
+                            int i = p->pc.array[cell] - 2;
+                            do
+                                {
+                                    i++;
+                                    if (mypoly->type == p->pc.output_type[i])
+                                        {
+                                            //modulate conversion rate
+                                            soma_scalar_t probability = p->pc.rate[i] *(-1)* cos(omega * time) *  p->fields_unified[mypoly->type * p->n_cells_local +cell] * p->field_scaling_type[mypoly->type];;
+                                            soma_scalar_t random_number = soma_rng_soma_scalar(&(mypoly->poly_state), p);
+                                            if (random_number < probability)
+                                                {
+#pragma acc atomic update
+                                                    p->pc.num_conversions[p->polymers[poly].type * p->n_poly_type + p->pc.input_type[i]]++;                                             
+                                                    p->polymers[poly].type = p->pc.input_type[i];      //got modifiable lvalue compile error when using mypoly->type = ... and was not able to fix this otherwise.
+                                                    break;      //to continue with next polymer if conversion has taken place.
+                                                }
+                                        }
+                            } while (!p->pc.reaction_end[i]);
+                        }
+
+
+                }
+
         }
 
     return 0;
