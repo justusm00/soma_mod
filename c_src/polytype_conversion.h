@@ -192,6 +192,18 @@ soma_scalar_t get_density_flip_cost(struct Phase * p, uint64_t poly, unsigned in
 */
 soma_scalar_t get_composition_flip_cost(struct Phase * p, uint64_t poly, unsigned int initial_type, unsigned int final_type, int64_t * poly_cell_indices, int64_t * poly_cell_num,int64_t * delta_fields_unified);
 
+
+/*! Calculate cost difference based on composition if a polymer is flipped.
+  \param p Phase struct describing the simulation
+  \param poly Polymer index
+  \param initial_type Type before flip
+  \param final_type Type after flip
+  \param poly_cell_indices For flippable polymers, contains indices in which cells the polymer has monomers
+  \param poly_cell_num Number of monomers corresponding to the cells in poly_cell_indices
+  \param delta_fields_unified Changes in density fields caused by flips
+*/
+soma_scalar_t get_composition_flip_cost_old(struct Phase * p, uint64_t poly, unsigned int initial_type, unsigned int final_type, int64_t * poly_cell_indices, int64_t * poly_cell_num,int64_t * delta_fields_unified);
+
 /*! Update differences in density fields cause by flips
   \param p Phase struct describing the simulation
   \param poly Polymer index

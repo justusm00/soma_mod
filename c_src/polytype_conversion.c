@@ -1191,7 +1191,7 @@ soma_scalar_t flip_polytypes(struct Phase * p,soma_scalar_t total_cost, uint64_t
 
     //do num_poly_flippable random flips at T=0
     //for(uint64_t i = 0; i < num_poly_flippable; i++)
-    while(acc_rate > 0.1)
+    while(acc_rate > 0.01)
         {
             total_cost=total_cost_old;
             //choose random polymer to flip
@@ -1294,7 +1294,7 @@ soma_scalar_t get_density_flip_cost(struct Phase * p, uint64_t poly, unsigned in
 }
 
 
-soma_scalar_t get_composition_flip_cost(struct Phase * p, uint64_t poly, unsigned int initial_type, unsigned int final_type, int64_t * poly_cell_indices, int64_t * poly_cell_num,int64_t * delta_fields_unified)
+soma_scalar_t get_composition_flip_cost_old(struct Phase * p, uint64_t poly, unsigned int initial_type, unsigned int final_type, int64_t * poly_cell_indices, int64_t * poly_cell_num,int64_t * delta_fields_unified)
 {
     const unsigned int N = p->reference_Nbeads; //monomers per polymer
     soma_scalar_t delta_cost = 0.0; //change in cost function
@@ -1317,3 +1317,21 @@ soma_scalar_t get_composition_flip_cost(struct Phase * p, uint64_t poly, unsigne
     return delta_cost;
 }
 
+soma_scalar_t get_composition_flip_cost(struct Phase * p, uint64_t poly, unsigned int initial_type, unsigned int final_type, int64_t * poly_cell_indices, int64_t * poly_cell_num,int64_t * delta_fields_unified)
+{
+    const unsigned int N = p->reference_Nbeads; //monomers per polymer
+    soma_scalar_t delta_cost = 0.0; //change in cost function
+    
+    for(unsigned int i = 0; i < N; i++)
+        {
+            if(poly_cell_indices[poly * N + i] < 0) break;
+            unsigned int cell = poly_cell_indices[poly * N + i];
+            unsigned int num_mono = poly_cell_num[poly * N + i];
+            uint64_t beads_in_cell = 0; //total number of beads in the cell
+            //get beads in cell
+            for(uint64_t type = 0; type < p->n_types; type++) beads_in_cell += p->fields_unified[type*p->n_cells_local + cell];
+            soma_scalar_t delta_phi=(soma_scalar_t)num_mono/beads_in_cell;
+            delta_cost += 2.0 * delta_phi * delta_phi + 2.0 * delta_phi * (p->umbrella_field[initial_type*p->n_cells_local + cell] - p->umbrella_field[final_type*p->n_cells_local + cell]  + ( (soma_scalar_t)p->fields_unified[final_type*p->n_cells_local + cell] + (soma_scalar_t)delta_fields_unified[final_type*p->n_cells_local + cell] - (soma_scalar_t)p->fields_unified[initial_type*p->n_cells_local + cell] - (soma_scalar_t)delta_fields_unified[initial_type*p->n_cells_local + cell] )/beads_in_cell );
+        }
+    return delta_cost;
+}
